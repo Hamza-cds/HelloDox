@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="58" height="57" viewBox="0 0 58 57">
+  <g id="gmail" transform="translate(0.437 -0.059)">
+    <g id="Ellipse_g" data-name="Ellipse g" transform="translate(-0.437 0.059)" fill="#fff" stroke="#e6e6e6" stroke-width="1">
+      <ellipse cx="29" cy="28.5" rx="29" ry="28.5" stroke="none"/>
+      <ellipse cx="29" cy="28.5" rx="28.5" ry="28" fill="none"/>
+    </g>
+    <g id="Group_90" data-name="Group 90" transform="translate(15.979 15.979)">
+      <path id="y" d="M5.565,146.661l-.874,3.263-3.194.068A12.577,12.577,0,0,1,1.4,138.268h0l2.844.521,1.246,2.827a7.493,7.493,0,0,0,.07,5.045Z" transform="translate(0 -131.487)" fill="#fbbb00"/>
+      <path id="b" d="M273.687,208.176a12.55,12.55,0,0,1-4.475,12.136h0l-3.582-.183-.507-3.165a7.482,7.482,0,0,0,3.219-3.821h-6.713v-4.967h12.059Z" transform="translate(-248.797 -197.967)" fill="#518ef8"/>
+      <path id="g" d="M49.426,316.58h0a12.558,12.558,0,0,1-18.918-3.841l4.068-3.33a7.467,7.467,0,0,0,10.76,3.823Z" transform="translate(-29.013 -294.235)" fill="#28b446"/>
+      <path id="r" d="M47.788,2.89,43.721,6.22a7.466,7.466,0,0,0-11.007,3.909l-4.09-3.348h0A12.557,12.557,0,0,1,47.788,2.89Z" transform="translate(-27.22)" fill="#f14336"/>
+    </g>
+  </g>
+</svg>
