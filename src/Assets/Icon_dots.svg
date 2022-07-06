@@ -1,0 +1,5 @@
+<svg id="Icon" xmlns="http://www.w3.org/2000/svg" width="3" height="15" viewBox="0 0 3 15">
+  <circle id="Oval" cx="1.5" cy="1.5" r="1.5" transform="translate(0 6)" fill="#77838f"/>
+  <circle id="Oval-2" data-name="Oval" cx="1.5" cy="1.5" r="1.5" transform="translate(0 0)" fill="#77838f"/>
+  <circle id="Oval-3" data-name="Oval" cx="1.5" cy="1.5" r="1.5" transform="translate(0 12)" fill="#77838f"/>
+</svg>
