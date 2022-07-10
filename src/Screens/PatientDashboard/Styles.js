@@ -30,8 +30,8 @@ const styles = StyleSheet.create({
     alignSelf: Theme.align,
   },
   ProfileImage: {
-    height: 50,
-    width: 50,
+    height: 40,
+    width: 40,
   },
   MenuStyle: {
     marginTop: 10,

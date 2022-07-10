@@ -14,6 +14,10 @@ import Fonts from '../../Constants/Fonts';
 import DocterDashboard from '../../Screens/DocterDashboard/DocterDashboard';
 import DocterProfileScreen from '../../Screens/DocterProfileScreen/DocterProfileScreen';
 import EditProfileScreen from '../../Screens/DocterEditProfileScreen/EditProfileScreen';
+import BookAppointmentScreen from '../../Screens/BookAppointmentScreen/BookAppointmentScreen';
+import AppointmentDateScreen from '../../Screens/AppointmentDateScreen/AppointmentDateScreen';
+import AppointmentConfirmScreen from '../../Screens/AppointmentConfirmScreen/AppointmentConfirmScreen';
+import AppointmentsScreen from '../../Screens/AppointmentsScreen/AppointmentsScreen';
 
 const Stack = createStackNavigator();
 
@@ -83,6 +87,22 @@ const StackNavigation = () => {
           component={DocterProfileScreen}
         />
         <Stack.Screen name="EditProfileScreen" component={EditProfileScreen} />
+        <Stack.Screen
+          name="BookAppointmentScreen"
+          component={BookAppointmentScreen}
+        />
+        <Stack.Screen
+          name="AppointmentDateScreen"
+          component={AppointmentDateScreen}
+        />
+        <Stack.Screen
+          name="AppointmentConfirmScreen"
+          component={AppointmentConfirmScreen}
+        />
+        <Stack.Screen
+          name="AppointmentsScreen"
+          component={AppointmentsScreen}
+        />
       </Stack.Navigator>
     </SafeAreaView>
   );

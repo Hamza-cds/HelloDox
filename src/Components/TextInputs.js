@@ -11,12 +11,14 @@ const TextInputs = props => {
     maxLength,
     onChange,
     keyboardType,
+    editable,
   } = props;
   return (
     <View style={{...props.CustomView}}>
       {icon}
 
       <TextInput
+        editable={editable}
         maxLength={maxLength}
         secureTextEntry={secureTextEntry}
         style={{...props.CustomText}}

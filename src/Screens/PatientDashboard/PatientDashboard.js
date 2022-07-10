@@ -113,7 +113,7 @@ const PatientDashboard = props => {
       <View style={styles.headerWrapper}>
         <DrawerButton MenuStyle={styles.MenuStyle} />
         <View style={styles.notifyWrap}>
-          <Notify width={35} height={35} style={styles.Notify} />
+          <Notify width={30} height={30} style={styles.Notify} />
           <Image
             style={styles.ProfileImage}
             source={require('../../Assets/user_photo.png')}
@@ -202,21 +202,25 @@ const PatientDashboard = props => {
             style={{}}
             keyExtractor={item => item.id}
             renderItem={({item}) => (
-              <View style={styles.docWrapper}>
-                <View style={{flexDirection: 'row'}}>
-                  <Image source={item.Image} style={styles.imageStyle} />
-                  <View style={styles.wrapText}>
-                    <Text style={styles.DocNameText}>{item.DocName}</Text>
-                    <Text style={styles.specialText}>
-                      {item.Specialization}
-                    </Text>
+              <TouchableOpacity
+                activeOpacity={0.8}
+                onPress={() => props.navigation.push('BookAppointmentScreen')}>
+                <View style={styles.docWrapper}>
+                  <View style={{flexDirection: 'row'}}>
+                    <Image source={item.Image} style={styles.imageStyle} />
+                    <View style={styles.wrapText}>
+                      <Text style={styles.DocNameText}>{item.DocName}</Text>
+                      <Text style={styles.specialText}>
+                        {item.Specialization}
+                      </Text>
+                    </View>
+                  </View>
+                  <View style={{flexDirection: 'row'}}>
+                    <Image source={item.star} style={styles.imageStyle} />
+                    <Text style={styles.ratingText}>{item.rating}</Text>
                   </View>
                 </View>
-                <View style={{flexDirection: 'row'}}>
-                  <Image source={item.star} style={styles.imageStyle} />
-                  <Text style={styles.ratingText}>{item.rating}</Text>
-                </View>
-              </View>
+              </TouchableOpacity>
             )}
           />
         </View>
