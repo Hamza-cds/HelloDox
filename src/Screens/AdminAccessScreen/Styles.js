@@ -21,7 +21,6 @@ const styles = StyleSheet.create({
     justifyContent: Theme.spaceBetween,
     marginHorizontal: 25,
     marginTop: 15,
-    alignSelf: 'flex-end',
   },
   notifyWrap: {
     flexDirection: Theme.row,
@@ -37,28 +36,51 @@ const styles = StyleSheet.create({
   MenuStyle: {
     marginTop: 10,
   },
-  customView: {
-    backgroundColor: Theme.primary,
-    marginTop: '20%',
-    borderRadius: 25,
-    marginHorizontal: 25,
+  addText: {
+    color: Theme.primary,
+    fontSize: Theme.scale(24),
+    textAlign: 'center',
+    marginVertical: 35,
+    fontFamily: Fonts.HELODOX_REGULAR_FONT,
+  },
+  WrapViewEmail: {
+    height: 50,
+    borderBottomWidth: 1,
+    marginHorizontal: 10,
     flexDirection: Theme.row,
-    // height: Theme.hp(16),
-    justifyContent: 'space-between',
+  },
+  InputText: {
+    marginLeft: 15,
+    color: Theme.black,
+    flex: 1,
+  },
+  WrapViewPass: {
+    height: 50,
+    borderBottomWidth: 1,
+    marginHorizontal: 10,
+    flexDirection: Theme.row,
+  },
+  iconStyle: {
+    alignSelf: Theme.align,
+    marginLeft: 10,
+  },
+  inputWrapper: {
+    marginHorizontal: 15,
   },
   CustomButton: {
-    height: 55,
+    height: Theme.hp(6),
     backgroundColor: Theme.primary,
-    marginTop: '10%',
-    marginHorizontal: 25,
-    borderRadius: 15,
+    elevation: 3,
+    marginHorizontal: 20,
+    borderRadius: 50,
+    marginTop: '30%',
     justifyContent: Theme.align,
     alignItems: Theme.align,
   },
   CustomText: {
     color: Theme.white,
-    fontSize: Theme.scale(16),
-    fontFamily: Fonts.HELODOX_SEMIBOLD_FONT,
+    fontSize: Theme.scale(18),
+    fontFamily: Fonts.HELODOX_BOLD_FONT,
   },
 });
 

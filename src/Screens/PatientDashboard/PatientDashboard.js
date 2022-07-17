@@ -111,7 +111,10 @@ const PatientDashboard = props => {
   return (
     <View style={styles.Container}>
       <View style={styles.headerWrapper}>
-        <DrawerButton MenuStyle={styles.MenuStyle} />
+        <DrawerButton
+          MenuStyle={styles.MenuStyle}
+          onPress={() => props.navigation.openDrawer()}
+        />
         <View style={styles.notifyWrap}>
           <Notify width={30} height={30} style={styles.Notify} />
           <Image

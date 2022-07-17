@@ -73,7 +73,10 @@ const DocterDashboard = props => {
   return (
     <View style={styles.Container}>
       <View style={styles.headerWrapper}>
-        <DrawerButton MenuStyle={styles.MenuStyle} />
+        <DrawerButton
+          MenuStyle={styles.MenuStyle}
+          onPress={() => props.navigation.openDrawer()}
+        />
         <View style={styles.notifyWrap}>
           <Notify width={35} height={35} style={styles.Notify} />
           <TouchableOpacity
@@ -145,6 +148,11 @@ const DocterDashboard = props => {
             />
           </View>
         </View>
+        <CustomText
+          SimpleText={true}
+          customStyle={styles.appText}
+          label={'Next Appointments'}
+        />
         <View
           style={{
             marginTop: 10,

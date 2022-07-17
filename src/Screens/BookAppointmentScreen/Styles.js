@@ -17,7 +17,8 @@ const styles = StyleSheet.create({
     flexDirection: Theme.row,
     justifyContent: Theme.spaceBetween,
     marginHorizontal: 25,
-    marginTop: 25,
+    marginTop: 15,
+    alignSelf: 'flex-end',
   },
   MenuStyle: {
     marginTop: 10,

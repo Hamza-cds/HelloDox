@@ -18,6 +18,10 @@ import BookAppointmentScreen from '../../Screens/BookAppointmentScreen/BookAppoi
 import AppointmentDateScreen from '../../Screens/AppointmentDateScreen/AppointmentDateScreen';
 import AppointmentConfirmScreen from '../../Screens/AppointmentConfirmScreen/AppointmentConfirmScreen';
 import AppointmentsScreen from '../../Screens/AppointmentsScreen/AppointmentsScreen';
+import DrawerNavPatient from '../DrawerNavigation/DrawerNavPatient';
+import DrawerNavDocter from '../DrawerNavigation/DrawerNavDocter';
+import EditProfileDocter from '../../Screens/EditProfileDocter/EditProfileDocter';
+import PatientRecordScreen from '../../Screens/PatientRecordScreen/PatientRecordScreen';
 
 const Stack = createStackNavigator();
 
@@ -80,29 +84,89 @@ const StackNavigation = () => {
             },
           }}
         />
-        <Stack.Screen name="PatientDashboard" component={PatientDashboard} />
-        <Stack.Screen name="DocterDashboard" component={DocterDashboard} />
+        <Stack.Screen name="PatientDashboard" component={DrawerNavPatient} />
+        <Stack.Screen name="DocterDashboard" component={DrawerNavDocter} />
         <Stack.Screen
           name="DocterProfileScreen"
           component={DocterProfileScreen}
+          options={{
+            headerShown: true,
+            title: '',
+            headerTransparent: 'true',
+            headerTintColor: 'white',
+            headerTitleStyle: {
+              fontSize: Theme.scale(22),
+              marginLeft: 20,
+              fontFamily: Fonts.HELODOX_MEDIUM_FONT,
+            },
+          }}
         />
         <Stack.Screen name="EditProfileScreen" component={EditProfileScreen} />
         <Stack.Screen
           name="BookAppointmentScreen"
           component={BookAppointmentScreen}
+          options={{
+            headerShown: true,
+            title: '',
+            headerTransparent: 'true',
+            headerTintColor: 'white',
+            headerTitleStyle: {
+              fontSize: Theme.scale(22),
+              marginLeft: 20,
+              fontFamily: Fonts.HELODOX_MEDIUM_FONT,
+            },
+          }}
         />
         <Stack.Screen
           name="AppointmentDateScreen"
           component={AppointmentDateScreen}
+          options={{
+            headerShown: true,
+            title: '',
+            headerTransparent: 'true',
+            headerTintColor: 'white',
+            headerTitleStyle: {
+              fontSize: Theme.scale(22),
+              marginLeft: 20,
+              fontFamily: Fonts.HELODOX_MEDIUM_FONT,
+            },
+          }}
         />
         <Stack.Screen
           name="AppointmentConfirmScreen"
           component={AppointmentConfirmScreen}
+          options={{
+            headerShown: true,
+            title: '',
+            headerTransparent: 'true',
+            headerTintColor: 'white',
+            headerTitleStyle: {
+              fontSize: Theme.scale(22),
+              marginLeft: 20,
+              fontFamily: Fonts.HELODOX_MEDIUM_FONT,
+            },
+          }}
+        />
+        <Stack.Screen
+          name="PatientRecordScreen"
+          component={PatientRecordScreen}
+          options={{
+            headerShown: true,
+            title: '',
+            headerTransparent: 'true',
+            headerTintColor: 'white',
+            headerTitleStyle: {
+              fontSize: Theme.scale(22),
+              marginLeft: 20,
+              fontFamily: Fonts.HELODOX_MEDIUM_FONT,
+            },
+          }}
         />
         <Stack.Screen
           name="AppointmentsScreen"
           component={AppointmentsScreen}
         />
+        <Stack.Screen name="EditProfileDocter" component={EditProfileDocter} />
       </Stack.Navigator>
     </SafeAreaView>
   );

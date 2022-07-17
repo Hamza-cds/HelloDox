@@ -17,7 +17,8 @@ const styles = StyleSheet.create({
     flexDirection: Theme.row,
     justifyContent: Theme.spaceBetween,
     marginHorizontal: 25,
-    marginTop: 25,
+    marginTop: 15,
+    alignSelf: 'flex-end',
   },
   MenuStyle: {
     marginTop: 10,
@@ -82,6 +83,49 @@ const styles = StyleSheet.create({
     fontFamily: Fonts.HELODOX_SEMIBOLD_FONT,
     fontSize: Theme.scale(15),
     color: Theme.white,
+  },
+  dateHeader: {
+    color: Theme.primary,
+    fontSize: Theme.scale(18),
+    fontFamily: Fonts.HELODOX_SEMIBOLD_FONT,
+  },
+  morText: {
+    color: Theme.black,
+    fontSize: Theme.scale(18),
+    fontFamily: Fonts.HELODOX_SEMIBOLD_FONT,
+    marginLeft: 20,
+    marginTop: 20,
+  },
+  timeText: {
+    color: 'black',
+    alignSelf: 'center',
+    marginLeft: 3,
+  },
+  morningWrap: {
+    flexDirection: 'row',
+    justifyContent: 'space-evenly',
+    marginTop: 10,
+    marginLeft: 10,
+  },
+  btnTime: {
+    flexDirection: 'row',
+    height: 40,
+    width: 110,
+    borderRadius: 10,
+  },
+  CustomButton: {
+    height: 50,
+    backgroundColor: Theme.primary,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginHorizontal: 30,
+    marginVertical: 20,
+    borderRadius: 15,
+  },
+  CustomText: {
+    color: Theme.white,
+    fontSize: Theme.scale(18),
+    fontFamily: Fonts.HELODOX_SEMIBOLD_FONT,
   },
 });
 

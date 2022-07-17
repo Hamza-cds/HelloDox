@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
   View,
   Text,
@@ -6,17 +6,14 @@ import {
   Image,
   TouchableOpacity,
 } from 'react-native';
-import Button from '../../Components/Button';
 import CustomText from '../../Components/customText';
-import LogoText from '../../Components/LogoText';
-import Fonts from '../../Constants/Fonts';
-import Theme from '../../Constants/Theme';
 import styles from './Styles';
 import Gmail from '../../Assets/gmail';
 import Facebook from '../../Assets/facebook';
 import Twitter from '../../Assets/twitter';
 import Category from '../../Assets/Docter';
 import Patient from '../../Assets/Patient';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const WelcomeScreen = props => {
   return (

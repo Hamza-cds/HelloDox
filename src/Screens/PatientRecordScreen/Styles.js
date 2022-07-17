@@ -60,6 +60,13 @@ const styles = StyleSheet.create({
     fontSize: Theme.scale(16),
     fontFamily: Fonts.HELODOX_SEMIBOLD_FONT,
   },
+  addText: {
+    color: Theme.primary,
+    fontSize: Theme.scale(24),
+    textAlign: 'center',
+    marginVertical: 35,
+    fontFamily: Fonts.HELODOX_REGULAR_FONT,
+  },
 });
 
 export default styles;

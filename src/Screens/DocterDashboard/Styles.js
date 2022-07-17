@@ -43,6 +43,12 @@ const styles = StyleSheet.create({
     textAlign: Theme.align,
     marginTop: 30,
   },
+  appText: {
+    color: Theme.primary,
+    fontSize: Theme.scale(18),
+    fontFamily: Fonts.HELODOX_REGULAR_FONT,
+    textAlign: Theme.align,
+  },
   appointmentwrap: {
     backgroundColor: Theme.white,
     elevation: 3,

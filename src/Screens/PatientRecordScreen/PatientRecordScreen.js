@@ -20,7 +20,7 @@ import Brain from '../../Assets/brain_Icon';
 import Appointment from '../../Components/Appointment';
 import Button from '../../Components/Button';
 
-const AppointmentConfirmScreen = props => {
+const PatientRecordScreen = props => {
   return (
     <View style={styles.Container}>
       <View style={styles.headerWrapper}>
@@ -37,21 +37,14 @@ const AppointmentConfirmScreen = props => {
         </View>
       </View>
       <View style={styles.InnerContainer}>
-        <Appointment
-          customView={styles.customView}
-          nameLabel={'DR. ALISHA\nMEHMOOD'}
-          dateLabel={'Monday, 21 June at 09:20 AM'}
-          source={require('../../Assets/Appointment.png')}
-        />
-        <Button
-          CustomButton={styles.CustomButton}
-          CustomText={styles.CustomText}
-          label={'Appointment Confirmed'}
-          onPress={() => props.navigation.push('PatientDashboard')}
+        <CustomText
+          SimpleText={true}
+          customStyle={styles.addText}
+          label={'Admin Access'}
         />
       </View>
     </View>
   );
 };
 
-export default AppointmentConfirmScreen;
+export default PatientRecordScreen;

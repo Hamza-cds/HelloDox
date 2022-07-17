@@ -14,7 +14,10 @@ const BookAppointmentScreen = props => {
     <View style={styles.Container}>
       <View style={styles.headerView}>
         <View style={styles.headerWrapper}>
-          <DrawerButton MenuStyle={styles.MenuStyle} />
+          {/* <DrawerButton
+            MenuStyle={styles.MenuStyle}
+            onPress={() => props.navigation.openDrawer()}
+          /> */}
           <View style={styles.notifyWrap}>
             <Notify width={30} height={30} style={styles.Notify} />
             <Image
@@ -26,13 +29,13 @@ const BookAppointmentScreen = props => {
         <View style={styles.docView}>
           <Image
             style={styles.DocImage}
-            source={require('../../Assets/Doc_photo2.png')}
+            source={require('../../Assets/Doc2.png')}
           />
           <View style={styles.docTextView}>
             <CustomText
               SimpleText={true}
               customStyle={styles.docText}
-              label={'DR. ALISHA MEHMOOD'}
+              label={'DR. HAMZA ARSHAD'}
             />
             <CustomText
               SimpleText={true}
