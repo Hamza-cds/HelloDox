@@ -29,7 +29,7 @@ const AdminAccessScreen = props => {
           <Notify width={30} height={30} style={styles.Notify} />
           <Image
             style={styles.ProfileImage}
-            source={require('../../Assets/Doc_photo.png')}
+            source={require('../../Assets/user_photo.png')}
           />
         </View>
       </View>

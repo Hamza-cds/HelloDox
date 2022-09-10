@@ -14,6 +14,7 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import Theme from '../Constants/Theme';
 
 const DrawerMenuPatient = props => {
+  const {onPress} = props;
   return (
     <View style={styles.Container}>
       <View style={{backgroundColor: Theme.primary, paddingLeft: 30}}>
@@ -38,7 +39,7 @@ const DrawerMenuPatient = props => {
         <DrawerItemList {...props} />
       </DrawerContentScrollView>
       <View>
-        <TouchableOpacity style={styles.LogBtn}>
+        <TouchableOpacity style={styles.LogBtn} onPress={onPress}>
           <Text style={styles.LogText}>Logout</Text>
         </TouchableOpacity>
       </View>

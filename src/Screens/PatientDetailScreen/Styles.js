@@ -21,6 +21,7 @@ const styles = StyleSheet.create({
     justifyContent: Theme.spaceBetween,
     marginHorizontal: 25,
     marginTop: 15,
+    alignSelf: 'flex-end',
   },
   notifyWrap: {
     flexDirection: Theme.row,
@@ -29,7 +30,7 @@ const styles = StyleSheet.create({
     marginRight: 15,
     alignSelf: Theme.align,
   },
-  ProfileImage1: {
+  ProfileImage: {
     height: 40,
     width: 40,
   },
@@ -40,7 +41,7 @@ const styles = StyleSheet.create({
     color: Theme.primary,
     fontSize: Theme.scale(24),
     textAlign: 'center',
-    marginTop: 20,
+    marginVertical: 35,
     fontFamily: Fonts.HELODOX_REGULAR_FONT,
   },
   WrapViewEmail: {
@@ -82,28 +83,49 @@ const styles = StyleSheet.create({
     fontSize: Theme.scale(18),
     fontFamily: Fonts.HELODOX_BOLD_FONT,
   },
-  PicView: {
-    height: 150,
-    width: 150,
-    borderRadius: 50,
-    alignSelf: 'center',
-    marginBottom: 10,
-    marginTop: 20,
+  divider: {
+    height: 1,
+    backgroundColor: '#E2E8ED',
   },
-  ProfileImage: {
-    height: 150,
-    width: 150,
-    borderRadius: 100,
+  imageStyle: {
+    height: 100,
+    width: 100,
   },
-  CamView: {
-    height: 48,
-    width: 48,
-    backgroundColor: Theme.white,
-    borderRadius: 25,
-    marginTop: -50,
-    marginLeft: 100,
-    justifyContent: 'center',
-    alignItems: 'center',
+  nameText: {
+    fontSize: Theme.scale(24),
+    fontFamily: Fonts.HELODOX_SEMIBOLD_FONT,
+    color: Theme.black,
+    paddingTop: 10,
+  },
+  emailText: {
+    fontSize: Theme.scale(16),
+    fontFamily: Fonts.HELODOX_REGULAR_FONT,
+    color: '#707070',
+  },
+  infoWrpper: {
+    marginVertical: 20,
+    marginLeft: 25,
+  },
+  historyText: {
+    fontSize: Theme.scale(16),
+    fontFamily: Fonts.HELODOX_SEMIBOLD_FONT,
+    color: Theme.black,
+  },
+  loremText: {
+    fontFamily: Fonts.HELODOX_REGULAR_FONT,
+    color: Theme.black,
+    fontSize: Theme.scale(12),
+    lineHeight: 20,
+    marginVertical: 15,
+  },
+  recordText: {
+    fontSize: Theme.scale(16),
+    fontFamily: Fonts.HELODOX_SEMIBOLD_FONT,
+    color: Theme.black,
+  },
+  textWrapper: {
+    marginHorizontal: 25,
+    marginVertical: 15,
   },
 });
 

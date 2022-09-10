@@ -9,11 +9,11 @@ const SplashScreen = ({navigation}) => {
     setTimeout(() => {
       navigation.replace('WelcomeScreen');
     }, 3000);
-  }, []);
+  }, []);git 
   return (
     <ImageBackground
       style={styles.SplashStyles}
-      source={require('../../Assets/Splash.png')}>
+      source={require('../../Assets/Commen.png')}>
       {/* <AntDesign name="camerao" size={30} color="black" /> */}
       <View style={styles.textWrapper}>
         <Text style={styles.helText}>Hello</Text>
@@ -21,7 +21,7 @@ const SplashScreen = ({navigation}) => {
       </View>
       <Image
         style={styles.ProfileImage}
-        source={require('../../Assets/DocImage1.png')}
+        source={require('../../Assets/SplashStyle.png')}
       />
     </ImageBackground>
   );

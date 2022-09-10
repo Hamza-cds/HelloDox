@@ -7,6 +7,7 @@ import DocterDashboard from '../../Screens/DocterDashboard/DocterDashboard';
 import DrawerMenuDocter from '../../Components/DrawerMenuDocter';
 import EditProfileDocter from '../../Screens/EditProfileDocter/EditProfileDocter';
 import AdminAccessScreen from '../../Screens/AdminAccessScreen/AdminAccessScreen';
+import AppointmentDocScreen from '../../Screens/AppointmentDocScreen/AppointmentDocScreen';
 
 const Drawer = createDrawerNavigator();
 
@@ -60,7 +61,7 @@ const DrawerNavDocter = props => {
             <Feather name="home" size={22} color="#ffffff" />
           ),
         }}
-        component={AppointmentsScreen}
+        component={AppointmentDocScreen}
       />
       <Drawer.Screen
         name="Edit Profile"

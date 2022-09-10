@@ -12,13 +12,14 @@ const styles = StyleSheet.create({
     // width: 135,
     alignSelf: Theme.align,
     position: Theme.absolute,
-    bottom: '10%',
+    position: 'absolute',
+    bottom: 10,
   },
   textWrapper: {
     flexDirection: Theme.row,
     alignSelf: Theme.align,
     position: Theme.absolute,
-    top: '20%',
+    top: '15%',
   },
   helText: {
     color: Theme.secondry,

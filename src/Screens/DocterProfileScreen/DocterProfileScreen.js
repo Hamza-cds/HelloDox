@@ -53,7 +53,7 @@ const DocterProfileScreen = props => {
           onPress={() => props.navigation.push('EditProfileDocter')}>
           <FontAwesome5
             name="pen"
-            size={30}
+            size={22}
             color={'white'}
             style={{alignSelf: 'flex-end', paddingRight: 25, paddingBottom: 10}}
           />
