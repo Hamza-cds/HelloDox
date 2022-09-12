@@ -47,7 +47,7 @@ const AppointmentConfirmScreen = props => {
           CustomButton={styles.CustomButton}
           CustomText={styles.CustomText}
           label={'Appointment Confirmed'}
-          onPress={() => props.navigation.push('PatientDashboard')}
+          onPress={() => props.navigation.push('PaymentScreen')}
         />
       </View>
     </View>

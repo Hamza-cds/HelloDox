@@ -7,13 +7,9 @@ import AppointmentsScreen from '../../Screens/AppointmentsScreen/AppointmentsScr
 import ContactUsScreen from '../../Screens/ContactUsScreen/ContactUsScreen';
 import EditProfilePatient from '../../Screens/EditProfilePatient/EditProfilePatient';
 import {View} from 'react-native';
-import AppointmentConfirmScreen from '../../Screens/AppointmentConfirmScreen/AppointmentConfirmScreen';
-import DocterDashboard from '../../Screens/DocterDashboard/DocterDashboard';
 import DrawerMenuPatient from '../../Components/DrawerMenuPatient';
-import DrawerMenuDocter from '../../Components/DrawerMenuDocter';
-import EditProfileDocter from '../../Screens/EditProfileDocter/EditProfileDocter';
-import AdminAccessScreen from '../../Screens/AdminAccessScreen/AdminAccessScreen';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import AntDesign from 'react-native-vector-icons/AntDesign';
 
 const Drawer = createDrawerNavigator();
 
@@ -64,7 +60,11 @@ const DrawerNavPatient = props => {
           drawerLabel: 'Appointment',
           headerStyle: {},
           drawerIcon: ({focused}) => (
-            <Feather name="home" size={22} color="#ffffff" />
+            <MaterialCommunityIcons
+              name="account-network-outline"
+              size={22}
+              color="#ffffff"
+            />
           ),
         }}
         component={AppointmentsScreen}
@@ -75,7 +75,7 @@ const DrawerNavPatient = props => {
           drawerLabel: 'Edit Profile',
           headerStyle: {},
           drawerIcon: ({focused}) => (
-            <Feather name="home" size={22} color="#ffffff" />
+            <Feather name="user" size={22} color="#ffffff" />
           ),
         }}
         component={EditProfilePatient}
@@ -86,7 +86,7 @@ const DrawerNavPatient = props => {
           drawerLabel: 'Contact Us',
           headerStyle: {},
           drawerIcon: ({focused}) => (
-            <Feather name="home" size={22} color="#ffffff" />
+            <AntDesign name="phone" size={22} color="#ffffff" />
           ),
         }}
         component={ContactUsScreen}

@@ -14,10 +14,6 @@ const BookAppointmentScreen = props => {
     <View style={styles.Container}>
       <View style={styles.headerView}>
         <View style={styles.headerWrapper}>
-          {/* <DrawerButton
-            MenuStyle={styles.MenuStyle}
-            onPress={() => props.navigation.openDrawer()}
-          /> */}
           <View style={styles.notifyWrap}>
             <Notify width={30} height={30} style={styles.Notify} />
             <Image
@@ -52,7 +48,7 @@ const BookAppointmentScreen = props => {
       <ScrollView>
         <View style={styles.diseasWrap}>
           <View style={styles.iconWrap}>
-            <View>
+            {/* <View>
               <Feather
                 name="users"
                 size={30}
@@ -69,7 +65,7 @@ const BookAppointmentScreen = props => {
                 customStyle={styles.scoreText}
                 label={'Client/Staff Score'}
               />
-            </View>
+            </View> */}
             <View>
               <AntDesign
                 name="like2"

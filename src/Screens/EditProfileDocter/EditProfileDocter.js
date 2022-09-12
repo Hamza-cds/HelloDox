@@ -156,7 +156,7 @@ const EditProfileDocter = props => {
               style={{
                 height: 150,
                 textAlignVertical: 'top',
-                marginVertical: 20,
+                marginVertical: 10,
                 backgroundColor: Theme.white,
                 elevation: 3,
                 paddingLeft: 10,
@@ -175,7 +175,7 @@ const EditProfileDocter = props => {
               style={{
                 height: 200,
                 textAlignVertical: 'top',
-                marginVertical: 20,
+                marginVertical: 10,
                 backgroundColor: Theme.white,
                 elevation: 3,
                 paddingLeft: 10,

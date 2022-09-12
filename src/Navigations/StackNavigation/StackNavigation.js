@@ -23,6 +23,8 @@ import DrawerNavDocter from '../DrawerNavigation/DrawerNavDocter';
 import EditProfileDocter from '../../Screens/EditProfileDocter/EditProfileDocter';
 import PatientRecordScreen from '../../Screens/PatientRecordScreen/PatientRecordScreen';
 import PatientDetailScreen from '../../Screens/PatientDetailScreen/PatientDetailScreen';
+import PaymentScreen from '../../Screens/PaymentScreen/PaymentScreen';
+import RatingScreen from '../../Screens/RatingScreen/RatingScreen';
 
 const Stack = createStackNavigator();
 
@@ -149,6 +151,21 @@ const StackNavigation = () => {
           }}
         />
         <Stack.Screen
+          name="PaymentScreen"
+          component={PaymentScreen}
+          options={{
+            headerShown: true,
+            title: '',
+            headerTransparent: 'true',
+            headerTintColor: 'white',
+            headerTitleStyle: {
+              fontSize: Theme.scale(22),
+              marginLeft: 20,
+              fontFamily: Fonts.HELODOX_MEDIUM_FONT,
+            },
+          }}
+        />
+        <Stack.Screen
           name="PatientRecordScreen"
           component={PatientRecordScreen}
           options={{
@@ -166,6 +183,21 @@ const StackNavigation = () => {
         <Stack.Screen
           name="PatientDetailScreen"
           component={PatientDetailScreen}
+          options={{
+            headerShown: true,
+            title: '',
+            headerTransparent: 'true',
+            headerTintColor: 'white',
+            headerTitleStyle: {
+              fontSize: Theme.scale(22),
+              marginLeft: 20,
+              fontFamily: Fonts.HELODOX_MEDIUM_FONT,
+            },
+          }}
+        />
+        <Stack.Screen
+          name="RatingScreen"
+          component={RatingScreen}
           options={{
             headerShown: true,
             title: '',

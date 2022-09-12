@@ -133,12 +133,16 @@ const AppointmentsScreen = props => {
           </View>
           <View key="2">
             <ScrollView>
-              <Appointment
-                customView={styles.customView}
-                nameLabel={'DR. ALISHA\nMEHMOOD'}
-                dateLabel={'Monday, 21 June at 09:20 AM'}
-                source={require('../../Assets/Appointment.png')}
-              />
+              <TouchableOpacity
+                activeOpacity={0.8}
+                onPress={() => props.navigation.push('RatingScreen')}>
+                <Appointment
+                  customView={styles.customView}
+                  nameLabel={'DR. ALISHA\nMEHMOOD'}
+                  dateLabel={'Monday, 21 June at 09:20 AM'}
+                  source={require('../../Assets/Appointment.png')}
+                />
+              </TouchableOpacity>
             </ScrollView>
           </View>
         </PagerView>

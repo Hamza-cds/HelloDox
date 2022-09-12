@@ -8,6 +8,10 @@ import DrawerMenuDocter from '../../Components/DrawerMenuDocter';
 import EditProfileDocter from '../../Screens/EditProfileDocter/EditProfileDocter';
 import AdminAccessScreen from '../../Screens/AdminAccessScreen/AdminAccessScreen';
 import AppointmentDocScreen from '../../Screens/AppointmentDocScreen/AppointmentDocScreen';
+import PatientRecordPostScreen from '../../Screens/PatientRecordPostScreen/PatientRecordPostScreen';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 const Drawer = createDrawerNavigator();
 
@@ -58,7 +62,11 @@ const DrawerNavDocter = props => {
           drawerLabel: 'Appointment',
           headerStyle: {},
           drawerIcon: ({focused}) => (
-            <Feather name="home" size={22} color="#ffffff" />
+            <MaterialCommunityIcons
+              name="account-network-outline"
+              size={22}
+              color="#ffffff"
+            />
           ),
         }}
         component={AppointmentDocScreen}
@@ -69,7 +77,7 @@ const DrawerNavDocter = props => {
           drawerLabel: 'Edit Profile',
           headerStyle: {},
           drawerIcon: ({focused}) => (
-            <Feather name="home" size={22} color="#ffffff" />
+            <Feather name="user" size={22} color="#ffffff" />
           ),
         }}
         component={EditProfileDocter}
@@ -80,10 +88,21 @@ const DrawerNavDocter = props => {
           drawerLabel: 'Admin Access',
           headerStyle: {},
           drawerIcon: ({focused}) => (
-            <Feather name="home" size={22} color="#ffffff" />
+            <FontAwesome name="history" size={22} color="#ffffff" />
           ),
         }}
         component={AdminAccessScreen}
+      />
+      <Drawer.Screen
+        name="patient Post Record"
+        options={{
+          drawerLabel: 'patient Post Record',
+          headerStyle: {},
+          drawerIcon: ({focused}) => (
+            <MaterialIcons name="change-history" size={22} color="#ffffff" />
+          ),
+        }}
+        component={PatientRecordPostScreen}
       />
     </Drawer.Navigator>
   );
