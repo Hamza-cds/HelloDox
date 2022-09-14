@@ -20,10 +20,97 @@ import Twitter from '../../Assets/twitter';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Octicons from 'react-native-vector-icons/Octicons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import {isNullOrEmpty} from '../../Constants/TextUtils';
+import {signUpApiCall, doctorLoginApiCall} from '../../Apis/Repo';
 
 const DocterLogin = props => {
   const pagerRef = useRef(null);
   const [selectedPage, setSelectedPage] = useState(0);
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [address, setAddress] = useState('');
+  const [city, setCity] = useState('');
+  const [specialization, setSpecialization] = useState('');
+  const [logInEmail, setLogInEmail] = useState('');
+  const [logInPassword, setLogInPassword] = useState('');
+
+  const onSignUp = () => {
+    if (isNullOrEmpty(name)) {
+      alert('Enter Name');
+    } else if (isNullOrEmpty(email)) {
+      alert('Enter Email');
+    } else if (isNullOrEmpty(password)) {
+      alert('Enter Password');
+    } else if (isNullOrEmpty(address)) {
+      alert('Enter Address');
+    } else if (isNullOrEmpty(city)) {
+      alert('Enter City');
+    } else if (isNullOrEmpty(specialization)) {
+      alert('Enter specialization');
+    } else {
+      let obj = {
+        id: 0,
+        email: '',
+        password: '',
+        role: 0,
+        doctor: {
+          id: 0,
+          name: name,
+          address: address,
+          city: city,
+          email: email,
+          password: password,
+          specifications: specialization,
+        },
+      };
+
+      console.log('obj', obj);
+
+      signUpApiCall(obj)
+        .then(data => {
+          console.log('data', data);
+
+          if (data.data.status == 200 && data.data.success == true) {
+            props.navigation.replace('DocterDashboard');
+          } else {
+            alert(data.message);
+            console.log('ADD');
+          }
+        })
+        .catch(err => {
+          console.log('err', err);
+        });
+    }
+  };
+
+  const onLogin = () => {
+    if (isNullOrEmpty(logInEmail)) {
+      alert('Enter Email');
+    } else if (isNullOrEmpty(logInPassword)) {
+      alert('Enter Password');
+    } else {
+      let obj = {
+        email: logInEmail,
+        password: logInPassword,
+      };
+
+      doctorLoginApiCall(obj)
+        .then(data => {
+          console.log('data', data);
+
+          if (data.data.status == 200 && data.data.success == true) {
+            props.navigation.replace('DocterDashboard');
+          } else {
+            alert(data.message);
+            console.log('ADD');
+          }
+        })
+        .catch(err => {
+          console.log('err', err);
+        });
+    }
+  };
 
   const handlePageChange = pageNumber => {
     // setSelectedPage(pageNumber);
@@ -87,10 +174,14 @@ const DocterLogin = props => {
                     color={Theme.black}
                   />
                 }
+                onChange={value => {
+                  setLogInEmail(value);
+                }}
                 CustomView={styles.WrapViewEmail}
                 CustomText={styles.InputText}
                 placeholder={'Email Address'}
                 placeholderTextColor={Theme.black}
+                onCha
               />
 
               <TextInputs
@@ -102,13 +193,18 @@ const DocterLogin = props => {
                     color={Theme.black}
                   />
                 }
+                onChange={value => {
+                  setLogInPassword(value);
+                }}
                 CustomView={styles.WrapViewPass}
                 CustomText={styles.InputText}
                 placeholder={'Password'}
                 placeholderTextColor={Theme.black}
               />
               <TouchableOpacity
-                onPress={() => props.navigation.push('ForgotScreen')}>
+                onPress={() => {
+                  props.navigation.push('ForgotScreen');
+                }}>
                 <CustomText
                   SimpleText={true}
                   customStyle={styles.forgetText}
@@ -119,7 +215,10 @@ const DocterLogin = props => {
                 CustomButton={styles.CustomButton}
                 CustomText={styles.CustomText}
                 label={'Sign In'}
-                onPress={() => props.navigation.replace('DocterDashboard')}
+                onPress={() => {
+                  // props.navigation.replace('DocterDashboard')
+                  onLogin();
+                }}
               />
             </View>
             <CustomText
@@ -161,6 +260,9 @@ const DocterLogin = props => {
                       color={Theme.black}
                     />
                   }
+                  onChange={value => {
+                    setName(value);
+                  }}
                   CustomView={styles.WrapViewEmail}
                   CustomText={styles.InputText}
                   placeholder={'Name'}
@@ -176,6 +278,9 @@ const DocterLogin = props => {
                       color={Theme.black}
                     />
                   }
+                  onChange={value => {
+                    setEmail(value);
+                  }}
                   CustomView={styles.WrapViewPass}
                   CustomText={styles.InputText}
                   placeholder={'Email'}
@@ -190,6 +295,9 @@ const DocterLogin = props => {
                       color={Theme.black}
                     />
                   }
+                  onChange={value => {
+                    setPassword(value);
+                  }}
                   CustomView={styles.WrapViewPass}
                   CustomText={styles.InputText}
                   placeholder={'Password'}
@@ -204,6 +312,9 @@ const DocterLogin = props => {
                       color={Theme.black}
                     />
                   }
+                  onChange={value => {
+                    setAddress(value);
+                  }}
                   CustomView={styles.WrapViewPass}
                   CustomText={styles.InputText}
                   placeholder={'Address'}
@@ -218,6 +329,9 @@ const DocterLogin = props => {
                       color={Theme.black}
                     />
                   }
+                  onChange={value => {
+                    setCity(value);
+                  }}
                   CustomView={styles.WrapViewPass}
                   CustomText={styles.InputText}
                   placeholder={'City'}
@@ -232,6 +346,9 @@ const DocterLogin = props => {
                       color={Theme.black}
                     />
                   }
+                  onChange={value => {
+                    setSpecialization(value);
+                  }}
                   CustomView={styles.WrapViewPass}
                   CustomText={styles.InputText}
                   placeholder={'Specialization'}
@@ -242,7 +359,10 @@ const DocterLogin = props => {
                   CustomButton={styles.CustomButton}
                   CustomText={styles.CustomText}
                   label={'Sign Up'}
-                  onPress={() => props.navigation.replace('DocterDashboard')}
+                  onPress={() => {
+                    // props.navigation.replace('DocterDashboard');
+                    onSignUp();
+                  }}
                 />
               </View>
               <CustomText
