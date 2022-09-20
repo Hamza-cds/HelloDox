@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   View,
   Text,
@@ -21,8 +21,23 @@ import ImagePicker from 'react-native-image-crop-picker';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Octicons from 'react-native-vector-icons/Octicons';
 import Fonts from '../../Constants/Fonts';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const EditProfileDocter = props => {
+  const [userData, setuserData] = useState('');
+  let [imageName, setImageName] = useState('');
+  const [image, setImage] = useState('');
+  console.log('imageName', imageName);
+  console.log('image', image);
+  console.log('userdata', userData);
+
+  useEffect(() => {
+    AsyncStorage.getItem('user_data').then(response => {
+      setuserData((userData = JSON.parse(response)));
+      console.log('userdata', userData);
+    });
+  }, []);
+
   const UploadImage = () => {
     ImagePicker.openPicker({
       width: 300,
@@ -31,10 +46,10 @@ const EditProfileDocter = props => {
     }).then(image => {
       console.log(image);
       // setImage(image.path);
-      RNFS.readFile(image.path, 'base64').then(res => {
-        console.log('res', res);
-        setImage(image.path);
-      });
+      var imageMime = image.mime;
+      var name = imageMime.split('/')[1];
+      setImageName('Vinvi.' + name);
+      setImage(image);
     });
   };
   return (

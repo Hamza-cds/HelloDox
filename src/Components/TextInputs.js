@@ -12,6 +12,7 @@ const TextInputs = props => {
     onChange,
     keyboardType,
     editable,
+    text,
   } = props;
   return (
     <View style={{...props.CustomView}}>
@@ -25,8 +26,9 @@ const TextInputs = props => {
         placeholderTextColor={placeholderTextColor}
         placeholder={placeholder}
         onChangeText={onChange}
-        keyboardType={keyboardType}
-      />
+        keyboardType={keyboardType}>
+        <Text>{text}</Text>
+      </TextInput>
       {iconOutline}
     </View>
   );

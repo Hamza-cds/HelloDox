@@ -62,12 +62,12 @@ const StackNavigation = () => {
           component={ForgotScreen}
           options={{
             headerShown: true,
-            title: 'Phone Number',
+            title: 'Forgot Password',
             headerTransparent: 'true',
             headerTintColor: 'white',
             headerTitleStyle: {
               fontSize: Theme.scale(22),
-              marginLeft: 20,
+              marginLeft: 100,
               fontFamily: Fonts.HELODOX_MEDIUM_FONT,
             },
           }}

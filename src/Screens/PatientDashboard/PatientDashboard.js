@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   View,
   Text,
@@ -17,8 +17,56 @@ import Theme from '../../Constants/Theme';
 import Dental from '../../Assets/dental_Icon';
 import Hearct from '../../Assets/heart_Icon';
 import Brain from '../../Assets/brain_Icon';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {getCategoryDataApiCall, getDoctorDataApiCall} from '../../Apis/Repo';
+import {URL} from '../../Constants/Constant';
+import {isNullOrEmpty} from '../../Constants/TextUtils';
 
 const PatientDashboard = props => {
+  let [userData, setuserData] = useState('');
+  let [category, setCategory] = useState([]);
+  let [docList, setDocList] = useState([]);
+
+  useEffect(() => {
+    AsyncStorage.getItem('user_data').then(response => {
+      setuserData((userData = JSON.parse(response)));
+      console.log('userdata', userData);
+    });
+  }, []);
+
+  useEffect(() => {
+    getCategoryData();
+    getDoctorData();
+  }, []);
+
+  const getCategoryData = () => {
+    getCategoryDataApiCall()
+      .then(res => {
+        console.log('res', res);
+        if (res.status == 200) {
+          setCategory((category = res.data.result));
+          console.log('category', category);
+        } else console.warn('No data found');
+      })
+      .catch(err => {
+        console.log('err', err);
+      });
+  };
+
+  const getDoctorData = () => {
+    getDoctorDataApiCall()
+      .then(res => {
+        console.log('res', res);
+        if (res.status == 200) {
+          setDocList((docList = res.data.result));
+          console.log('doctor', docList);
+        } else console.warn('No data found');
+      })
+      .catch(err => {
+        console.log('err', err);
+      });
+  };
+
   const [data, setData] = useState([
     {
       id: 1,
@@ -116,20 +164,40 @@ const PatientDashboard = props => {
           onPress={() => props.navigation.openDrawer()}
         />
         <View style={styles.notifyWrap}>
-          <Notify width={30} height={30} style={styles.Notify} />
           <Image
             style={styles.ProfileImage}
-            source={require('../../Assets/user_photo.png')}
+            source={
+              userData
+                ? userData.patient.profile_image
+                  ? {uri: URL.concat(userData.patient.profile_image)}
+                  : require('../../Assets/user_photo.png')
+                : require('../../Assets/user_photo.png')
+            }
           />
         </View>
       </View>
       <View style={styles.InnerContainer}>
         <View style={styles.TextWrapper}>
-          <CustomText
-            SimpleText={true}
-            customStyle={styles.hiText}
-            label={'Hi, John'}
-          />
+          <View style={{flexDirection: 'row'}}>
+            <CustomText
+              SimpleText={true}
+              customStyle={styles.hiText}
+              label={'Hi, '}
+            />
+            <CustomText
+              SimpleText={true}
+              customStyle={styles.hiText}
+              label={
+                userData
+                  ? userData.patient
+                    ? userData.patient.name
+                      ? userData.patient.name
+                      : null
+                    : null
+                  : null
+              }
+            />
+          </View>
           <CustomText
             SimpleText={true}
             customStyle={styles.WelText}
@@ -160,23 +228,21 @@ const PatientDashboard = props => {
               customStyle={styles.CatText}
               label={'Category'}
             />
-            <CustomText
-              SimpleText={true}
-              customStyle={styles.SeeText}
-              label={'See all'}
-            />
           </View>
           <View style={{marginLeft: 25, marginRight: 15}}>
             <FlatList
               horizontal={true}
-              data={data}
+              data={category}
               keyExtractor={item => item.id}
               renderItem={({item}) => (
                 <TouchableOpacity>
                   <View style={styles.FlatView}>
-                    {item.Icon}
-                    <Text style={styles.docText}>{item.category}</Text>
-                    <Text style={styles.totalText}>{item.total}</Text>
+                    <Image
+                      style={{height: 30, width: 30}}
+                      source={require('../../Assets/doctor.png')}
+                    />
+                    <Text style={styles.docText}>{item.name}</Text>
+                    {/* <Text style={styles.totalText}>{item.total}</Text> */}
                   </View>
                 </TouchableOpacity>
               )}
@@ -188,11 +254,6 @@ const PatientDashboard = props => {
               customStyle={styles.CatText}
               label={'Top rate'}
             />
-            <CustomText
-              SimpleText={true}
-              customStyle={styles.SeeText}
-              label={'See all'}
-            />
           </View>
         </View>
         <View
@@ -201,7 +262,7 @@ const PatientDashboard = props => {
             flex: 1,
           }}>
           <FlatList
-            data={info}
+            data={docList}
             style={{}}
             keyExtractor={item => item.id}
             renderItem={({item}) => (
@@ -210,11 +271,18 @@ const PatientDashboard = props => {
                 onPress={() => props.navigation.push('BookAppointmentScreen')}>
                 <View style={styles.docWrapper}>
                   <View style={{flexDirection: 'row'}}>
-                    <Image source={item.Image} style={styles.imageStyle} />
+                    <Image
+                      source={
+                        !isNullOrEmpty(item.profile_image)
+                          ? {uri: URL.concat(item.profile_image)}
+                          : item.imageStyle
+                      }
+                      style={styles.imageStyle}
+                    />
                     <View style={styles.wrapText}>
-                      <Text style={styles.DocNameText}>{item.DocName}</Text>
+                      <Text style={styles.DocNameText}>{item.name}</Text>
                       <Text style={styles.specialText}>
-                        {item.Specialization}
+                        {item.category.name}
                       </Text>
                     </View>
                   </View>

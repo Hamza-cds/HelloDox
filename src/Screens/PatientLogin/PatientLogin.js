@@ -20,10 +20,12 @@ import Twitter from '../../Assets/twitter';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Octicons from 'react-native-vector-icons/Octicons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import { doctorLoginApiCall,signUpApiCall} from '../../Apis/Repo';
+import {doctorLoginApiCall, patientSignUpApiCall} from '../../Apis/Repo';
 import {isNullOrEmpty} from '../../Constants/TextUtils';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const PatientLogin = props => {
+  console.log('props', props);
   const pagerRef = useRef(null);
   const [selectedPage, setSelectedPage] = useState(0);
 
@@ -33,6 +35,7 @@ const PatientLogin = props => {
   const [password, setPassword] = useState('');
   const [address, setAddress] = useState('');
   const [city, setCity] = useState('');
+  const [specialization, setSpecialization] = useState('');
 
   const [patientLoginEmail, setPatientLoginEmail] = useState('');
   const [patientLoginPassword, setPatientLoginPassword] = useState('');
@@ -61,29 +64,25 @@ const PatientLogin = props => {
     } else if (isNullOrEmpty(number)) {
       alert('Enter number');
     } else {
-      let obj = {
-        id: 0,
-        email: '',
-        password: '',
-        role: 0,
-        patient: {
-          id: 0,
-          name: name,
-          number: number,
-          address: address,
-          city: city,
-          email: email,
-          password: password
-        }
-      };
+      let formdata = new FormData();
+      formdata.append('id', '0');
+      formdata.append('user_id_fk', '0');
+      formdata.append('role', 3);
+      formdata.append('name', name);
+      formdata.append('email', email);
+      formdata.append('number', number);
+      formdata.append('password', password);
+      formdata.append('address', address);
+      formdata.append('city', city);
 
-      console.log('obj', obj);
+      console.log('formdata', formdata);
 
-      signUpApiCall(obj)
+      patientSignUpApiCall(formdata)
         .then(data => {
           console.log('data', data);
 
           if (data.data.status == 200 && data.data.success == true) {
+            AsyncStorage.setItem('user_data', JSON.stringify(data.data.result));
             props.navigation.replace('PatientDashboard');
           } else {
             alert(data.message);
@@ -112,6 +111,13 @@ const PatientLogin = props => {
           console.log('data', data);
 
           if (data.data.status == 200 && data.data.success == true) {
+            // debugger;
+            console.log('hamza data', data.data.result);
+            console.log(
+              'hamza stringify data',
+              JSON.stringify(data.data.result),
+            );
+            AsyncStorage.setItem('user_data', JSON.stringify(data.data.result));
             props.navigation.replace('PatientDashboard');
           } else {
             alert(data.message);
@@ -123,8 +129,6 @@ const PatientLogin = props => {
         });
     }
   };
-
-
 
   return (
     <ImageBackground
@@ -206,7 +210,11 @@ const PatientLogin = props => {
                 placeholderTextColor={Theme.black}
               />
               <TouchableOpacity
-                onPress={() => props.navigation.push('ForgotScreen')}>
+                onPress={() =>
+                  props.navigation.push('ForgotScreen', {
+                    name: props.route.name,
+                  })
+                }>
                 <CustomText
                   SimpleText={true}
                   customStyle={styles.forgetText}
@@ -218,7 +226,7 @@ const PatientLogin = props => {
                 CustomText={styles.CustomText}
                 label={'Sign In'}
                 onPress={() => {
-                  onLogin()
+                  onLogin();
                 }}
               />
             </View>

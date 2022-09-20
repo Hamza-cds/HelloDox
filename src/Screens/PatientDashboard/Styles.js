@@ -99,6 +99,7 @@ const styles = StyleSheet.create({
     width: Theme.wp(28),
     backgroundColor: Theme.primary,
     marginHorizontal: 10,
+    paddingHorizontal: 3,
     borderRadius: 15,
     marginVertical: 10,
     alignItems: 'center',
@@ -106,7 +107,7 @@ const styles = StyleSheet.create({
   },
   docText: {
     fontFamily: Fonts.HELODOX_MEDIUM_FONT,
-    fontSize: Theme.scale(15),
+    fontSize: Theme.scale(12),
     color: Theme.white,
   },
   totalText: {

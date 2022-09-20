@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   View,
   Text,
@@ -14,8 +14,29 @@ import Twitter from '../../Assets/twitter';
 import Category from '../../Assets/Docter';
 import Patient from '../../Assets/Patient';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {getCategoryDataApiCall} from '../../Apis/Repo';
 
 const WelcomeScreen = props => {
+  let [category, setCategory] = useState();
+
+  useEffect(() => {
+    getCategoryData();
+  }, []);
+
+  const getCategoryData = () => {
+    getCategoryDataApiCall()
+      .then(res => {
+        console.log('res', res);
+        if (res.status == 200) {
+          setCategory((category = res.data.result));
+          console.log('category', category);
+        } else console.warn('No data found');
+      })
+      .catch(err => {
+        console.log('err', err);
+      });
+  };
+
   return (
     <ImageBackground
       style={styles.Container}
@@ -30,7 +51,11 @@ const WelcomeScreen = props => {
       <View>
         <TouchableOpacity
           activeOpacity={0.8}
-          onPress={() => props.navigation.push('DocterLogin')}>
+          onPress={() =>
+            props.navigation.push('DocterLogin', {
+              category: category,
+            })
+          }>
           <View style={styles.docButton}>
             <Category width={100} height={100} />
             <CustomText
