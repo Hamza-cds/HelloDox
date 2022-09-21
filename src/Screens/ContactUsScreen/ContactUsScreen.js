@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   View,
   Text,
@@ -17,8 +17,45 @@ import Fontisto from 'react-native-vector-icons/Fontisto';
 import Theme from '../../Constants/Theme';
 import Button from '../../Components/Button';
 import Fonts from '../../Constants/Fonts';
+import {patientContactUsApiCall} from '../../Apis/Repo';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const ContactUsScreen = props => {
+  let [userData, setuserData] = useState('');
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [msg, setMsg] = useState('');
+
+  useEffect(() => {
+    AsyncStorage.getItem('user_data').then(response => {
+      setuserData((userData = JSON.parse(response)));
+      console.log('userdata', userData);
+    });
+  }, []);
+
+  const onSubmit = () => {
+    let obj = {
+      id: userData.id,
+      name: name,
+      email: email,
+      message: msg,
+    };
+    patientContactUsApiCall(obj)
+      .then(data => {
+        console.log('data', data);
+
+        if (data.data.status == 200 && data.data.success == true) {
+          props.navigation.replace('DocterDashboard');
+        } else {
+          alert(data.message);
+          console.log('ADD');
+        }
+      })
+      .catch(err => {
+        console.log('err', err);
+      });
+  };
+
   return (
     <View style={styles.Container}>
       <View style={styles.headerWrapper}>
@@ -26,13 +63,13 @@ const ContactUsScreen = props => {
           MenuStyle={styles.MenuStyle}
           onPress={() => props.navigation.openDrawer()}
         />
-        <View style={styles.notifyWrap}>
+        {/* <View style={styles.notifyWrap}>
           <Notify width={30} height={30} style={styles.Notify} />
           <Image
             style={styles.ProfileImage}
             source={require('../../Assets/user_photo.png')}
           />
-        </View>
+        </View> */}
       </View>
       <View style={styles.InnerContainer}>
         <CustomText
@@ -53,6 +90,9 @@ const ContactUsScreen = props => {
             CustomView={styles.WrapViewEmail}
             CustomText={styles.InputText}
             placeholder={'Name'}
+            onChange={value => {
+              setName(value);
+            }}
             placeholderTextColor={Theme.black}
           />
           <TextInputs
@@ -67,12 +107,19 @@ const ContactUsScreen = props => {
             CustomView={styles.WrapViewPass}
             CustomText={styles.InputText}
             placeholder={'Email'}
+            onChange={value => {
+              setEmail(value);
+            }}
             placeholderTextColor={Theme.black}
           />
-          <TextInput
+          {/* <TextInput
             multiline={true}
             numberOfLines={10}
             placeholder={'Enter Message...'}
+            onChange={value => {
+              setMsg(value);
+              console.log(value);
+            }}
             placeholderTextColor={Theme.black}
             style={{
               height: 200,
@@ -87,13 +134,38 @@ const ContactUsScreen = props => {
               fontSize: Theme.scale(14),
               color: Theme.black,
             }}
+          /> */}
+          <TextInputs
+            CustomView={{
+              height: 100,
+              textAlignVertical: 'top',
+              marginVertical: 10,
+              backgroundColor: Theme.white,
+              elevation: 3,
+              paddingLeft: 10,
+              borderRadius: 10,
+              marginHorizontal: 10,
+              fontFamily: Fonts.HELODOX_REGULAR_FONT,
+              fontSize: Theme.scale(14),
+              color: Theme.black,
+            }}
+            CustomText={styles.InputText}
+            placeholder={'Enter Message...'}
+            placeholderTextColor={Theme.black}
+            onChange={value => {
+              setMsg(value);
+              console.log(value);
+            }}
           />
         </View>
         <Button
           CustomButton={styles.CustomButton}
           CustomText={styles.CustomText}
           label={'Submit'}
-          onPress={() => props.navigation.push('PatientLogin')}
+          onPress={() => {
+            onSubmit();
+            // props.navigation.push('PatientLogin')
+          }}
         />
       </View>
     </View>

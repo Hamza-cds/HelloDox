@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {View, Text, Image, ScrollView} from 'react-native';
 import styles from './Styles';
 import Notify from '../../Assets/notification';
@@ -8,12 +8,37 @@ import Feather from 'react-native-vector-icons/Feather';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Button from '../../Components/Button';
+import {getDoctorDataByIDApiCall} from '../../Apis/Repo';
+import {URL} from '../../Constants/Constant';
 
 const BookAppointmentScreen = props => {
+  console.log('props', props);
+  let ID = props.route.params.id;
+
+  let [docData, setDocData] = useState('');
+
+  useEffect(() => {
+    getCategoryData();
+  }, []);
+
+  const getCategoryData = () => {
+    getDoctorDataByIDApiCall(ID)
+      .then(res => {
+        console.log('res', res);
+        if (res.status == 200) {
+          setDocData((docData = res.data.result));
+          console.log('docData kajsf', docData);
+        } else console.warn('No data found');
+      })
+      .catch(err => {
+        console.log('err', err);
+      });
+  };
+
   return (
     <View style={styles.Container}>
       <View style={styles.headerView}>
-        <View style={styles.headerWrapper}>
+        {/* <View style={styles.headerWrapper}>
           <View style={styles.notifyWrap}>
             <Notify width={30} height={30} style={styles.Notify} />
             <Image
@@ -21,22 +46,37 @@ const BookAppointmentScreen = props => {
               source={require('../../Assets/user_photo.png')}
             />
           </View>
-        </View>
+        </View> */}
+        <View style={{marginVertical: 25}} />
         <View style={styles.docView}>
           <Image
             style={styles.DocImage}
-            source={require('../../Assets/Doc2.png')}
+            source={
+              docData
+                ? docData.profile_image
+                  ? {uri: URL.concat(docData.profile_image)}
+                  : require('../../Assets/EmptyProfile.png')
+                : require('../../Assets/EmptyProfile.png')
+            }
           />
           <View style={styles.docTextView}>
             <CustomText
               SimpleText={true}
               customStyle={styles.docText}
-              label={'DR. HAMZA ARSHAD'}
+              label={docData.name ? docData.name : null}
             />
             <CustomText
               SimpleText={true}
               customStyle={styles.PhyText}
-              label={'Emergency Physician'}
+              label={
+                docData
+                  ? docData.category
+                    ? docData.category.name
+                      ? docData.category.name
+                      : null
+                    : null
+                  : null
+              }
             />
             <Image
               style={styles.startImage}
@@ -48,24 +88,6 @@ const BookAppointmentScreen = props => {
       <ScrollView>
         <View style={styles.diseasWrap}>
           <View style={styles.iconWrap}>
-            {/* <View>
-              <Feather
-                name="users"
-                size={30}
-                color={'black'}
-                style={{alignSelf: 'center'}}
-              />
-              <CustomText
-                SimpleText={true}
-                customStyle={styles.perText}
-                label={'96%'}
-              />
-              <CustomText
-                SimpleText={true}
-                customStyle={styles.scoreText}
-                label={'Client/Staff Score'}
-              />
-            </View> */}
             <View>
               <AntDesign
                 name="like2"
@@ -166,7 +188,7 @@ const BookAppointmentScreen = props => {
             <CustomText
               SimpleText={true}
               customStyle={styles.amoutText}
-              label={'Rs/1000'}
+              label={docData.fee ? docData.fee : null}
             />
           </View>
           <View style={styles.divider}></View>
@@ -179,7 +201,7 @@ const BookAppointmentScreen = props => {
             <CustomText
               SimpleText={true}
               customStyle={styles.amoutText}
-              label={'Mon,Tue,Wed,Thu,Fri'}
+              label={docData.days ? docData.days : null}
             />
           </View>
           <View style={styles.divider}></View>
@@ -227,12 +249,7 @@ const BookAppointmentScreen = props => {
             label={'About Me:'}
           />
           <Text style={styles.loremText}>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-            aliquip ex ea commodo consequat. Duis aute irure dolor in
-            reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-            pariatur
+            {docData.about ? docData.about : null}
           </Text>
         </View>
       </ScrollView>

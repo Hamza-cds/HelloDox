@@ -115,8 +115,46 @@ export async function getDoctorDataApiCall() {
   }
 }
 
+export async function getDoctorDataByIDApiCall(id) {
+  let route = URL.concat(`api/doctor/get?id=${id}`);
+  console.log('doc get by id Request : ', route);
+  let apiRes = null;
+  try {
+    apiRes = await axios({
+      method: 'GET',
+      url: route,
+    });
+  } catch (err) {
+    apiRes = err;
+    return apiRes;
+  } finally {
+    return apiRes;
+  }
+}
+
 export async function resetPasswordApiCall(obj) {
   let route = URL.concat('api/user-account/reset-password');
+  console.log(`reset password Request : ${route} REQUEST`, obj);
+  let apiRes = null;
+  try {
+    apiRes = await axios({
+      method: 'POST',
+      url: route,
+      data: obj,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+  } catch (err) {
+    apiRes = err;
+    return apiRes;
+  } finally {
+    return apiRes;
+  }
+}
+
+export async function patientContactUsApiCall(obj) {
+  let route = URL.concat('api/contact-us/add-or-edit');
   console.log(`reset password Request : ${route} REQUEST`, obj);
   let apiRes = null;
   try {

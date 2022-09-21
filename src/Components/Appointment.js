@@ -1,13 +1,23 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {View, Text, TouchableOpacity, StyleSheet, Image} from 'react-native';
 import Menu from '../Assets/menu';
 import Fonts from '../Constants/Fonts';
 import Theme from '../Constants/Theme';
 import CustomText from './customText';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Appointment = props => {
   const {onPress, dateLabel, nameLabel, source} = props;
+  let [userData, setuserData] = useState('');
+
+  useEffect(() => {
+    AsyncStorage.getItem('user_data').then(response => {
+      setuserData((userData = JSON.parse(response)));
+      console.log('userdata', userData);
+    });
+  }, []);
+
   return (
     <View style={{...props.customView}}>
       <View>

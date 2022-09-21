@@ -67,95 +67,6 @@ const PatientDashboard = props => {
       });
   };
 
-  const [data, setData] = useState([
-    {
-      id: 1,
-      Icon: <Dental width={30} height={30} />,
-      category: 'Dental',
-      total: '10 Docter',
-    },
-    {
-      id: 2,
-      Icon: <Hearct width={30} height={30} />,
-      category: 'Heart',
-      total: '26 Docter',
-    },
-    {
-      id: 3,
-      Icon: <Brain width={30} height={30} />,
-      category: 'Brain',
-      total: '15 Docter',
-    },
-    {
-      id: 4,
-      Icon: <Dental width={30} height={30} />,
-      category: 'Dental',
-      total: '10 Docter',
-    },
-    {
-      id: 5,
-      Icon: <Hearct width={30} height={30} />,
-      category: 'Heart',
-      total: '26 Docter',
-    },
-    {
-      id: 6,
-      Icon: <Brain width={30} height={30} />,
-      category: 'Brain',
-      total: '15 Docter',
-    },
-  ]);
-  const [info, setInfo] = useState([
-    {
-      id: 1,
-      Image: require('../../Assets/Doc2.png'),
-      DocName: 'Dr. Hamza',
-      Specialization: 'Bone Specialist',
-      star: require('../../Assets/Star.png'),
-      rating: '2.4',
-    },
-    {
-      id: 2,
-      Image: require('../../Assets/Doc2.png'),
-      DocName: 'Dr. Frasat',
-      Specialization: 'Heart Specialist',
-      star: require('../../Assets/Star.png'),
-      rating: '2.9',
-    },
-    {
-      id: 3,
-      Image: require('../../Assets/Doc2.png'),
-      DocName: 'Dr. Sarmad',
-      Specialization: 'Emergency Physician',
-      star: require('../../Assets/Star.png'),
-      rating: '3.4',
-    },
-    {
-      id: 4,
-      Image: require('../../Assets/Doc2.png'),
-      DocName: 'Dr. Daniyal',
-      Specialization: 'Eyes Specialist',
-      star: require('../../Assets/Star.png'),
-      rating: '2.2',
-    },
-    {
-      id: 5,
-      Image: require('../../Assets/Doc2.png'),
-      DocName: 'Dr. Ahmed',
-      Specialization: 'Dentist Specialist',
-      star: require('../../Assets/Star.png'),
-      rating: '4.4',
-    },
-    {
-      id: 6,
-      Image: require('../../Assets/Doc2.png'),
-      DocName: 'Dr. Qaiser',
-      Specialization: 'Skin Specialist',
-      star: require('../../Assets/Star.png'),
-      rating: '3.7',
-    },
-  ]);
-
   return (
     <View style={styles.Container}>
       <View style={styles.headerWrapper}>
@@ -268,16 +179,22 @@ const PatientDashboard = props => {
             renderItem={({item}) => (
               <TouchableOpacity
                 activeOpacity={0.8}
-                onPress={() => props.navigation.push('BookAppointmentScreen')}>
+                onPress={() =>
+                  props.navigation.push('BookAppointmentScreen', {id: item.id})
+                }>
                 <View style={styles.docWrapper}>
                   <View style={{flexDirection: 'row'}}>
                     <Image
                       source={
-                        !isNullOrEmpty(item.profile_image)
-                          ? {uri: URL.concat(item.profile_image)}
-                          : item.imageStyle
+                        // {uri: URL.concat(item.profile_image)}
+                        item
+                          ? item.profile_image
+                            ? {uri: URL.concat(item.profile_image)}
+                            : require('../../Assets/EmptyProfile.png')
+                          : require('../../Assets/EmptyProfile.png')
                       }
-                      style={styles.imageStyle}
+                      // style={styles.imageStyle}
+                      style={{height: 60, width: 60, alignSelf: 'center'}}
                     />
                     <View style={styles.wrapText}>
                       <Text style={styles.DocNameText}>{item.name}</Text>

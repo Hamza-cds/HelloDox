@@ -22,14 +22,26 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import Octicons from 'react-native-vector-icons/Octicons';
 import Fonts from '../../Constants/Fonts';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import SearchableDropdown from 'react-native-searchable-dropdown';
+import {getCategoryDataApiCall, doctorSignUpApiCall} from '../../Apis/Repo';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import Entypo from 'react-native-vector-icons/Entypo';
+import {isNullOrEmpty} from '../../Constants/TextUtils';
 
 const EditProfileDocter = props => {
-  const [userData, setuserData] = useState('');
+  let [userData, setuserData] = useState('');
   let [imageName, setImageName] = useState('');
   const [image, setImage] = useState('');
-  console.log('imageName', imageName);
-  console.log('image', image);
-  console.log('userdata', userData);
+  let [category, setCategory] = useState();
+  let [selectedItems, setSelectedItems] = useState('');
+  const [name, setName] = useState('');
+  const [diseasesRelatedToPhysician, setDiseasesRelatedToPhysician] =
+    useState('');
+  const [workExperience, setWorkExperience] = useState('');
+  const [aboutMe, setAboutMe] = useState('');
+  const [fee, setFee] = useState('');
+  const [days, setDays] = useState('');
+  console.log('selectedItems', selectedItems);
 
   useEffect(() => {
     AsyncStorage.getItem('user_data').then(response => {
@@ -37,6 +49,24 @@ const EditProfileDocter = props => {
       console.log('userdata', userData);
     });
   }, []);
+
+  useEffect(() => {
+    getCategoryData();
+  }, []);
+
+  const getCategoryData = () => {
+    getCategoryDataApiCall()
+      .then(res => {
+        console.log('res', res);
+        if (res.status == 200) {
+          setCategory((category = res.data.result));
+          console.log('category', category);
+        } else console.warn('No data found');
+      })
+      .catch(err => {
+        console.log('err', err);
+      });
+  };
 
   const UploadImage = () => {
     ImagePicker.openPicker({
@@ -52,6 +82,57 @@ const EditProfileDocter = props => {
       setImage(image);
     });
   };
+
+  const onConfirm = () => {
+    let formdata = new FormData();
+    formdata.append('id', userData.doctor.id);
+    formdata.append('user_id_fk', userData.doctor.user_id_fk);
+    formdata.append('role', 2);
+    formdata.append('name', name ? name : userData.doctor.name);
+    formdata.append('email', userData.doctor.email);
+    // formdata.append('number', userData.doctor.number);
+    formdata.append('city', userData.doctor.city);
+    formdata.append('address', userData.doctor.address);
+    formdata.append(
+      'category_id_fk',
+      selectedItems.id ? selectedItems.id : userData.doctor.category_id_fk,
+    );
+    formdata.append('fee', fee ? fee : userData.doctor.fee);
+    formdata.append('days', days ? days : userData.doctor.days);
+    formdata.append('about', aboutMe ? aboutMe : userData.doctor.about);
+
+    {
+      !isNullOrEmpty(image)
+        ? formdata.append('file_profile_image', {
+            uri: image.path,
+            name: imageName,
+            type: image.mime,
+          })
+        : formdata.append(
+            'file_profile_image',
+            userData.doctor.file_profile_image,
+          );
+    }
+
+    console.log('formdata', formdata);
+
+    doctorSignUpApiCall(formdata)
+      .then(data => {
+        console.log('data', data);
+
+        // if (data.data.status == 200 && data.data.success == true) {
+        //   AsyncStorage.setItem('user_data', JSON.stringify(data.data.result));
+        //   props.navigation.push('DocterLogin');
+        // } else {
+        //   alert(data.message);
+        //   console.log('ADD');
+        // }
+      })
+      .catch(err => {
+        console.log('err', err);
+      });
+  };
+
   return (
     <View style={styles.Container}>
       <View style={styles.headerWrapper}>
@@ -59,13 +140,6 @@ const EditProfileDocter = props => {
           MenuStyle={styles.MenuStyle}
           onPress={() => props.navigation.openDrawer()}
         />
-        <View style={styles.notifyWrap}>
-          <Notify width={30} height={30} style={styles.Notify} />
-          <Image
-            style={styles.ProfileImage1}
-            source={require('../../Assets/user_photo.png')}
-          />
-        </View>
       </View>
       <View style={styles.InnerContainer}>
         <ScrollView>
@@ -77,7 +151,11 @@ const EditProfileDocter = props => {
           <View style={styles.PicView}>
             <Image
               style={styles.ProfileImage}
-              source={require('../../Assets/user-photo.png')}
+              source={
+                image
+                  ? {uri: image.path}
+                  : require('../../Assets/EmptyProfile.png')
+              }
             />
             <TouchableOpacity onPress={UploadImage}>
               <View style={styles.CamView}>
@@ -99,6 +177,9 @@ const EditProfileDocter = props => {
               CustomText={styles.InputText}
               placeholder={'Name'}
               placeholderTextColor={Theme.black}
+              onChange={value => {
+                setName(value);
+              }}
             />
             <TextInputs
               icon={
@@ -116,33 +197,83 @@ const EditProfileDocter = props => {
             />
             <TextInputs
               icon={
-                <Feather
+                <Ionicons
                   style={styles.iconStyle}
-                  name={'lock'}
+                  name={'cash-outline'}
                   size={22}
                   color={Theme.black}
                 />
               }
-              CustomView={styles.WrapViewPass}
+              CustomView={styles.WrapViewEmail}
               CustomText={styles.InputText}
-              placeholder={'Password'}
+              placeholder={'Fee'}
               placeholderTextColor={Theme.black}
+              onChange={value => {
+                setFee(value);
+              }}
             />
             <TextInputs
               icon={
-                <Feather
+                <Entypo
                   style={styles.iconStyle}
-                  name={'lock'}
+                  name={'back-in-time'}
                   size={22}
                   color={Theme.black}
                 />
               }
-              CustomView={styles.WrapViewPass}
+              CustomView={styles.WrapViewEmail}
               CustomText={styles.InputText}
-              placeholder={'Confirm Password'}
+              placeholder={'Days'}
               placeholderTextColor={Theme.black}
+              onChange={value => {
+                setDays(value);
+              }}
             />
-            <TextInputs
+
+            <SearchableDropdown
+              multi={true}
+              selectedItems={selectedItems}
+              onItemSelect={item => {
+                setSelectedItems(item);
+              }}
+              onTextChange={text => console.log(text)}
+              containerStyle={{
+                padding: 5,
+                width: '100%',
+                paddingHorizontal: 10,
+                marginTop: 10,
+                // height: 50,
+                maxHeight: 220,
+              }}
+              // itemsContainerStyle={{
+              //   maxHeight: 100,
+              // }}
+              textInputStyle={{
+                padding: 12,
+                borderWidth: 1,
+                borderColor: '#ccc',
+                backgroundColor: '#FAF7F6',
+              }}
+              itemStyle={{
+                padding: 10,
+                marginTop: 2,
+                backgroundColor: '#FAF9F8',
+                borderColor: '#bbb',
+                borderWidth: 1,
+              }}
+              itemTextStyle={{
+                color: '#222',
+              }}
+              items={category}
+              // defaultIndex={2}
+              placeholder={
+                selectedItems ? selectedItems.name : 'search Specialization'
+              }
+              listProps={{nestedScrollEnabled: true}}
+              resetValue={false}
+            />
+
+            {/* <TextInputs
               icon={
                 <Octicons
                   style={styles.iconStyle}
@@ -155,21 +286,22 @@ const EditProfileDocter = props => {
               CustomText={styles.InputText}
               placeholder={'Specialization'}
               placeholderTextColor={Theme.black}
-            />
-            <TextInput
+            /> */}
+            {/* <TextInput
               multiline={true}
-              numberOfLines={10}
+              // numberOfLines={10}
               placeholder={'Diseases Related to Physician'}
               placeholderTextColor={Theme.black}
               style={styles.textArea}
-            />
-            <TextInput
-              multiline={true}
-              numberOfLines={10}
-              placeholder={'Work Experience'}
-              placeholderTextColor={Theme.black}
-              style={{
-                height: 150,
+              onChange={value => {
+                setDiseasesRelatedToPhysician(value);
+                console.log(value);
+              }}
+            /> */}
+
+            <TextInputs
+              CustomView={{
+                height: 100,
                 textAlignVertical: 'top',
                 marginVertical: 10,
                 backgroundColor: Theme.white,
@@ -181,14 +313,17 @@ const EditProfileDocter = props => {
                 fontSize: Theme.scale(14),
                 color: Theme.black,
               }}
-            />
-            <TextInput
-              multiline={true}
-              numberOfLines={10}
-              placeholder={'About Me'}
+              CustomText={styles.InputText}
+              placeholder={'Diseases Related to Physician'}
               placeholderTextColor={Theme.black}
-              style={{
-                height: 200,
+              onChange={value => {
+                setDiseasesRelatedToPhysician(value);
+                console.log(value);
+              }}
+            />
+            <TextInputs
+              CustomView={{
+                height: 100,
                 textAlignVertical: 'top',
                 marginVertical: 10,
                 backgroundColor: Theme.white,
@@ -199,6 +334,35 @@ const EditProfileDocter = props => {
                 fontFamily: Fonts.HELODOX_REGULAR_FONT,
                 fontSize: Theme.scale(14),
                 color: Theme.black,
+              }}
+              CustomText={styles.InputText}
+              placeholder={'Work Experience'}
+              placeholderTextColor={Theme.black}
+              onChange={value => {
+                setWorkExperience(value);
+                console.log(value);
+              }}
+            />
+            <TextInputs
+              CustomView={{
+                height: 100,
+                textAlignVertical: 'top',
+                marginVertical: 10,
+                backgroundColor: Theme.white,
+                elevation: 3,
+                paddingLeft: 10,
+                borderRadius: 10,
+                marginHorizontal: 10,
+                fontFamily: Fonts.HELODOX_REGULAR_FONT,
+                fontSize: Theme.scale(14),
+                color: Theme.black,
+              }}
+              CustomText={styles.InputText}
+              placeholder={'About Me'}
+              placeholderTextColor={Theme.black}
+              onChange={value => {
+                setAboutMe(value);
+                console.log(value);
               }}
             />
           </View>
@@ -206,7 +370,10 @@ const EditProfileDocter = props => {
             CustomButton={styles.CustomButton}
             CustomText={styles.CustomText}
             label={'Confirm'}
-            onPress={() => props.navigation.push('DocterLogin')}
+            onPress={() => {
+              onConfirm();
+              // props.navigation.push('DocterLogin')
+            }}
           />
         </ScrollView>
       </View>

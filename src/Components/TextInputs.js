@@ -16,7 +16,7 @@ const TextInputs = props => {
   } = props;
   return (
     <View style={{...props.CustomView}}>
-      {icon}
+      {icon ? icon : null}
 
       <TextInput
         editable={editable}
