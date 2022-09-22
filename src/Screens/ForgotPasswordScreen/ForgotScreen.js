@@ -6,7 +6,7 @@ import Fontisto from 'react-native-vector-icons/Fontisto';
 import Theme from '../../Constants/Theme';
 import Button from '../../Components/Button';
 import CustomText from '../../Components/customText';
-import {generateCodeApiCall} from '../../Apis/Repo';
+import {generateCodeApiCall} from '../../APIs/Repo';
 import {isNullOrEmpty, stringsNotEqual} from '../../Constants/TextUtils';
 import Feather from 'react-native-vector-icons/Feather';
 

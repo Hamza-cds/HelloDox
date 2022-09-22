@@ -20,7 +20,7 @@ import Twitter from '../../Assets/twitter';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Octicons from 'react-native-vector-icons/Octicons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import {doctorLoginApiCall, patientSignUpApiCall} from '../../Apis/Repo';
+import {doctorLoginApiCall, patientSignUpApiCall} from '../../APIs/Repo';
 import {isNullOrEmpty} from '../../Constants/TextUtils';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 

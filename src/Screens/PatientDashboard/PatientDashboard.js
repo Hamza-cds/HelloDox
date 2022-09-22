@@ -18,7 +18,7 @@ import Dental from '../../Assets/dental_Icon';
 import Hearct from '../../Assets/heart_Icon';
 import Brain from '../../Assets/brain_Icon';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {getCategoryDataApiCall, getDoctorDataApiCall} from '../../Apis/Repo';
+import {getCategoryDataApiCall, getDoctorDataApiCall} from '../../APIs/Repo';
 import {URL} from '../../Constants/Constant';
 import {isNullOrEmpty} from '../../Constants/TextUtils';
 

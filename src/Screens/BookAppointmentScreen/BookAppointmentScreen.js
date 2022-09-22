@@ -8,7 +8,7 @@ import Feather from 'react-native-vector-icons/Feather';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Button from '../../Components/Button';
-import {getDoctorDataByIDApiCall} from '../../Apis/Repo';
+import {getDoctorDataByIDApiCall} from '../../APIs/Repo';
 import {URL} from '../../Constants/Constant';
 
 const BookAppointmentScreen = props => {

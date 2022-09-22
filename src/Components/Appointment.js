@@ -54,7 +54,9 @@ const styles = StyleSheet.create({
     fontSize: Theme.scale(14),
     color: Theme.white,
     fontFamily: Fonts.HELODOX_SEMIBOLD_FONT,
-    marginVertical: 5,
+    marginVertical: 10,
+    // backgroundColor: 'red',
+    width: 155,
   },
   divider: {
     height: 1,

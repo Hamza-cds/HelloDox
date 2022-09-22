@@ -20,7 +20,7 @@ import ImagePicker from 'react-native-image-crop-picker';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {isNullOrEmpty} from '../../Constants/TextUtils';
-import {patientSignUpApiCall} from '../../Apis/Repo';
+import {patientSignUpApiCall} from '../../APIs/Repo';
 import {URL} from '../../Constants/Constant';
 
 const EditProfilePatient = props => {

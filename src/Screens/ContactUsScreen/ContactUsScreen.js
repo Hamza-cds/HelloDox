@@ -17,7 +17,7 @@ import Fontisto from 'react-native-vector-icons/Fontisto';
 import Theme from '../../Constants/Theme';
 import Button from '../../Components/Button';
 import Fonts from '../../Constants/Fonts';
-import {patientContactUsApiCall} from '../../Apis/Repo';
+import {patientContactUsApiCall} from '../../APIs/Repo';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const ContactUsScreen = props => {

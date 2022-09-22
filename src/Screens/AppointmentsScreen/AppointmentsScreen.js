@@ -32,6 +32,33 @@ const AppointmentsScreen = props => {
   const onPageScroolEvent = event => {
     setSelectedPage(event.nativeEvent.position);
   };
+
+  const [info, setInfo] = useState([
+    {
+      id: 1,
+      Name: 'DR. ALISHA MEHMOOD',
+      Image: require('../../Assets/Appointment.png'),
+      Date: 'Monday, 21 June at 09:20 AM',
+    },
+    {
+      id: 2,
+      Name: 'DR. SARMAD RAZA',
+      Image: require('../../Assets/Appointment2.png'),
+      Date: 'Monday, 21 June at 09:20 AM',
+    },
+    {
+      id: 3,
+      Name: 'DR. SANIA MUGHAL',
+      Image: require('../../Assets/Appointment2.png'),
+      Date: 'Monday, 21 June at 09:20 AM',
+    },
+    {
+      id: 4,
+      Name: 'DR. ALISHA MEHMOOD',
+      Image: require('../../Assets/Appointment.png'),
+      Date: 'Monday, 21 June at 09:20 AM',
+    },
+  ]);
   return (
     <View style={styles.Container}>
       <View style={styles.headerWrapper}>
@@ -110,14 +137,37 @@ const AppointmentsScreen = props => {
             onPageScroolEvent(event);
           }}>
           <View key="1">
-            <ScrollView>
-              <Appointment
-                customView={styles.customView}
-                nameLabel={'DR. ALISHA\nMEHMOOD'}
-                dateLabel={'Monday, 21 June at 09:20 AM'}
-                source={require('../../Assets/Appointment.png')}
+            {/* <ScrollView> */}
+
+            <View
+              style={{
+                marginTop: 5,
+                flex: 1,
+              }}>
+              <FlatList
+                data={info}
+                style={{}}
+                keyExtractor={item => item.id}
+                renderItem={({item}) => (
+                  <>
+                    <Appointment
+                      customView={styles.customView}
+                      nameLabel={item.Name}
+                      dateLabel={item.Date}
+                      source={item.Image}
+                    />
+                  </>
+                )}
               />
-              <Appointment
+            </View>
+
+            {/* <Appointment
+              customView={styles.customView}
+              nameLabel={'DR. ALISHA\nMEHMOOD'}
+              dateLabel={'Monday, 21 June at 09:20 AM'}
+              source={require('../../Assets/Appointment.png')}
+            /> */}
+            {/* <Appointment
                 customView={styles.customView}
                 nameLabel={'DR. SARMAD\nRAZA'}
                 dateLabel={'Monday, 21 June at 10:00 AM'}
@@ -128,11 +178,11 @@ const AppointmentsScreen = props => {
                 nameLabel={'DR. SANIA\nMUGHAL'}
                 dateLabel={'Monday, 21 June at 09:20 AM'}
                 source={require('../../Assets/Appointment.png')}
-              />
-            </ScrollView>
+              /> */}
+            {/* </ScrollView> */}
           </View>
           <View key="2">
-            <ScrollView>
+            {/* <ScrollView>
               <TouchableOpacity
                 activeOpacity={0.8}
                 onPress={() => props.navigation.push('RatingScreen')}>
@@ -143,7 +193,33 @@ const AppointmentsScreen = props => {
                   source={require('../../Assets/Appointment.png')}
                 />
               </TouchableOpacity>
-            </ScrollView>
+            </ScrollView> */}
+
+            <View
+              style={{
+                marginTop: 5,
+                flex: 1,
+              }}>
+              <FlatList
+                data={info}
+                style={{}}
+                keyExtractor={item => item.id}
+                renderItem={({item}) => (
+                  <>
+                    <TouchableOpacity
+                      activeOpacity={0.8}
+                      onPress={() => props.navigation.push('RatingScreen')}>
+                      <Appointment
+                        customView={styles.customView}
+                        nameLabel={item.Name}
+                        dateLabel={item.Date}
+                        source={item.Image}
+                      />
+                    </TouchableOpacity>
+                  </>
+                )}
+              />
+            </View>
           </View>
         </PagerView>
       </View>

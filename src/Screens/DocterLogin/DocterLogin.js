@@ -26,7 +26,7 @@ import {
   doctorSignUpApiCall,
   doctorLoginApiCall,
   getCategoryDataApiCall,
-} from '../../Apis/Repo';
+} from '../../APIs/Repo';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const DocterLogin = props => {

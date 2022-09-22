@@ -8,7 +8,7 @@ import Button from '../../Components/Button';
 import CodeComponent from '../../Components/CodeComponent';
 import CustomText from '../../Components/customText';
 import {isNullOrEmpty} from '../../Constants/TextUtils';
-import {resetPasswordApiCall} from '../../Apis/Repo';
+import {resetPasswordApiCall} from '../../APIs/Repo';
 
 const VarifyScreen = props => {
   console.log('props', props);

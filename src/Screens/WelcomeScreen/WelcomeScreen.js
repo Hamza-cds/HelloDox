@@ -14,7 +14,7 @@ import Twitter from '../../Assets/twitter';
 import Category from '../../Assets/Docter';
 import Patient from '../../Assets/Patient';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {getCategoryDataApiCall} from '../../Apis/Repo';
+import {getCategoryDataApiCall} from '../../APIs/Repo';
 
 const WelcomeScreen = props => {
   let [category, setCategory] = useState();

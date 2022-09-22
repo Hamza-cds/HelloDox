@@ -23,7 +23,7 @@ import Octicons from 'react-native-vector-icons/Octicons';
 import Fonts from '../../Constants/Fonts';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import SearchableDropdown from 'react-native-searchable-dropdown';
-import {getCategoryDataApiCall, doctorSignUpApiCall} from '../../Apis/Repo';
+import {getCategoryDataApiCall, doctorSignUpApiCall} from '../../APIs/Repo';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Entypo from 'react-native-vector-icons/Entypo';
 import {isNullOrEmpty} from '../../Constants/TextUtils';
