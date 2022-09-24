@@ -37,7 +37,8 @@ const styles = StyleSheet.create({
   docView: {
     flexDirection: Theme.row,
     marginLeft: 25,
-    marginVertical: 25,
+    marginTop: 45,
+    marginBottom: 10,
   },
   DocImage: {
     height: 80,

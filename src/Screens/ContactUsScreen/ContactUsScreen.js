@@ -35,7 +35,7 @@ const ContactUsScreen = props => {
 
   const onSubmit = () => {
     let obj = {
-      id: userData.id,
+      id: 0,
       name: name,
       email: email,
       message: msg,

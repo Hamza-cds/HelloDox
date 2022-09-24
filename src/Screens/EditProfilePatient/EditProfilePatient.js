@@ -124,8 +124,10 @@ const EditProfilePatient = props => {
             source={
               image
                 ? {uri: image.path}
-                : userData.patient.profile_image
-                ? {uri: URL.concat(userData.patient.profile_image)}
+                : userData.patient
+                ? userData.patient.profile_image
+                  ? {uri: URL.concat(userData.patient.profile_image)}
+                  : require('../../Assets/user-photo.png')
                 : require('../../Assets/user-photo.png')
             }
           />

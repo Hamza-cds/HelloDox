@@ -18,7 +18,10 @@ import Dental from '../../Assets/dental_Icon';
 import Hearct from '../../Assets/heart_Icon';
 import Brain from '../../Assets/brain_Icon';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {getCategoryDataApiCall, getDoctorDataApiCall} from '../../Apis/Repo';
+import {
+  getCategoryDataApiCall,
+  getDoctorSearchByNameAndCategory,
+} from '../../Apis/Repo';
 import {URL} from '../../Constants/Constant';
 import {isNullOrEmpty} from '../../Constants/TextUtils';
 
@@ -26,6 +29,9 @@ const PatientDashboard = props => {
   let [userData, setuserData] = useState('');
   let [category, setCategory] = useState([]);
   let [docList, setDocList] = useState([]);
+  let [name, setName] = useState('');
+  let [categoryID, setCategoryID] = useState(0);
+  console.log('name', name);
 
   useEffect(() => {
     AsyncStorage.getItem('user_data').then(response => {
@@ -54,7 +60,8 @@ const PatientDashboard = props => {
   };
 
   const getDoctorData = () => {
-    getDoctorDataApiCall()
+    console.log('name', name);
+    getDoctorSearchByNameAndCategory(name, categoryID)
       .then(res => {
         console.log('res', res);
         if (res.status == 200) {
@@ -116,12 +123,21 @@ const PatientDashboard = props => {
           />
         </View>
         <View style={styles.InputBoxWrapper}>
-          <TextInput
-            placeholder="Search...."
-            placeholderTextColor={'#ABABAB'}
-            style={styles.textInputStyle}
-          />
-          <TouchableOpacity>
+          <View style={{marginLeft: 20}}>
+            <TextInputs
+              placeholder={'search doctor by name'}
+              placeholderTextColor={'#ABABAB'}
+              style={{marginLeft: 20, width: '100%'}}
+              onChange={value => {
+                setName(value);
+              }}
+            />
+          </View>
+          <TouchableOpacity
+            onPress={() => {
+              setCategoryID((categoryID = 0));
+              getDoctorData();
+            }}>
             <View style={styles.searchWrapper}>
               <Feather
                 style={styles.iconStyle}
@@ -146,7 +162,11 @@ const PatientDashboard = props => {
               data={category}
               keyExtractor={item => item.id}
               renderItem={({item}) => (
-                <TouchableOpacity>
+                <TouchableOpacity
+                  onPress={() => {
+                    setCategoryID((categoryID = item.id));
+                    getDoctorData();
+                  }}>
                   <View style={styles.FlatView}>
                     <Image
                       style={{height: 30, width: 30}}
@@ -198,9 +218,9 @@ const PatientDashboard = props => {
                     />
                     <View style={styles.wrapText}>
                       <Text style={styles.DocNameText}>{item.name}</Text>
-                      <Text style={styles.specialText}>
+                      {/* <Text style={styles.specialText}>
                         {item.category.name}
-                      </Text>
+                      </Text> */}
                     </View>
                   </View>
                   <View style={{flexDirection: 'row'}}>

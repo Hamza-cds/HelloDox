@@ -27,6 +27,7 @@ import {getCategoryDataApiCall, doctorSignUpApiCall} from '../../Apis/Repo';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Entypo from 'react-native-vector-icons/Entypo';
 import {isNullOrEmpty} from '../../Constants/TextUtils';
+import {URL} from '../../Constants/Constant';
 
 const EditProfileDocter = props => {
   let [userData, setuserData] = useState('');
@@ -85,21 +86,31 @@ const EditProfileDocter = props => {
 
   const onConfirm = () => {
     let formdata = new FormData();
-    formdata.append('id', userData.doctor.id);
-    formdata.append('user_id_fk', userData.doctor.user_id_fk);
+    formdata.append('id', userData.id);
+    formdata.append('user_id_fk', userData.user_id_fk);
     formdata.append('role', 2);
-    formdata.append('name', name ? name : userData.doctor.name);
-    formdata.append('email', userData.doctor.email);
+    formdata.append('name', name ? name : userData.name);
+    formdata.append('email', userData.email);
     // formdata.append('number', userData.doctor.number);
-    formdata.append('city', userData.doctor.city);
-    formdata.append('address', userData.doctor.address);
+    formdata.append('city', userData.city);
+    formdata.append('address', userData.address);
+    formdata.append(
+      'diseases_related_to_physian',
+      diseasesRelatedToPhysician
+        ? diseasesRelatedToPhysician
+        : userData.diseases_related_to_physian,
+    );
+    formdata.append(
+      'work_experience',
+      workExperience ? workExperience : userData.work_experience,
+    );
     formdata.append(
       'category_id_fk',
-      selectedItems.id ? selectedItems.id : userData.doctor.category_id_fk,
+      selectedItems.id ? selectedItems.id : userData.category_id_fk,
     );
-    formdata.append('fee', fee ? fee : userData.doctor.fee);
-    formdata.append('days', days ? days : userData.doctor.days);
-    formdata.append('about', aboutMe ? aboutMe : userData.doctor.about);
+    formdata.append('fee', fee ? fee : userData.fee);
+    formdata.append('days', days ? days : userData.days);
+    formdata.append('about', aboutMe ? aboutMe : userData.about);
 
     {
       !isNullOrEmpty(image)
@@ -154,7 +165,11 @@ const EditProfileDocter = props => {
               source={
                 image
                   ? {uri: image.path}
-                  : require('../../Assets/EmptyProfile.png')
+                  : userData.doctor
+                  ? userData.doctor.profile_image
+                    ? {uri: URL.concat(userData.doctor.profile_image)}
+                    : require('../../Assets/user-photo.png')
+                  : require('../../Assets/user-photo.png')
               }
             />
             <TouchableOpacity onPress={UploadImage}>
@@ -177,6 +192,7 @@ const EditProfileDocter = props => {
               CustomText={styles.InputText}
               placeholder={'Name'}
               placeholderTextColor={Theme.black}
+              text={userData ? (userData.name ? userData.name : null) : null}
               onChange={value => {
                 setName(value);
               }}
@@ -193,6 +209,7 @@ const EditProfileDocter = props => {
               CustomView={styles.WrapViewPass}
               CustomText={styles.InputText}
               placeholder={'Email'}
+              text={userData ? (userData.email ? userData.email : null) : null}
               placeholderTextColor={Theme.black}
             />
             <TextInputs
@@ -207,6 +224,7 @@ const EditProfileDocter = props => {
               CustomView={styles.WrapViewEmail}
               CustomText={styles.InputText}
               placeholder={'Fee'}
+              text={userData ? (userData.fee ? userData.fee : null) : null}
               placeholderTextColor={Theme.black}
               onChange={value => {
                 setFee(value);
@@ -224,6 +242,7 @@ const EditProfileDocter = props => {
               CustomView={styles.WrapViewEmail}
               CustomText={styles.InputText}
               placeholder={'Days'}
+              text={userData ? (userData.days ? userData.days : null) : null}
               placeholderTextColor={Theme.black}
               onChange={value => {
                 setDays(value);
@@ -315,6 +334,13 @@ const EditProfileDocter = props => {
               }}
               CustomText={styles.InputText}
               placeholder={'Diseases Related to Physician'}
+              text={
+                userData
+                  ? userData.diseases_related_to_physian
+                    ? userData.diseases_related_to_physian
+                    : null
+                  : null
+              }
               placeholderTextColor={Theme.black}
               onChange={value => {
                 setDiseasesRelatedToPhysician(value);
@@ -337,6 +363,13 @@ const EditProfileDocter = props => {
               }}
               CustomText={styles.InputText}
               placeholder={'Work Experience'}
+              text={
+                userData
+                  ? userData.work_experience
+                    ? userData.work_experience
+                    : null
+                  : null
+              }
               placeholderTextColor={Theme.black}
               onChange={value => {
                 setWorkExperience(value);
@@ -359,6 +392,7 @@ const EditProfileDocter = props => {
               }}
               CustomText={styles.InputText}
               placeholder={'About Me'}
+              text={userData ? (userData.about ? userData.about : null) : null}
               placeholderTextColor={Theme.black}
               onChange={value => {
                 setAboutMe(value);

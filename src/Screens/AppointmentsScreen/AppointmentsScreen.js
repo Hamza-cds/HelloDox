@@ -1,4 +1,4 @@
-import React, {useState, useRef} from 'react';
+import React, {useState, useRef, useEffect} from 'react';
 import {
   View,
   Text,
@@ -16,11 +16,21 @@ import CustomText from '../../Components/customText';
 import PagerView from 'react-native-pager-view';
 import Theme from '../../Constants/Theme';
 import Appointment from '../../Components/Appointment';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {URL} from '../../Constants/Constant';
+import {getAppointmentDoctorAndPatient} from '../../Apis/Repo';
 
 const AppointmentsScreen = props => {
   const pagerRef = useRef(null);
-
   const [selectedPage, setSelectedPage] = useState(0);
+  let [userData, setuserData] = useState('');
+
+  useEffect(() => {
+    AsyncStorage.getItem('user_data').then(response => {
+      setuserData((userData = JSON.parse(response)));
+      console.log('userdata', userData);
+    });
+  }, []);
 
   const handlePageChange = pageNumber => {
     // setSelectedPage(pageNumber);
@@ -39,13 +49,6 @@ const AppointmentsScreen = props => {
           MenuStyle={styles.MenuStyle}
           onPress={() => props.navigation.openDrawer()}
         />
-        <View style={styles.notifyWrap}>
-          <Notify width={30} height={30} style={styles.Notify} />
-          <Image
-            style={styles.ProfileImage}
-            source={require('../../Assets/user_photo.png')}
-          />
-        </View>
       </View>
       <View style={styles.InnerContainer}>
         <CustomText
@@ -55,19 +58,37 @@ const AppointmentsScreen = props => {
         />
         <View style={styles.userView}>
           <Image
-            style={styles.userImage}
-            source={require('../../Assets/user-photo.png')}
+            style={{height: 130, width: 130, borderRadius: 10}}
+            source={
+              userData
+                ? userData.patient
+                  ? userData.patient.profile_image
+                    ? {uri: URL.concat(userData.patient.profile_image)}
+                    : require('../../Assets/user-photo.png')
+                  : require('../../Assets/user-photo.png')
+                : require('../../Assets/user-photo.png')
+            }
           />
           <View style={styles.wrapView}>
             <CustomText
               SimpleText={true}
               customStyle={styles.userTextt}
-              label={'Qaiser Malik'}
+              label={
+                userData
+                  ? userData.patient
+                    ? userData.patient.name
+                      ? userData.patient.name
+                      : 'Name'
+                    : 'Name'
+                  : 'Name'
+              }
             />
             <CustomText
               SimpleText={true}
               customStyle={styles.EmailText}
-              label={'qaiser.riaz@gmail.com'}
+              label={
+                userData ? (userData.email ? userData.email : 'email') : 'email'
+              }
             />
           </View>
         </View>

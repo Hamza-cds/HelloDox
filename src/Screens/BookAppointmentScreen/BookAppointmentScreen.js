@@ -222,7 +222,11 @@ const BookAppointmentScreen = props => {
             CustomButton={styles.CustomButton}
             CustomText={styles.CustomText}
             label={'Book Appoitment'}
-            onPress={() => props.navigation.push('AppointmentDateScreen')}
+            onPress={() =>
+              props.navigation.push('AppointmentDateScreen', {
+                DATA: docData,
+              })
+            }
           />
         </View>
         <View style={styles.workWrap}>
@@ -234,13 +238,19 @@ const BookAppointmentScreen = props => {
           <CustomText
             SimpleText={true}
             customStyle={styles.orthoText}
-            label={'MBBS,FCPS (Orthopedic Surgery)'}
+            label={
+              docData
+                ? docData.work_experience
+                  ? docData.work_experience
+                  : 'no data'
+                : 'no data'
+            }
           />
-          <CustomText
+          {/* <CustomText
             SimpleText={true}
             customStyle={styles.proText}
             label={'Assistant Professor'}
-          />
+          /> */}
         </View>
         <View style={styles.aboutWrap}>
           <CustomText
