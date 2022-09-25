@@ -107,7 +107,7 @@ const styles = StyleSheet.create({
   },
   upBtn: {
     height: 50,
-    width: 150,
+    width: 140,
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 25,
@@ -115,7 +115,7 @@ const styles = StyleSheet.create({
   },
   pastBtn: {
     height: 50,
-    width: 150,
+    width: 140,
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 25,

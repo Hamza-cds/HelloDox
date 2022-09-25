@@ -219,14 +219,19 @@ const PatientDashboard = props => {
                     />
                     <View style={styles.wrapText}>
                       <Text style={styles.DocNameText}>{item.name}</Text>
-                      {/* <Text style={styles.specialText}>
+                      <Text style={styles.specialText}>
                         {item.category.name}
-                      </Text> */}
+                      </Text>
                     </View>
                   </View>
                   <View style={{flexDirection: 'row'}}>
-                    <Image source={item.star} style={styles.imageStyle} />
-                    <Text style={styles.ratingText}>{item.rating}</Text>
+                    <Image
+                      source={require('../../Assets/Star.png')}
+                      style={styles.imageStyle}
+                    />
+                    <Text style={styles.ratingText}>
+                      {item.rating == 0 ? '5' : item.rating}
+                    </Text>
                   </View>
                 </View>
               </TouchableOpacity>

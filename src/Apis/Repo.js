@@ -176,9 +176,15 @@ export async function patientContactUsApiCall(obj) {
   }
 }
 
-export async function getAppointmentDoctorAndPatient(patientID, doctorID) {
+export async function getAppointmentDoctorAndPatient(
+  doctorID,
+  patientID,
+  status,
+  Type,
+  currentDate,
+) {
   let route = URL.concat(
-    `api/appointment/get-by-doctor-patient-status?patient=${patientID}&doctor=${doctorID}`,
+    `api/appointment/get-by-doctor-patient-status?doctor=${doctorID}&patient=${patientID}&status=${status}&type=${Type}&startDate=${currentDate}`,
   );
   console.log('appointment list Request : ', route);
   let apiRes = null;

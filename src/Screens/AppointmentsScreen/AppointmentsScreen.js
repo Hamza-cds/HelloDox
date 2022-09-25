@@ -9,8 +9,6 @@ import {
   ScrollView,
 } from 'react-native';
 import styles from './Styles';
-import TextInputs from '../../Components/TextInputs';
-import Notify from '../../Assets/notification';
 import DrawerButton from '../../Components/DrawerButton';
 import CustomText from '../../Components/customText';
 import PagerView from 'react-native-pager-view';
@@ -19,18 +17,38 @@ import Appointment from '../../Components/Appointment';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {URL} from '../../Constants/Constant';
 import {getAppointmentDoctorAndPatient} from '../../Apis/Repo';
+import moment from 'moment/moment';
 
 const AppointmentsScreen = props => {
   const pagerRef = useRef(null);
   const [selectedPage, setSelectedPage] = useState(0);
   let [userData, setuserData] = useState('');
 
+  let [currentDate, setCurrentDate] = useState('');
+  let [upAppoint, setUpAppoint] = useState('');
+  let [pastAppoint, setPastAppoint] = useState('');
+  const [pastStatus, setPastStatus] = useState(2);
+  const [pastType, setPastType] = useState(1);
+  const [upStatus, setUpStatus] = useState(1);
+  const [upType, setUpType] = useState(2);
+  const [doctor, setDoctor] = useState(0);
+  let [patient, setPateint] = useState('');
+  var Hamzadate = moment().utcOffset('+05:30').format('YYYY-MM-DDThh:mm:ss');
+
+  // console.log('aiouehfhasidhvhasdviodjfjidjgjijadfg', Hamzadate);
+
   useEffect(() => {
     AsyncStorage.getItem('user_data').then(response => {
       setuserData((userData = JSON.parse(response)));
       console.log('userdata', userData);
+      setPateint((patient = userData.patient.id));
     });
   }, []);
+
+  useEffect(() => {
+    getPastAppointments();
+    getUpcomingAppointments();
+  }, [patient]);
 
   const handlePageChange = pageNumber => {
     // setSelectedPage(pageNumber);
@@ -42,6 +60,65 @@ const AppointmentsScreen = props => {
   const onPageScroolEvent = event => {
     setSelectedPage(event.nativeEvent.position);
   };
+
+  const getUpcomingAppointments = () => {
+    // var date = new Date().getDate(); //Current Date
+    // var month = new Date().getMonth() + 1; //Current Month
+    // var year = new Date().getFullYear(); //Current Year
+    // var hours = new Date().getHours(); //Current Hours
+    // var min = new Date().getMinutes(); //Current Minutes
+    // var sec = new Date().getSeconds(); //Current Seconds
+    // setCurrentDate(
+    //   (currentDate =
+    //     year + '-' + month + '-' + date + 'T' + hours + ':' + min + ':' + sec),
+    // );
+    setCurrentDate((currentDate = Hamzadate));
+
+    getAppointmentDoctorAndPatient(
+      doctor,
+      patient,
+      upStatus,
+      upType,
+      currentDate,
+    )
+      .then(data => {
+        console.log('data UP', data);
+
+        if (data.data.status == 200 && data.data.success == true) {
+          setUpAppoint((upAppoint = data.data.result));
+          // props.navigation.push('PatientDashboard');
+        } else {
+          alert(data.message);
+        }
+      })
+      .catch(err => {
+        console.log('err', err);
+      });
+  };
+
+  const getPastAppointments = () => {
+    getAppointmentDoctorAndPatient(
+      doctor,
+      patient,
+      pastStatus,
+      pastType,
+      currentDate,
+    )
+      .then(data => {
+        console.log('data PAST', data);
+
+        if (data.data.status == 200 && data.data.success == true) {
+          setPastAppoint((pastAppoint = data.data.result));
+          // props.navigation.push('PatientDashboard');
+        } else {
+          alert(data.message);
+        }
+      })
+      .catch(err => {
+        console.log('err', err);
+      });
+  };
+
   return (
     <View style={styles.Container}>
       <View style={styles.headerWrapper}>
@@ -131,40 +208,76 @@ const AppointmentsScreen = props => {
             onPageScroolEvent(event);
           }}>
           <View key="1">
-            <ScrollView>
-              <Appointment
-                customView={styles.customView}
-                nameLabel={'DR. ALISHA\nMEHMOOD'}
-                dateLabel={'Monday, 21 June at 09:20 AM'}
-                source={require('../../Assets/Appointment.png')}
+            {upAppoint ? (
+              <FlatList
+                data={upAppoint}
+                style={{}}
+                keyExtractor={item => item.id}
+                renderItem={({item}) => (
+                  // console.log('item', item)
+                  <Appointment
+                    customView={styles.customView}
+                    nameLabel={item.doctor.name}
+                    dateLabel={item.start_datetime}
+                    source={
+                      item
+                        ? item.doctor
+                          ? item.doctor.profile_image
+                            ? {uri: URL.concat(item.doctor.profile_image)}
+                            : require('../../Assets/EmptyProfile.png')
+                          : require('../../Assets/EmptyProfile.png')
+                        : require('../../Assets/EmptyProfile.png')
+                    }
+                  />
+                )}
               />
-              <Appointment
-                customView={styles.customView}
-                nameLabel={'DR. SARMAD\nRAZA'}
-                dateLabel={'Monday, 21 June at 10:00 AM'}
-                source={require('../../Assets/Appointment2.png')}
-              />
-              <Appointment
-                customView={styles.customView}
-                nameLabel={'DR. SANIA\nMUGHAL'}
-                dateLabel={'Monday, 21 June at 09:20 AM'}
-                source={require('../../Assets/Appointment.png')}
-              />
-            </ScrollView>
+            ) : (
+              <View style={{alignSelf: 'center', marginTop: 80}}>
+                <Text style={{color: 'black', fontSize: 15}}>
+                  no record found
+                </Text>
+              </View>
+            )}
           </View>
           <View key="2">
-            <ScrollView>
-              <TouchableOpacity
-                activeOpacity={0.8}
-                onPress={() => props.navigation.push('RatingScreen')}>
-                <Appointment
-                  customView={styles.customView}
-                  nameLabel={'DR. ALISHA\nMEHMOOD'}
-                  dateLabel={'Monday, 21 June at 09:20 AM'}
-                  source={require('../../Assets/Appointment.png')}
-                />
-              </TouchableOpacity>
-            </ScrollView>
+            {pastAppoint ? (
+              <FlatList
+                data={pastAppoint}
+                style={{}}
+                keyExtractor={item => item.id}
+                renderItem={({item}) => (
+                  // console.log('item', item)
+                  <TouchableOpacity
+                    activeOpacity={0.8}
+                    onPress={() =>
+                      props.navigation.push('RatingScreen', {
+                        data: item,
+                      })
+                    }>
+                    <Appointment
+                      customView={styles.customView}
+                      nameLabel={item.doctor.name}
+                      dateLabel={item.start_datetime}
+                      source={
+                        item
+                          ? item.doctor
+                            ? item.doctor.profile_image
+                              ? {uri: URL.concat(item.doctor.profile_image)}
+                              : require('../../Assets/EmptyProfile.png')
+                            : require('../../Assets/EmptyProfile.png')
+                          : require('../../Assets/EmptyProfile.png')
+                      }
+                    />
+                  </TouchableOpacity>
+                )}
+              />
+            ) : (
+              <View style={{alignSelf: 'center', marginTop: 80}}>
+                <Text style={{color: 'black', fontSize: 15}}>
+                  no record found
+                </Text>
+              </View>
+            )}
           </View>
         </PagerView>
       </View>

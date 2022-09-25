@@ -16,23 +16,41 @@ import Theme from '../../Constants/Theme';
 import Feather from 'react-native-vector-icons/Feather';
 import Entypo from 'react-native-vector-icons/Entypo';
 import CustomText from '../../Components/customText';
+import {PostPaymentApiCall} from '../../Apis/Repo';
 
 const PaymentScreen = props => {
+  console.log('props', props);
+  const [cardNum, setCardNum] = useState('');
+  const [email, setEmail] = useState('');
+  let ID = props.route.params.id;
+  console.log('cardNum', cardNum);
+  // console.log('ID', ID);
+
+  const onConfirm = () => {
+    let obj = {
+      email: email,
+      amount: cardNum,
+      order_number: ID,
+    };
+
+    PostPaymentApiCall(obj)
+      .then(data => {
+        console.log('data', data);
+
+        if (data.data.status == 200 && data.data.success == true) {
+          props.navigation.push('PatientDashboard');
+        } else {
+          alert(data.message);
+        }
+      })
+      .catch(err => {
+        console.log('err', err);
+      });
+  };
+
   return (
     <View style={styles.Container}>
-      <View style={styles.headerWrapper}>
-        {/* <DrawerButton
-          MenuStyle={styles.MenuStyle}
-          onPress={() => props.navigation.openDrawer()}
-        /> */}
-        <View style={styles.notifyWrap}>
-          <Notify width={30} height={30} style={styles.Notify} />
-          <Image
-            style={styles.ProfileImage}
-            source={require('../../Assets/user_photo.png')}
-          />
-        </View>
-      </View>
+      <View style={styles.headerWrapper}></View>
       <View style={styles.InnerContainer}>
         {/* <Appointment
           customView={styles.customView}
@@ -58,6 +76,9 @@ const PaymentScreen = props => {
           CustomView={styles.WrapViewEmailCard}
           CustomText={styles.InputText}
           placeholder={'Card Number'}
+          onChange={value => {
+            setCardNum(value);
+          }}
           placeholderTextColor={Theme.black}
         />
         <TextInputs
@@ -72,9 +93,12 @@ const PaymentScreen = props => {
           CustomView={styles.WrapViewEmail}
           CustomText={styles.InputText}
           placeholder={'Email Address'}
+          onChange={value => {
+            setEmail(value);
+          }}
           placeholderTextColor={Theme.black}
         />
-        <TextInputs
+        {/* <TextInputs
           icon={
             <Feather
               style={styles.iconStyle}
@@ -88,13 +112,16 @@ const PaymentScreen = props => {
           placeholder={'Password'}
           placeholderTextColor={Theme.black}
           secureTextEntry={true}
-        />
+        /> */}
 
         <Button
           CustomButton={styles.CustomButton}
           CustomText={styles.CustomText}
           label={'Save Changes'}
-          onPress={() => props.navigation.push('PatientDashboard')}
+          onPress={() => {
+            // props.navigation.push('PatientDashboard')
+            onConfirm();
+          }}
         />
       </View>
     </View>
