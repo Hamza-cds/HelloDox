@@ -16,6 +16,7 @@ import moment from 'moment';
 import {getAppointmentDoctorAndPatient} from '../../Apis/Repo';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {URL} from '../../Constants/Constant';
+import Loader from '../../Components/Loader';
 
 const DocterDashboard = props => {
   let [currentDate, setCurrentDate] = useState('');
@@ -26,6 +27,7 @@ const DocterDashboard = props => {
   let [doctor, setDoctor] = useState(0);
   const [patient, setPateint] = useState(0);
   var Hamzadate = moment().utcOffset('+05:30').format('YYYY-MM-DDThh:mm:ss');
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     AsyncStorage.getItem('user_data').then(response => {
@@ -40,6 +42,7 @@ const DocterDashboard = props => {
   }, [patient]);
 
   const getUpcomingAppointments = () => {
+    setIsLoading(true);
     setCurrentDate((currentDate = Hamzadate));
 
     getAppointmentDoctorAndPatient(
@@ -53,73 +56,20 @@ const DocterDashboard = props => {
         console.log('data UP', data);
 
         if (data.data.status == 200 && data.data.success == true) {
+          setIsLoading(false);
           setUpAppoint((upAppoint = data.data.result));
           // props.navigation.push('PatientDashboard');
         } else {
+          setIsLoading(false);
           alert(data.message);
         }
       })
       .catch(err => {
+        setIsLoading(false);
         console.log('err', err);
       });
   };
 
-  const [info, setInfo] = useState([
-    {
-      id: 1,
-      Image: require('../../Assets/Doc2.png'),
-      PatName: 'Hamza Rajput',
-      time: '17 june 2022, 09:30 AM',
-      star: require('../../Assets/Star.png'),
-      rating: '2.4',
-      color: '#D2E6FF',
-    },
-    {
-      id: 2,
-      Image: require('../../Assets/Doc2.png'),
-      PatName: 'Frasat Mughal',
-      time: '17 june 2022, 09:30 AM',
-      star: require('../../Assets/Star.png'),
-      rating: '2.9',
-      color: '#FCF1D6',
-    },
-    {
-      id: 3,
-      Image: require('../../Assets/Doc2.png'),
-      PatName: 'Sarmad Raza',
-      time: '18 june 2022, 10:30 AM',
-      star: require('../../Assets/Star.png'),
-      rating: '3.4',
-      color: '#F9D8D9',
-    },
-    {
-      id: 4,
-      Image: require('../../Assets/Doc2.png'),
-      PatName: 'Daniyal pirzada',
-      time: '18 june 2022, 11:30 AM',
-      star: require('../../Assets/Star.png'),
-      rating: '2.2',
-      color: '#D2E6FF',
-    },
-    {
-      id: 5,
-      Image: require('../../Assets/Doc2.png'),
-      PatName: 'Ahmed bhatti',
-      time: '19 june 2022, 100:30 AM',
-      star: require('../../Assets/Star.png'),
-      rating: '4.4',
-      color: '#FCF1D6',
-    },
-    {
-      id: 6,
-      Image: require('../../Assets/Doc2.png'),
-      PatName: 'Qaiser Malik',
-      time: '20 june 2022, 09:30 AM',
-      star: require('../../Assets/Star.png'),
-      rating: '3.7',
-      color: '#F9D8D9',
-    },
-  ]);
   return (
     <View style={styles.Container}>
       <View style={styles.headerWrapper}>
@@ -128,13 +78,18 @@ const DocterDashboard = props => {
           onPress={() => props.navigation.openDrawer()}
         />
         <View style={styles.notifyWrap}>
-          <TouchableOpacity
-            onPress={() => props.navigation.push('DocterProfileScreen')}>
-            <Image
-              style={styles.ProfileImage}
-              source={require('../../Assets/Doc_photo.png')}
-            />
-          </TouchableOpacity>
+          <Image
+            style={styles.ProfileImage}
+            source={
+              userData
+                ? userData.doctor
+                  ? userData.doctor.profile_image
+                    ? {uri: URL.concat(userData.doctor.profile_image)}
+                    : null
+                  : null
+                : null
+            }
+          />
         </View>
       </View>
       <View style={styles.InnerContainer}>
@@ -215,7 +170,7 @@ const DocterDashboard = props => {
               <View style={styles.docWrapper}>
                 <View style={{flexDirection: 'row'}}>
                   <Image
-                    style={{height: 100, width: 100}}
+                    style={{height: 100, width: 100, borderRadius: 10}}
                     source={
                       item
                         ? item.patient
@@ -248,6 +203,8 @@ const DocterDashboard = props => {
           />
         </View>
       </View>
+
+      {isLoading ? <Loader /> : null}
     </View>
   );
 };

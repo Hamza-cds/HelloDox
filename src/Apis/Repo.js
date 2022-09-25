@@ -242,3 +242,29 @@ export async function PostPaymentApiCall(obj) {
     return apiRes;
   }
 }
+
+export async function getAppointmentDoctor(
+  doctorID,
+  patientID,
+  status,
+  Type,
+  currentDate,
+  name,
+) {
+  let route = URL.concat(
+    `api/appointment/get-by-doctor-patient-status?doctor=${doctorID}&patientName=${name}&patient=${patientID}&status=${status}&type=${Type}&startDate=${currentDate}`,
+  );
+  console.log('appointment list Request : ', route);
+  let apiRes = null;
+  try {
+    apiRes = await axios({
+      method: 'GET',
+      url: route,
+    });
+  } catch (err) {
+    apiRes = err;
+    return apiRes;
+  } finally {
+    return apiRes;
+  }
+}

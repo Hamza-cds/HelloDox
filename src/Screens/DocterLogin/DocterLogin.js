@@ -28,6 +28,7 @@ import {
   getCategoryDataApiCall,
 } from '../../Apis/Repo';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import Loader from '../../Components/Loader';
 
 const DocterLogin = props => {
   console.log('props', props);
@@ -43,6 +44,7 @@ const DocterLogin = props => {
   let categoryData = props.route.params.category;
 
   let [selectedItems, setSelectedItems] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
   // console.log('selected category', selectedItems);
 
   const onSignUp = () => {
@@ -70,20 +72,23 @@ const DocterLogin = props => {
       formdata.append('specifications', null);
 
       console.log('formdata', formdata);
-
+      setIsLoading(true);
       doctorSignUpApiCall(formdata)
         .then(data => {
           console.log('data', data);
 
           if (data.data.status == 200 && data.data.success == true) {
+            setIsLoading(false);
             AsyncStorage.setItem('user_data', JSON.stringify(data.data.result));
             props.navigation.replace('DocterDashboard');
           } else {
+            setIsLoading(false);
             alert(data.message);
             console.log('ADD');
           }
         })
         .catch(err => {
+          setIsLoading(false);
           console.log('err', err);
         });
     }
@@ -100,19 +105,23 @@ const DocterLogin = props => {
         password: logInPassword,
       };
 
+      setIsLoading(true);
       doctorLoginApiCall(obj)
         .then(data => {
           console.log('data', data);
 
           if (data.data.status == 200 && data.data.success == true) {
+            setIsLoading(false);
             AsyncStorage.setItem('user_data', JSON.stringify(data.data.result));
             props.navigation.replace('DocterDashboard');
           } else {
+            setIsLoading(false);
             alert(data.message);
             console.log('ADD');
           }
         })
         .catch(err => {
+          setIsLoading(false);
           console.log('err', err);
         });
     }
@@ -245,6 +254,7 @@ const DocterLogin = props => {
               </TouchableOpacity>
             </View>
           </View>
+          {/* {isLoading ? <Loader /> : null} */}
         </View>
         {/* This is Sign In Page End */}
 
@@ -430,6 +440,7 @@ const DocterLogin = props => {
           label={'Terms and conditions'}
         />
       </View>
+      {isLoading ? <Loader /> : null}
     </ImageBackground>
   );
 };

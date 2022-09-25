@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {View, Text, TouchableOpacity, Image, StyleSheet} from 'react-native';
 import {
   DrawerContentScrollView,
@@ -12,18 +12,48 @@ import {scale} from 'react-native-size-matters';
 import Fonts from '../Constants/Fonts';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Theme from '../Constants/Theme';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {URL} from '../Constants/Constant';
 
 const DrawerMenuDocter = props => {
   const {onPress} = props;
+  let [userData, setuserData] = useState('');
+
+  useEffect(() => {
+    AsyncStorage.getItem('user_data').then(response => {
+      setuserData((userData = JSON.parse(response)));
+      console.log('userdata', userData);
+    });
+  }, []);
+
   return (
     <View style={styles.Container}>
       <View style={{backgroundColor: Theme.primary, paddingLeft: 30}}>
         <Image
           style={styles.imageStyle}
-          source={require('../Assets/user_photo.png')}
+          source={
+            userData
+              ? userData.doctor
+                ? userData.doctor.profile_image
+                  ? {uri: URL.concat(userData.doctor.profile_image)}
+                  : null
+                : null
+              : null
+            //     : require('../Assets/EmptyProfile.png')
+            //   : require('../Assets/EmptyProfile.png')
+            // : require('../Assets/EmptyProfile.png')
+          }
         />
         <View style={{marginBottom: '20%'}}>
-          <Text style={styles.proText}>Dr. Qaiser Riaz</Text>
+          <Text style={styles.proText}>
+            {userData
+              ? userData.doctor
+                ? userData.doctor.name
+                  ? userData.doctor.name
+                  : null
+                : null
+              : null}
+          </Text>
           <View style={styles.emailWrapper}>
             <MaterialCommunityIcons
               style={styles.iconStyle}
@@ -31,7 +61,15 @@ const DrawerMenuDocter = props => {
               size={18}
               color={Theme.white}
             />
-            <Text style={styles.emailText}>Emergency Physician</Text>
+            <Text style={styles.emailText}>
+              {userData
+                ? userData.doctor
+                  ? userData.doctor.email
+                    ? userData.doctor.email
+                    : null
+                  : null
+                : null}
+            </Text>
           </View>
         </View>
       </View>

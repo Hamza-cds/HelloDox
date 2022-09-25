@@ -12,6 +12,7 @@ import PatientRecordPostScreen from '../../Screens/PatientRecordPostScreen/Patie
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import PatientRecordScreen from '../../Screens/PatientRecordScreen/PatientRecordScreen';
 
 const Drawer = createDrawerNavigator();
 
@@ -56,7 +57,7 @@ const DrawerNavDocter = props => {
         }}
         component={DocterDashboard}
       />
-      <Drawer.Screen
+      {/* <Drawer.Screen
         name="Appointment"
         options={{
           drawerLabel: 'Appointment',
@@ -70,7 +71,7 @@ const DrawerNavDocter = props => {
           ),
         }}
         component={AppointmentDocScreen}
-      />
+      /> */}
       <Drawer.Screen
         name="Edit Profile"
         options={{
@@ -91,9 +92,9 @@ const DrawerNavDocter = props => {
             <FontAwesome name="history" size={22} color="#ffffff" />
           ),
         }}
-        component={AdminAccessScreen}
+        component={PatientRecordScreen}
       />
-      <Drawer.Screen
+      {/* <Drawer.Screen
         name="patient Post Record"
         options={{
           drawerLabel: 'patient Post Record',
@@ -103,7 +104,7 @@ const DrawerNavDocter = props => {
           ),
         }}
         component={PatientRecordPostScreen}
-      />
+      /> */}
     </Drawer.Navigator>
   );
 };

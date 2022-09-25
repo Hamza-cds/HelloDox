@@ -24,6 +24,7 @@ import {
 } from '../../Apis/Repo';
 import {URL} from '../../Constants/Constant';
 import {isNullOrEmpty} from '../../Constants/TextUtils';
+import Loader from '../../Components/Loader';
 
 const PatientDashboard = props => {
   console.log('props', props);
@@ -33,6 +34,7 @@ const PatientDashboard = props => {
   let [name, setName] = useState('');
   let [categoryID, setCategoryID] = useState(0);
   console.log('name', name);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     AsyncStorage.getItem('user_data').then(response => {
@@ -47,30 +49,42 @@ const PatientDashboard = props => {
   }, []);
 
   const getCategoryData = () => {
+    setIsLoading(true);
     getCategoryDataApiCall()
       .then(res => {
         console.log('res', res);
         if (res.status == 200) {
+          setIsLoading(false);
           setCategory((category = res.data.result));
           console.log('category', category);
-        } else console.warn('No data found');
+        } else {
+          setIsLoading(false);
+          console.warn('No data found');
+        }
       })
       .catch(err => {
+        setIsLoading(false);
         console.log('err', err);
       });
   };
 
   const getDoctorData = () => {
+    setIsLoading(true);
     console.log('name', name);
     getDoctorSearchByNameAndCategory(name, categoryID)
       .then(res => {
         console.log('res', res);
         if (res.status == 200) {
+          setIsLoading(false);
           setDocList((docList = res.data.result));
           console.log('doctor', docList);
-        } else console.warn('No data found');
+        } else {
+          setIsLoading(false);
+          console.warn('No data found');
+        }
       })
       .catch(err => {
+        setIsLoading(false);
         console.log('err', err);
       });
   };
@@ -239,6 +253,8 @@ const PatientDashboard = props => {
           />
         </View>
       </View>
+
+      {isLoading ? <Loader /> : null}
     </View>
   );
 };

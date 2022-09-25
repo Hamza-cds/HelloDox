@@ -23,6 +23,7 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import {doctorLoginApiCall, patientSignUpApiCall} from '../../Apis/Repo';
 import {isNullOrEmpty} from '../../Constants/TextUtils';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import Loader from '../../Components/Loader';
 
 const PatientLogin = props => {
   console.log('props', props);
@@ -39,6 +40,7 @@ const PatientLogin = props => {
 
   const [patientLoginEmail, setPatientLoginEmail] = useState('');
   const [patientLoginPassword, setPatientLoginPassword] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
   const handlePageChange = pageNumber => {
     // setSelectedPage(pageNumber);
@@ -76,20 +78,23 @@ const PatientLogin = props => {
       formdata.append('city', city);
 
       console.log('formdata', formdata);
-
+      setIsLoading(true);
       patientSignUpApiCall(formdata)
         .then(data => {
           console.log('data', data);
 
           if (data.data.status == 200 && data.data.success == true) {
+            setIsLoading(false);
             AsyncStorage.setItem('user_data', JSON.stringify(data.data.result));
             props.navigation.replace('PatientDashboard');
           } else {
+            setIsLoading(false);
             alert(data.message);
             console.log('ADD');
           }
         })
         .catch(err => {
+          setIsLoading(false);
           console.log('err', err);
         });
     }
@@ -105,12 +110,13 @@ const PatientLogin = props => {
         email: patientLoginEmail,
         password: patientLoginPassword,
       };
-
+      setIsLoading(true);
       doctorLoginApiCall(obj)
         .then(data => {
           console.log('data', data);
 
           if (data.data.status == 200 && data.data.success == true) {
+            setIsLoading(false);
             // debugger;
             console.log('hamza data', data.data.result);
             console.log(
@@ -120,11 +126,13 @@ const PatientLogin = props => {
             AsyncStorage.setItem('user_data', JSON.stringify(data.data.result));
             props.navigation.replace('PatientDashboard');
           } else {
+            setIsLoading(false);
             alert(data.message);
             console.log('ADD');
           }
         })
         .catch(err => {
+          setIsLoading(false);
           console.log('err', err);
         });
     }
@@ -406,6 +414,7 @@ const PatientLogin = props => {
           label={'Terms and conditions'}
         />
       </View>
+      {isLoading ? <Loader /> : null}
     </ImageBackground>
   );
 };

@@ -163,7 +163,7 @@ const styles = StyleSheet.create({
     marginVertical: 15,
     flexDirection: Theme.row,
     justifyContent: Theme.spaceBetween,
-    paddingHorizontal: 15,
+    // paddingHorizontal: 15,
   },
   patNameText: {
     color: Theme.black,
@@ -177,6 +177,7 @@ const styles = StyleSheet.create({
   },
   imageStyle: {
     alignSelf: Theme.align,
+    backgroundColor: 'pink',
   },
   wrapText: {
     alignSelf: Theme.align,
