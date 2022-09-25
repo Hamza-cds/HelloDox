@@ -26,6 +26,7 @@ import {URL} from '../../Constants/Constant';
 import {isNullOrEmpty} from '../../Constants/TextUtils';
 
 const PatientDashboard = props => {
+  console.log('props', props);
   let [userData, setuserData] = useState('');
   let [category, setCategory] = useState([]);
   let [docList, setDocList] = useState([]);

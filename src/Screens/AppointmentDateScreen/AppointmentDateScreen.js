@@ -49,7 +49,11 @@ const AppointmentDateScreen = props => {
   };
 
   const handleConfirm = date => {
-    console.warn('A date has been picked: ', moment(date).format());
+    let str = moment(date).format('YYYY-MM-DDTHH:mm:ss');
+    setSelectedDate((selectedDate = str));
+    console.log('str', str);
+    // setSelectedDate((selectedDate = str.replace('+', '.')));
+    // console.log('hamza', selectedDate);
     hideDatePicker();
   };
 
@@ -92,6 +96,15 @@ const AppointmentDateScreen = props => {
       </View>
       <ScrollView>
         <View>
+          <Text
+            style={{
+              marginTop: 30,
+              fontSize: 15,
+              color: 'black',
+              alignSelf: 'center',
+            }}>
+            {selectedDate}
+          </Text>
           <Button
             CustomButton={{...styles.CustomButton, marginTop: 150}}
             CustomText={styles.CustomText}
@@ -104,228 +117,7 @@ const AppointmentDateScreen = props => {
             onConfirm={handleConfirm}
             onCancel={hideDatePicker}
           />
-          {/* <CustomText
-            SimpleText={true}
-            customStyle={styles.morText}
-            label={'Morning'}
-          /> */}
-          {/* <View style={styles.morningWrap}>
-            <ScrollView horizontal={true}>
-              <TouchableOpacity
-                style={{
-                  ...styles.btnTime,
-                  backgroundColor: selected == 0 ? Theme.primary : null,
-                }}
-                onPress={() => {
-                  handlePageChange(0);
-                  setSelectedTime((selectedTime = '08:30 AM'));
-                }}>
-                <Ionicons
-                  name="time-outline"
-                  size={25}
-                  color={'black'}
-                  style={{alignSelf: 'center', marginLeft: 5}}
-                />
-                <Text style={styles.timeText}>08:30 AM</Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={{
-                  ...styles.btnTime,
-                  backgroundColor: selected == 1 ? Theme.primary : null,
-                }}
-                onPress={() => {
-                  handlePageChange(1);
-                  setSelectedTime((selectedTime = '09:00 AM'));
-                }}>
-                <Ionicons
-                  name="time-outline"
-                  size={25}
-                  color={'black'}
-                  style={{alignSelf: 'center', marginLeft: 5}}
-                />
-                <Text style={styles.timeText}>09:00 AM</Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={{
-                  ...styles.btnTime,
-                  backgroundColor: selected == 2 ? Theme.primary : null,
-                }}
-                onPress={() => {
-                  handlePageChange(2);
-                  setSelectedTime((selectedTime = '09:30 AM'));
-                }}>
-                <Ionicons
-                  name="time-outline"
-                  size={25}
-                  color={'black'}
-                  style={{alignSelf: 'center', marginLeft: 5}}
-                />
-                <Text style={styles.timeText}>09:30 AM</Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={{
-                  ...styles.btnTime,
-                  backgroundColor: selected == 3 ? Theme.primary : null,
-                }}
-                onPress={() => {
-                  handlePageChange(3);
-                  setSelectedTime((selectedTime = '10:00 AM'));
-                }}>
-                <Ionicons
-                  name="time-outline"
-                  size={25}
-                  color={'black'}
-                  style={{alignSelf: 'center', marginLeft: 5}}
-                />
-                <Text style={styles.timeText}>10:00 AM</Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={{
-                  ...styles.btnTime,
-                  backgroundColor: selected == 4 ? Theme.primary : null,
-                }}
-                onPress={() => {
-                  handlePageChange(4);
-                  setSelectedTime((selectedTime = '10:30 AM'));
-                }}>
-                <Ionicons
-                  name="time-outline"
-                  size={25}
-                  color={'black'}
-                  style={{alignSelf: 'center', marginLeft: 5}}
-                />
-                <Text style={styles.timeText}>10:30 AM</Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={{
-                  ...styles.btnTime,
-                  backgroundColor: selected == 5 ? Theme.primary : null,
-                }}
-                onPress={() => {
-                  handlePageChange(5);
-                  setSelectedTime((selectedTime = '11:00 AM'));
-                }}>
-                <Ionicons
-                  name="time-outline"
-                  size={25}
-                  color={'black'}
-                  style={{alignSelf: 'center', marginLeft: 5}}
-                />
-                <Text style={styles.timeText}>11:00 AM</Text>
-              </TouchableOpacity>
-            </ScrollView>
-          </View>
-          <CustomText
-            SimpleText={true}
-            customStyle={styles.morText}
-            label={'Evening'}
-          />
-          <View style={styles.morningWrap}>
-            <ScrollView horizontal={true}>
-              <TouchableOpacity
-                style={{
-                  ...styles.btnTime,
-                  backgroundColor: selected == 6 ? Theme.primary : null,
-                }}
-                onPress={() => {
-                  handlePageChange(6);
-                  setSelectedTime((selectedTime = '05:30 PM'));
-                }}>
-                <Ionicons
-                  name="time-outline"
-                  size={25}
-                  color={'black'}
-                  style={{alignSelf: 'center', marginLeft: 5}}
-                />
-                <Text style={styles.timeText}>05:30 PM</Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={{
-                  ...styles.btnTime,
-                  backgroundColor: selected == 7 ? Theme.primary : null,
-                }}
-                onPress={() => {
-                  handlePageChange(7);
-                  setSelectedTime((selectedTime = '06:00 PM'));
-                }}>
-                <Ionicons
-                  name="time-outline"
-                  size={25}
-                  color={'black'}
-                  style={{alignSelf: 'center', marginLeft: 5}}
-                />
-                <Text style={styles.timeText}>06:00 PM</Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={{
-                  ...styles.btnTime,
-                  backgroundColor: selected == 8 ? Theme.primary : null,
-                }}
-                onPress={() => {
-                  handlePageChange(8);
-                  setSelectedTime((selectedTime = '06:30 PM'));
-                }}>
-                <Ionicons
-                  name="time-outline"
-                  size={25}
-                  color={'black'}
-                  style={{alignSelf: 'center', marginLeft: 5}}
-                />
-                <Text style={styles.timeText}>06:30 PM</Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={{
-                  ...styles.btnTime,
-                  backgroundColor: selected == 9 ? Theme.primary : null,
-                }}
-                onPress={() => {
-                  handlePageChange(9);
-                  setSelectedTime((selectedTime = '07:00 PM'));
-                }}>
-                <Ionicons
-                  name="time-outline"
-                  size={25}
-                  color={'black'}
-                  style={{alignSelf: 'center', marginLeft: 5}}
-                />
-                <Text style={styles.timeText}>07:00 PM</Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={{
-                  ...styles.btnTime,
-                  backgroundColor: selected == 10 ? Theme.primary : null,
-                }}
-                onPress={() => {
-                  handlePageChange(10);
-                  setSelectedTime((selectedTime = '07:30 PM'));
-                }}>
-                <Ionicons
-                  name="time-outline"
-                  size={25}
-                  color={'black'}
-                  style={{alignSelf: 'center', marginLeft: 5}}
-                />
-                <Text style={styles.timeText}>07:30 PM</Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={{
-                  ...styles.btnTime,
-                  backgroundColor: selected == 11 ? Theme.primary : null,
-                }}
-                onPress={() => {
-                  handlePageChange(11);
-                  setSelectedTime((selectedTime = '08:00 PM'));
-                }}>
-                <Ionicons
-                  name="time-outline"
-                  size={25}
-                  color={'black'}
-                  style={{alignSelf: 'center', marginLeft: 5}}
-                />
-                <Text style={styles.timeText}>08:00 PM</Text>
-              </TouchableOpacity>
-            </ScrollView>
-          </View> */}
+
           <Button
             CustomButton={styles.CustomButton}
             CustomText={styles.CustomText}

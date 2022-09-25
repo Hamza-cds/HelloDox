@@ -21,13 +21,14 @@ import Appointment from '../../Components/Appointment';
 import Button from '../../Components/Button';
 import {URL} from '../../Constants/Constant';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {PatientBookAppointmentApiCall} from '../../Apis/Repo';
 
 const AppointmentConfirmScreen = props => {
   console.log('props', props);
   let Date = props.route.params.Date;
-  let Time = props.route.params.Time;
   let DATA = props.route.params.docData;
   let [userData, setuserData] = useState('');
+  let [Id, setID] = useState('');
   console.log('DATA', DATA);
 
   useEffect(() => {
@@ -46,11 +47,29 @@ const AppointmentConfirmScreen = props => {
       fee: DATA.fee,
       rate: 0,
       start_datetime: Date,
-      end_datetime: Time,
+      end_datetime: Date,
       status: 1,
       patient: null,
     };
     console.log('obj', obj);
+    // props.navigation.push('PaymentScreen');
+
+    PatientBookAppointmentApiCall(obj)
+      .then(data => {
+        console.log('data', data);
+
+        if (data.data.status == 200 && data.data.success == true) {
+          setID((Id = data.data.result.id));
+          props.navigation.push('PaymentScreen', {
+            id: Id,
+          });
+        } else {
+          alert(data.message);
+        }
+      })
+      .catch(err => {
+        console.log('err', err);
+      });
   };
 
   return (
@@ -74,7 +93,6 @@ const AppointmentConfirmScreen = props => {
           customView={styles.customView}
           nameLabel={DATA.name}
           dateLabel={Date}
-          timeLabel={Time}
           docCategory={DATA.category.name}
           source={
             DATA

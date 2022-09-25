@@ -176,28 +176,49 @@ export async function patientContactUsApiCall(obj) {
   }
 }
 
-// export async function getAppointmentDoctorAndPatient(patientID, doctorID) {
-//   let route = URL.concat(
-//     `api/appointment/get-by-doctor-patient-status?patient=${patientID}&doctor=${doctorID}`,
-//   );
-//   console.log('appointment list Request : ', route);
-//   let apiRes = null;
-//   try {
-//     apiRes = await axios({
-//       method: 'GET',
-//       url: route,
-//     });
-//   } catch (err) {
-//     apiRes = err;
-//     return apiRes;
-//   } finally {
-//     return apiRes;
-//   }
-// }
+export async function getAppointmentDoctorAndPatient(patientID, doctorID) {
+  let route = URL.concat(
+    `api/appointment/get-by-doctor-patient-status?patient=${patientID}&doctor=${doctorID}`,
+  );
+  console.log('appointment list Request : ', route);
+  let apiRes = null;
+  try {
+    apiRes = await axios({
+      method: 'GET',
+      url: route,
+    });
+  } catch (err) {
+    apiRes = err;
+    return apiRes;
+  } finally {
+    return apiRes;
+  }
+}
 
 export async function PatientBookAppointmentApiCall(obj) {
   let route = URL.concat('api/appointment/add-or-edit');
   console.log(`appointment book Request : ${route} REQUEST`, obj);
+  let apiRes = null;
+  try {
+    apiRes = await axios({
+      method: 'POST',
+      url: route,
+      data: obj,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+  } catch (err) {
+    apiRes = err;
+    return apiRes;
+  } finally {
+    return apiRes;
+  }
+}
+
+export async function PostPaymentApiCall(obj) {
+  let route = URL.concat('api/appointment/post-appointment-confirm');
+  console.log(`payment request Request : ${route} REQUEST`, obj);
   let apiRes = null;
   try {
     apiRes = await axios({
