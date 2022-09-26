@@ -196,6 +196,7 @@ const DocterLogin = props => {
                 CustomText={styles.InputText}
                 placeholder={'Email Address'}
                 placeholderTextColor={Theme.black}
+                color="black"
               />
 
               <TextInputs
@@ -214,6 +215,7 @@ const DocterLogin = props => {
                 CustomText={styles.InputText}
                 placeholder={'Password'}
                 placeholderTextColor={Theme.black}
+                color="black"
               />
               <TouchableOpacity
                 onPress={() => {
@@ -237,22 +239,6 @@ const DocterLogin = props => {
                 }}
               />
             </View>
-            {/* <CustomText
-              SimpleText={true}
-              customStyle={styles.loginText}
-              label={'or login with'}
-            />
-            <View style={styles.socialWrapper}>
-              <TouchableOpacity>
-                <Gmail width={50} height={50} />
-              </TouchableOpacity>
-              <TouchableOpacity>
-                <Facebook width={50} height={50} />
-              </TouchableOpacity>
-              <TouchableOpacity>
-                <Twitter width={50} height={50} />
-              </TouchableOpacity>
-            </View> */}
           </View>
           {/* {isLoading ? <Loader /> : null} */}
         </View>
@@ -284,6 +270,7 @@ const DocterLogin = props => {
                   CustomText={styles.InputText}
                   placeholder={'Name'}
                   placeholderTextColor={Theme.black}
+                  color="black"
                 />
 
                 <TextInputs
@@ -302,6 +289,7 @@ const DocterLogin = props => {
                   CustomText={styles.InputText}
                   placeholder={'Email'}
                   placeholderTextColor={Theme.black}
+                  color="black"
                 />
                 <TextInputs
                   icon={
@@ -319,6 +307,7 @@ const DocterLogin = props => {
                   CustomText={styles.InputText}
                   placeholder={'Password'}
                   placeholderTextColor={Theme.black}
+                  color="black"
                 />
                 <TextInputs
                   icon={
@@ -336,6 +325,7 @@ const DocterLogin = props => {
                   CustomText={styles.InputText}
                   placeholder={'Address'}
                   placeholderTextColor={Theme.black}
+                  color="black"
                 />
                 <TextInputs
                   icon={
@@ -353,6 +343,7 @@ const DocterLogin = props => {
                   CustomText={styles.InputText}
                   placeholder={'City'}
                   placeholderTextColor={Theme.black}
+                  color="black"
                 />
 
                 <SearchableDropdown
@@ -398,7 +389,6 @@ const DocterLogin = props => {
                   listProps={{nestedScrollEnabled: true}}
                   resetValue={false}
                 />
-
                 <Button
                   CustomButton={styles.CustomButton}
                   CustomText={styles.CustomText}

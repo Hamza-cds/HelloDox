@@ -198,6 +198,7 @@ const PatientLogin = props => {
                 CustomText={styles.InputText}
                 placeholder={'Email Address'}
                 placeholderTextColor={Theme.black}
+                color="black"
               />
 
               <TextInputs
@@ -216,6 +217,7 @@ const PatientLogin = props => {
                 CustomText={styles.InputText}
                 placeholder={'Password'}
                 placeholderTextColor={Theme.black}
+                color="black"
               />
               <TouchableOpacity
                 onPress={() =>
@@ -238,22 +240,6 @@ const PatientLogin = props => {
                 }}
               />
             </View>
-            {/* <CustomText
-              SimpleText={true}
-              customStyle={styles.loginText}
-              label={'or login with'}
-            />
-            <View style={styles.socialWrapper}>
-              <TouchableOpacity>
-                <Gmail width={50} height={50} />
-              </TouchableOpacity>
-              <TouchableOpacity>
-                <Facebook width={50} height={50} />
-              </TouchableOpacity>
-              <TouchableOpacity>
-                <Twitter width={50} height={50} />
-              </TouchableOpacity>
-            </View> */}
           </View>
         </View>
         {/* This is Sign In Page End */}
@@ -284,6 +270,7 @@ const PatientLogin = props => {
                   CustomText={styles.InputText}
                   placeholder={'Name'}
                   placeholderTextColor={Theme.black}
+                  color="black"
                 />
 
                 <TextInputs
@@ -302,6 +289,7 @@ const PatientLogin = props => {
                   CustomText={styles.InputText}
                   placeholder={'Email'}
                   placeholderTextColor={Theme.black}
+                  color="black"
                 />
                 <TextInputs
                   icon={
@@ -319,6 +307,7 @@ const PatientLogin = props => {
                   CustomText={styles.InputText}
                   placeholder={'Number'}
                   placeholderTextColor={Theme.black}
+                  color="black"
                 />
                 <TextInputs
                   icon={
@@ -336,6 +325,8 @@ const PatientLogin = props => {
                   CustomText={styles.InputText}
                   placeholder={'Password'}
                   placeholderTextColor={Theme.black}
+                  secureTextEntry={true}
+                  color="black"
                 />
                 <TextInputs
                   icon={
@@ -353,6 +344,7 @@ const PatientLogin = props => {
                   CustomText={styles.InputText}
                   placeholder={'Address'}
                   placeholderTextColor={Theme.black}
+                  color="black"
                 />
                 <TextInputs
                   icon={
@@ -370,6 +362,7 @@ const PatientLogin = props => {
                   CustomText={styles.InputText}
                   placeholder={'City'}
                   placeholderTextColor={Theme.black}
+                  color="black"
                 />
 
                 <Button

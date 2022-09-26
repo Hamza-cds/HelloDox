@@ -145,6 +145,7 @@ const PatientDashboard = props => {
               placeholder={'search doctor by name'}
               placeholderTextColor={'#ABABAB'}
               style={{marginLeft: 20, width: '100%'}}
+              color="black"
               onChange={value => {
                 setName(value);
               }}
@@ -200,7 +201,7 @@ const PatientDashboard = props => {
             <CustomText
               SimpleText={true}
               customStyle={styles.CatText}
-              label={'Top rate'}
+              label={'Top Rated'}
             />
           </View>
         </View>
@@ -250,9 +251,10 @@ const PatientDashboard = props => {
                       source={require('../../Assets/Star.png')}
                       style={styles.imageStyle}
                     />
-                    <Text style={styles.ratingText}>
+                    <Text style={styles.ratingText}>5</Text>
+                    {/* <Text style={styles.ratingText}>
                       {item.rating == 0 ? '5' : item.rating}
-                    </Text>
+                    </Text> */}
                   </View>
                 </View>
               </TouchableOpacity>

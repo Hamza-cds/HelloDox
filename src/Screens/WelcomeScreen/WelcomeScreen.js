@@ -5,6 +5,7 @@ import {
   ImageBackground,
   Image,
   TouchableOpacity,
+  ScrollView,
 } from 'react-native';
 import CustomText from '../../Components/customText';
 import styles from './Styles';
@@ -42,59 +43,44 @@ const WelcomeScreen = props => {
       style={styles.Container}
       source={require('../../Assets/Commen.png')}>
       {/* <LogoText CustomView={styles.textWrapper} /> */}
-      <CustomText
-        SimpleText={true}
-        customStyle={styles.headText}
-        label={'Join As'}
-      />
-
-      <View>
-        <TouchableOpacity
-          activeOpacity={0.8}
-          onPress={() =>
-            props.navigation.push('DocterLogin', {
-              category: category,
-            })
-          }>
-          <View style={styles.docButton}>
-            <Category width={100} height={100} />
-            <CustomText
-              SimpleText={true}
-              customStyle={styles.docText}
-              label={'I am Docter'}
-            />
-          </View>
-        </TouchableOpacity>
-        <TouchableOpacity
-          activeOpacity={0.8}
-          onPress={() => props.navigation.push('PatientLogin')}>
-          <View style={styles.patButton}>
-            <Patient width={100} height={100} />
-            <CustomText
-              SimpleText={true}
-              customStyle={styles.docText}
-              label={'I am Patient'}
-            />
-          </View>
-        </TouchableOpacity>
-
-        {/* <CustomText
+      <ScrollView>
+        <CustomText
           SimpleText={true}
-          customStyle={styles.loginText}
-          label={'or login with'}
+          customStyle={styles.headText}
+          label={'Join As'}
         />
-        <View style={styles.socialWrapper}>
-          <TouchableOpacity>
-            <Gmail width={50} height={50} />
+
+        <View>
+          <TouchableOpacity
+            activeOpacity={0.8}
+            onPress={() =>
+              props.navigation.push('DocterLogin', {
+                category: category,
+              })
+            }>
+            <View style={styles.docButton}>
+              <Category width={100} height={100} />
+              <CustomText
+                SimpleText={true}
+                customStyle={styles.docText}
+                label={'I am Docter'}
+              />
+            </View>
           </TouchableOpacity>
-          <TouchableOpacity>
-            <Facebook width={50} height={50} />
+          <TouchableOpacity
+            activeOpacity={0.8}
+            onPress={() => props.navigation.push('PatientLogin')}>
+            <View style={styles.patButton}>
+              <Patient width={100} height={100} />
+              <CustomText
+                SimpleText={true}
+                customStyle={styles.docText}
+                label={'I am Patient'}
+              />
+            </View>
           </TouchableOpacity>
-          <TouchableOpacity>
-            <Twitter width={50} height={50} />
-          </TouchableOpacity>
-        </View> */}
-      </View>
+        </View>
+      </ScrollView>
     </ImageBackground>
   );
 };
