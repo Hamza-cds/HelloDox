@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 30,
     borderRadius: 15,
     paddingVertical: 15,
-    marginTop: '10%',
+    // marginTop: '10%',
   },
   headText: {
     color: Theme.black,

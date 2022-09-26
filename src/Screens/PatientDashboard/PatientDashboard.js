@@ -101,10 +101,12 @@ const PatientDashboard = props => {
             style={styles.ProfileImage}
             source={
               userData
-                ? userData.patient.profile_image
-                  ? {uri: URL.concat(userData.patient.profile_image)}
-                  : require('../../Assets/user_photo.png')
-                : require('../../Assets/user_photo.png')
+                ? userData.patient
+                  ? userData.patient.profile_image
+                    ? {uri: URL.concat(userData.patient.profile_image)}
+                    : require('../../Assets/EmptyProfile.png')
+                  : require('../../Assets/EmptyProfile.png')
+                : require('../../Assets/EmptyProfile.png')
             }
           />
         </View>
@@ -229,7 +231,12 @@ const PatientDashboard = props => {
                           : require('../../Assets/EmptyProfile.png')
                       }
                       // style={styles.imageStyle}
-                      style={{height: 60, width: 60, alignSelf: 'center'}}
+                      style={{
+                        height: 60,
+                        width: 60,
+                        alignSelf: 'center',
+                        borderRadius: 5,
+                      }}
                     />
                     <View style={styles.wrapText}>
                       <Text style={styles.DocNameText}>{item.name}</Text>

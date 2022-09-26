@@ -218,6 +218,7 @@ const AppointmentsScreen = props => {
                   <Appointment
                     customView={styles.customView}
                     nameLabel={item.doctor.name}
+                    // nameLabel={'Malik Qaiser Riaz Khoker'}
                     dateLabel={item.start_datetime}
                     source={
                       item

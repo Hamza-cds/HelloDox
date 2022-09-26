@@ -170,7 +170,7 @@ const DocterDashboard = props => {
               <View style={styles.docWrapper}>
                 <View style={{flexDirection: 'row'}}>
                   <Image
-                    style={{height: 100, width: 100, borderRadius: 10}}
+                    style={{height: 110, width: 110, borderRadius: 10}}
                     source={
                       item
                         ? item.patient

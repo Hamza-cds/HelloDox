@@ -92,8 +92,9 @@ const AppointmentConfirmScreen = props => {
         <Appointment
           customView={styles.customView}
           nameLabel={DATA.name}
+          // nameLabel={'Malik Qaiser Riaz Khoker'}
           dateLabel={Date}
-          docCategory={DATA.category.name}
+          // docCategory={DATA.category.name}
           source={
             DATA
               ? DATA.profile_image

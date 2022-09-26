@@ -34,8 +34,10 @@ const DrawerMenuPatient = props => {
           style={styles.imageStyle}
           source={
             userData
-              ? userData.patient.profile_image
-                ? {uri: URL.concat(userData.patient.profile_image)}
+              ? userData.patient
+                ? userData.patient.profile_image
+                  ? {uri: URL.concat(userData.patient.profile_image)}
+                  : require('../Assets/user_photo.png')
                 : require('../Assets/user_photo.png')
               : require('../Assets/user_photo.png')
           }
@@ -43,8 +45,10 @@ const DrawerMenuPatient = props => {
         <View style={{marginBottom: '20%'}}>
           <Text style={styles.proText}>
             {userData
-              ? userData.patient.name
+              ? userData.patient
                 ? userData.patient.name
+                  ? userData.patient.name
+                  : 'Name'
                 : 'Name'
               : 'Name'}
           </Text>
@@ -57,9 +61,11 @@ const DrawerMenuPatient = props => {
             />
             <Text style={styles.emailText}>
               {userData
-                ? userData.patient.email
+                ? userData.patient
                   ? userData.patient.email
-                  : 'example@gmail.com'
+                    ? userData.patient.email
+                    : 'example@gmail.com'
+                  : 'Email'
                 : 'Email'}
             </Text>
           </View>
@@ -85,6 +91,7 @@ const styles = StyleSheet.create({
     height: 70,
     width: 70,
     marginTop: '30%',
+    borderRadius: 10,
   },
   proText: {
     color: '#FFFFFF',

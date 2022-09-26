@@ -45,9 +45,10 @@ const styles = StyleSheet.create({
   },
   appText: {
     color: Theme.primary,
-    fontSize: Theme.scale(18),
+    fontSize: Theme.scale(22),
     fontFamily: Fonts.HELODOX_REGULAR_FONT,
     textAlign: Theme.align,
+    marginTop: 25,
   },
   appointmentwrap: {
     backgroundColor: Theme.white,
@@ -155,12 +156,13 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   docWrapper: {
-    height: Theme.hp(14),
+    // height: Theme.hp(14),
     backgroundColor: Theme.white,
+    // backgroundColor: 'red',
     borderRadius: 10,
     elevation: 5,
     marginHorizontal: 25,
-    marginVertical: 15,
+    marginVertical: 10,
     flexDirection: Theme.row,
     justifyContent: Theme.spaceBetween,
     // paddingHorizontal: 15,
@@ -169,6 +171,8 @@ const styles = StyleSheet.create({
     color: Theme.black,
     fontSize: Theme.scale(18),
     fontFamily: Fonts.HELODOX_REGULAR_FONT,
+    // backgroundColor: 'red',
+    width: 200,
   },
   specialText: {
     color: Theme.lightGray,

@@ -175,7 +175,7 @@ const PatientLogin = props => {
         {/* This is Sign In Page Start */}
 
         <View key="1">
-          <View>
+          <View style={{marginVertical: 25}}>
             <View style={styles.inputContainer}>
               <CustomText
                 SimpleText={true}
@@ -238,7 +238,7 @@ const PatientLogin = props => {
                 }}
               />
             </View>
-            <CustomText
+            {/* <CustomText
               SimpleText={true}
               customStyle={styles.loginText}
               label={'or login with'}
@@ -253,7 +253,7 @@ const PatientLogin = props => {
               <TouchableOpacity>
                 <Twitter width={50} height={50} />
               </TouchableOpacity>
-            </View>
+            </View> */}
           </View>
         </View>
         {/* This is Sign In Page End */}
@@ -261,7 +261,7 @@ const PatientLogin = props => {
         {/* This is Sign up Page Start */}
         <View key="2">
           <ScrollView>
-            <View>
+            <View style={{marginVertical: 25}}>
               <View style={styles.inputContainer}>
                 <CustomText
                   SimpleText={true}
@@ -382,7 +382,7 @@ const PatientLogin = props => {
                   }}
                 />
               </View>
-              <CustomText
+              {/* <CustomText
                 SimpleText={true}
                 customStyle={styles.loginText}
                 label={'or login with'}
@@ -397,7 +397,7 @@ const PatientLogin = props => {
                 <TouchableOpacity>
                   <Twitter width={50} height={50} />
                 </TouchableOpacity>
-              </View>
+              </View> */}
             </View>
           </ScrollView>
         </View>

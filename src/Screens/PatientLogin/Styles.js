@@ -1,11 +1,16 @@
 import React from 'react';
-import {StyleSheet} from 'react-native';
+import {StyleSheet, Dimensions} from 'react-native';
 import Fonts from '../../Constants/Fonts';
 import Theme from '../../Constants/Theme';
 
 const styles = StyleSheet.create({
   Container: {
     flex: 1,
+    // position: 'absolute',
+    // left: 0,
+    // top: 0,
+    // width: Dimensions.get('window').width,
+    // height: Dimensions.get('window').height,
   },
   signInText: {
     color: Theme.black,
@@ -33,7 +38,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 30,
     borderRadius: 15,
     paddingVertical: 15,
-    marginTop: '10%',
+    // marginTop: '10%',
   },
   headText: {
     color: Theme.black,
@@ -94,7 +99,8 @@ const styles = StyleSheet.create({
   termWrapper: {
     flexDirection: Theme.row,
     alignSelf: Theme.align,
-    marginBottom: '2%',
+    marginBottom: '5%',
+    position: 'relative',
   },
   agreeText: {
     color: Theme.black,

@@ -12,6 +12,7 @@ import Notify from '../../Assets/notification';
 import Button from '../../Components/Button';
 import TextInputs from '../../Components/TextInputs';
 import Fontisto from 'react-native-vector-icons/Fontisto';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Theme from '../../Constants/Theme';
 import Feather from 'react-native-vector-icons/Feather';
 import Entypo from 'react-native-vector-icons/Entypo';
@@ -98,7 +99,22 @@ const PaymentScreen = props => {
           }}
           placeholderTextColor={Theme.black}
         />
-        {/* <TextInputs
+        <TextInputs
+          icon={
+            <MaterialIcons
+              style={styles.iconStyle}
+              name={'payments'}
+              size={22}
+              color={Theme.black}
+            />
+          }
+          CustomView={styles.WrapViewEmail}
+          CustomText={styles.InputText}
+          placeholder={'Enter Amount'}
+          placeholderTextColor={Theme.black}
+          // secureTextEntry={true}
+        />
+        <TextInputs
           icon={
             <Feather
               style={styles.iconStyle}
@@ -112,7 +128,7 @@ const PaymentScreen = props => {
           placeholder={'Password'}
           placeholderTextColor={Theme.black}
           secureTextEntry={true}
-        /> */}
+        />
 
         <Button
           CustomButton={styles.CustomButton}

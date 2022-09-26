@@ -21,7 +21,6 @@ const styles = StyleSheet.create({
     justifyContent: Theme.spaceBetween,
     marginHorizontal: 25,
     marginTop: 15,
-    alignSelf: 'flex-end',
   },
   notifyWrap: {
     flexDirection: Theme.row,

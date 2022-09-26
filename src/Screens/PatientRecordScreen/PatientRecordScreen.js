@@ -139,10 +139,10 @@ const PatientRecordScreen = props => {
   return (
     <View style={styles.Container}>
       <View style={styles.headerWrapper}>
-        {/* <DrawerButton
+        <DrawerButton
           MenuStyle={styles.MenuStyle}
           onPress={() => props.navigation.openDrawer()}
-        /> */}
+        />
         <View style={styles.notifyWrap}>
           <Image
             style={styles.ProfileImage}
@@ -194,9 +194,10 @@ const PatientRecordScreen = props => {
             }}
             underlineColorAndroid="transparent"
             placeholder="Search..."
-            placeholderTextColor="#B0B0B0"
+            placeholderTextColor="black"
             autoCapitalize="none"
             onChangeText={setName}
+            color="black"
           />
           <TouchableOpacity
             style={{position: 'absolute', right: 10, top: 10}}

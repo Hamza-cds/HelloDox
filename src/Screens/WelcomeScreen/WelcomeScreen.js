@@ -78,7 +78,7 @@ const WelcomeScreen = props => {
           </View>
         </TouchableOpacity>
 
-        <CustomText
+        {/* <CustomText
           SimpleText={true}
           customStyle={styles.loginText}
           label={'or login with'}
@@ -93,7 +93,7 @@ const WelcomeScreen = props => {
           <TouchableOpacity>
             <Twitter width={50} height={50} />
           </TouchableOpacity>
-        </View>
+        </View> */}
       </View>
     </ImageBackground>
   );

@@ -47,7 +47,7 @@ const BookAppointmentScreen = props => {
             />
           </View>
         </View> */}
-        <View style={{marginVertical: 25}} />
+        <View style={{marginVertical: 20}} />
         <View style={styles.docView}>
           <Image
             style={styles.DocImage}
