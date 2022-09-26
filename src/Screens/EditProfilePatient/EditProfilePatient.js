@@ -127,8 +127,8 @@ const EditProfilePatient = props => {
                 : userData.patient
                 ? userData.patient.profile_image
                   ? {uri: URL.concat(userData.patient.profile_image)}
-                  : require('../../Assets/user-photo.png')
-                : require('../../Assets/user-photo.png')
+                  : require('../../Assets/EmptyProfile.png')
+                : require('../../Assets/EmptyProfile.png')
             }
           />
           <TouchableOpacity onPress={UploadImage}>

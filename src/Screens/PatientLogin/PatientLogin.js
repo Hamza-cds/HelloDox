@@ -24,6 +24,7 @@ import {doctorLoginApiCall, patientSignUpApiCall} from '../../Apis/Repo';
 import {isNullOrEmpty} from '../../Constants/TextUtils';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Loader from '../../Components/Loader';
+import {isInvalidEmail, isInvalidPassword} from '../../Constants/Validations';
 
 const PatientLogin = props => {
   console.log('props', props);
@@ -57,8 +58,14 @@ const PatientLogin = props => {
       alert('Enter Name');
     } else if (isNullOrEmpty(email)) {
       alert('Enter Email');
+    } else if (isInvalidEmail(email)) {
+      alert('Enter Valid Email Address');
     } else if (isNullOrEmpty(password)) {
       alert('Enter Password');
+    } else if (isInvalidPassword(password)) {
+      alert(
+        'Enter Password min 8 characters, 1 letter,number and special character',
+      );
     } else if (isNullOrEmpty(address)) {
       alert('Enter Address');
     } else if (isNullOrEmpty(city)) {
@@ -86,7 +93,9 @@ const PatientLogin = props => {
           if (data.data.status == 200 && data.data.success == true) {
             setIsLoading(false);
             AsyncStorage.setItem('user_data', JSON.stringify(data.data.result));
-            props.navigation.replace('PatientDashboard');
+            // props.navigation.replace('PatientDashboard');
+            alert('Your account has been created please Sigin');
+            pagerRef.current.setPage(0);
           } else {
             setIsLoading(false);
             alert(data.message);
@@ -303,6 +312,8 @@ const PatientLogin = props => {
                   onChange={value => {
                     setNumber(value);
                   }}
+                  maxLength={11}
+                  keyboardType={'numeric'}
                   CustomView={styles.WrapViewPass}
                   CustomText={styles.InputText}
                   placeholder={'Number'}

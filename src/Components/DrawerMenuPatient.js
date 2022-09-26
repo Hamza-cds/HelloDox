@@ -37,9 +37,9 @@ const DrawerMenuPatient = props => {
               ? userData.patient
                 ? userData.patient.profile_image
                   ? {uri: URL.concat(userData.patient.profile_image)}
-                  : require('../Assets/user_photo.png')
-                : require('../Assets/user_photo.png')
-              : require('../Assets/user_photo.png')
+                  : require('../Assets/EmptyProfile.png')
+                : require('../Assets/EmptyProfile.png')
+              : require('../Assets/EmptyProfile.png')
           }
         />
         <View style={{marginBottom: '20%'}}>
