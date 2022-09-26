@@ -36,9 +36,9 @@ const DrawerMenuDocter = props => {
               ? userData.doctor
                 ? userData.doctor.profile_image
                   ? {uri: URL.concat(userData.doctor.profile_image)}
-                  : null
-                : null
-              : null
+                  : require('../Assets/EmptyProfile.png')
+                : require('../Assets/EmptyProfile.png')
+              : require('../Assets/EmptyProfile.png')
             //     : require('../Assets/EmptyProfile.png')
             //   : require('../Assets/EmptyProfile.png')
             // : require('../Assets/EmptyProfile.png')
@@ -50,9 +50,9 @@ const DrawerMenuDocter = props => {
               ? userData.doctor
                 ? userData.doctor.name
                   ? userData.doctor.name
-                  : null
-                : null
-              : null}
+                  : 'Name'
+                : 'Name'
+              : 'Name'}
           </Text>
           <View style={styles.emailWrapper}>
             <MaterialCommunityIcons
@@ -66,9 +66,9 @@ const DrawerMenuDocter = props => {
                 ? userData.doctor
                   ? userData.doctor.email
                     ? userData.doctor.email
-                    : null
-                  : null
-                : null}
+                    : 'Doctor@gmail.com'
+                  : 'Doctor@gmail.com'
+                : 'Doctor@gmail.com'}
             </Text>
           </View>
         </View>
@@ -94,6 +94,7 @@ const styles = StyleSheet.create({
     height: 70,
     width: 70,
     marginTop: '30%',
+    borderRadius: 10,
   },
   proText: {
     color: '#FFFFFF',

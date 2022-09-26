@@ -39,7 +39,7 @@ const PaymentScreen = props => {
         console.log('data', data);
 
         if (data.data.status == 200 && data.data.success == true) {
-          props.navigation.push('PatientDashboard');
+          props.navigation.replace('PatientDashboard');
         } else {
           alert(data.message);
         }
@@ -76,11 +76,12 @@ const PaymentScreen = props => {
           }
           CustomView={styles.WrapViewEmailCard}
           CustomText={styles.InputText}
-          placeholder={'Card Number'}
+          placeholder={'EasyPaisa Number'}
           onChange={value => {
             setCardNum(value);
           }}
           placeholderTextColor={Theme.black}
+          color="black"
         />
         <TextInputs
           icon={
@@ -98,6 +99,7 @@ const PaymentScreen = props => {
             setEmail(value);
           }}
           placeholderTextColor={Theme.black}
+          color="black"
         />
         <TextInputs
           icon={
@@ -112,6 +114,7 @@ const PaymentScreen = props => {
           CustomText={styles.InputText}
           placeholder={'Enter Amount'}
           placeholderTextColor={Theme.black}
+          color="black"
           // secureTextEntry={true}
         />
         <TextInputs
@@ -128,6 +131,7 @@ const PaymentScreen = props => {
           placeholder={'Password'}
           placeholderTextColor={Theme.black}
           secureTextEntry={true}
+          color="black"
         />
 
         <Button

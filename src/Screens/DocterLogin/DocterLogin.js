@@ -223,6 +223,7 @@ const DocterLogin = props => {
                 CustomText={styles.InputText}
                 placeholder={'Password'}
                 placeholderTextColor={Theme.black}
+                secureTextEntry={true}
                 color="black"
               />
               <TouchableOpacity
@@ -315,6 +316,7 @@ const DocterLogin = props => {
                   CustomText={styles.InputText}
                   placeholder={'Password'}
                   placeholderTextColor={Theme.black}
+                  secureTextEntry={true}
                   color="black"
                 />
                 <TextInputs

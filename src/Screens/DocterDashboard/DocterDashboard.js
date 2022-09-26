@@ -77,6 +77,7 @@ const DocterDashboard = props => {
           MenuStyle={styles.MenuStyle}
           onPress={() => props.navigation.openDrawer()}
         />
+
         <View style={styles.notifyWrap}>
           <Image
             style={styles.ProfileImage}
@@ -85,9 +86,9 @@ const DocterDashboard = props => {
                 ? userData.doctor
                   ? userData.doctor.profile_image
                     ? {uri: URL.concat(userData.doctor.profile_image)}
-                    : null
-                  : null
-                : null
+                    : require('../../Assets/EmptyProfile.png')
+                  : require('../../Assets/EmptyProfile.png')
+                : require('../../Assets/EmptyProfile.png')
             }
           />
         </View>

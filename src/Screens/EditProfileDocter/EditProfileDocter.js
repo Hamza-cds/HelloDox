@@ -151,6 +151,15 @@ const EditProfileDocter = props => {
           MenuStyle={styles.MenuStyle}
           onPress={() => props.navigation.openDrawer()}
         />
+        <Text
+          style={{
+            fontSize: 22,
+            fontFamily: Fonts.HELODOX_BOLD_FONT,
+            alignSelf: 'center',
+            marginTop: 5,
+          }}>
+          Edit Profile
+        </Text>
       </View>
       <View style={styles.InnerContainer}>
         <ScrollView>
@@ -192,6 +201,7 @@ const EditProfileDocter = props => {
               CustomText={styles.InputText}
               placeholder={'Name'}
               placeholderTextColor={Theme.black}
+              color="black"
               text={userData ? (userData.name ? userData.name : null) : null}
               onChange={value => {
                 setName(value);
@@ -211,6 +221,7 @@ const EditProfileDocter = props => {
               placeholder={'Email'}
               text={userData ? (userData.email ? userData.email : null) : null}
               placeholderTextColor={Theme.black}
+              color="black"
             />
             <TextInputs
               icon={
@@ -226,6 +237,7 @@ const EditProfileDocter = props => {
               placeholder={'Fee'}
               text={userData ? (userData.fee ? userData.fee : null) : null}
               placeholderTextColor={Theme.black}
+              color="black"
               onChange={value => {
                 setFee(value);
               }}
@@ -244,6 +256,7 @@ const EditProfileDocter = props => {
               placeholder={'Days'}
               text={userData ? (userData.days ? userData.days : null) : null}
               placeholderTextColor={Theme.black}
+              color="black"
               onChange={value => {
                 setDays(value);
               }}
@@ -342,6 +355,7 @@ const EditProfileDocter = props => {
                   : null
               }
               placeholderTextColor={Theme.black}
+              color="black"
               onChange={value => {
                 setDiseasesRelatedToPhysician(value);
                 console.log(value);
@@ -362,6 +376,7 @@ const EditProfileDocter = props => {
                 color: Theme.black,
               }}
               CustomText={styles.InputText}
+              color="black"
               placeholder={'Work Experience'}
               text={
                 userData
@@ -391,6 +406,7 @@ const EditProfileDocter = props => {
                 color: Theme.black,
               }}
               CustomText={styles.InputText}
+              color="black"
               placeholder={'About Me'}
               text={userData ? (userData.about ? userData.about : null) : null}
               placeholderTextColor={Theme.black}
