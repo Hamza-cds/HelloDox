@@ -65,7 +65,7 @@ const DrawerMenuPatient = props => {
                   ? userData.patient.email
                     ? userData.patient.email
                     : 'example@gmail.com'
-                  : 'example@gmail.com'
+                  : 'Email'
                 : 'Email'}
             </Text>
           </View>
@@ -91,6 +91,7 @@ const styles = StyleSheet.create({
     height: 70,
     width: 70,
     marginTop: '30%',
+    borderRadius: 10,
   },
   proText: {
     color: '#FFFFFF',

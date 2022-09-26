@@ -32,6 +32,7 @@ const styles = StyleSheet.create({
   ProfileImage: {
     height: 40,
     width: 40,
+    borderRadius: 5,
   },
   MenuStyle: {
     marginTop: 10,

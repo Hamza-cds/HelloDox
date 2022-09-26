@@ -12,40 +12,61 @@ import Notify from '../../Assets/notification';
 import Button from '../../Components/Button';
 import TextInputs from '../../Components/TextInputs';
 import Fontisto from 'react-native-vector-icons/Fontisto';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Theme from '../../Constants/Theme';
 import Feather from 'react-native-vector-icons/Feather';
 import Entypo from 'react-native-vector-icons/Entypo';
 import CustomText from '../../Components/customText';
 import {PostPaymentApiCall} from '../../Apis/Repo';
+import {isNullOrEmpty} from '../../Constants/TextUtils';
+import {isInvalidEmail, isInvalidPassword} from '../../Constants/Validations';
 
 const PaymentScreen = props => {
   console.log('props', props);
-  const [cardNum, setCardNum] = useState('');
+  const [amount, setAmount] = useState('');
   const [email, setEmail] = useState('');
+  const [cadrNum, setCardNum] = useState('');
+  const [pass, setPass] = useState('');
   let ID = props.route.params.id;
-  console.log('cardNum', cardNum);
   // console.log('ID', ID);
 
   const onConfirm = () => {
-    let obj = {
-      email: email,
-      amount: cardNum,
-      order_number: ID,
-    };
+    if (isNullOrEmpty(email)) {
+      alert('Enter Email');
+    } else if (isNullOrEmpty(amount)) {
+      alert('Enter Amount');
+    } else if (isNullOrEmpty(cadrNum)) {
+      alert('Enter EasyPaisa account Number');
+    } else if (isNullOrEmpty(pass)) {
+      alert('Enter password');
+    } else if (isInvalidEmail(email)) {
+      alert('Enter valid email address');
+    } else if (isInvalidPassword(pass)) {
+      alert(
+        'Enter Password min 8 characters, 1 letter,number and special character',
+      );
+    } else {
+      let obj = {
+        email: email,
+        amount: amount,
+        order_number: ID,
+      };
+      console.log('obj', obj);
 
-    PostPaymentApiCall(obj)
-      .then(data => {
-        console.log('data', data);
+      PostPaymentApiCall(obj)
+        .then(data => {
+          console.log('data', data);
 
-        if (data.data.status == 200 && data.data.success == true) {
-          props.navigation.push('PatientDashboard');
-        } else {
-          alert(data.message);
-        }
-      })
-      .catch(err => {
-        console.log('err', err);
-      });
+          if (data.data.status == 200 && data.data.success == true) {
+            props.navigation.replace('PatientDashboard');
+          } else {
+            alert(data.message);
+          }
+        })
+        .catch(err => {
+          console.log('err', err);
+        });
+    }
   };
 
   return (
@@ -75,11 +96,14 @@ const PaymentScreen = props => {
           }
           CustomView={styles.WrapViewEmailCard}
           CustomText={styles.InputText}
-          placeholder={'Card Number'}
+          placeholder={'EasyPaisa Number'}
+          maxLength={11}
+          keyboardType={'numeric'}
           onChange={value => {
             setCardNum(value);
           }}
           placeholderTextColor={Theme.black}
+          color="black"
         />
         <TextInputs
           icon={
@@ -97,8 +121,29 @@ const PaymentScreen = props => {
             setEmail(value);
           }}
           placeholderTextColor={Theme.black}
+          color="black"
         />
-        {/* <TextInputs
+        <TextInputs
+          icon={
+            <MaterialIcons
+              style={styles.iconStyle}
+              name={'payments'}
+              size={22}
+              color={Theme.black}
+            />
+          }
+          CustomView={styles.WrapViewEmail}
+          CustomText={styles.InputText}
+          placeholder={'Enter Amount'}
+          maxLength={6}
+          keyboardType={'numeric'}
+          placeholderTextColor={Theme.black}
+          color="black"
+          onChange={value => {
+            setAmount(value);
+          }}
+        />
+        <TextInputs
           icon={
             <Feather
               style={styles.iconStyle}
@@ -112,7 +157,11 @@ const PaymentScreen = props => {
           placeholder={'Password'}
           placeholderTextColor={Theme.black}
           secureTextEntry={true}
-        /> */}
+          onChange={value => {
+            setPass(value);
+          }}
+          color="black"
+        />
 
         <Button
           CustomButton={styles.CustomButton}

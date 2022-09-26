@@ -22,13 +22,11 @@ import Octicons from 'react-native-vector-icons/Octicons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {isNullOrEmpty} from '../../Constants/TextUtils';
 import SearchableDropdown from 'react-native-searchable-dropdown';
-import {
-  doctorSignUpApiCall,
-  doctorLoginApiCall,
-  getCategoryDataApiCall,
-} from '../../Apis/Repo';
+import {doctorSignUpApiCall, doctorLoginApiCall} from '../../Apis/Repo';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Loader from '../../Components/Loader';
+import {isInvalidEmail, isInvalidPassword} from '../../Constants/Validations';
+import SelectDropdown from 'react-native-select-dropdown';
 
 const DocterLogin = props => {
   console.log('props', props);
@@ -45,15 +43,21 @@ const DocterLogin = props => {
 
   let [selectedItems, setSelectedItems] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  // console.log('selected category', selectedItems);
+  console.log('selected category', selectedItems);
 
   const onSignUp = () => {
     if (isNullOrEmpty(name)) {
       alert('Enter Name');
     } else if (isNullOrEmpty(email)) {
       alert('Enter Email');
+    } else if (isInvalidEmail(email)) {
+      alert('Enter Valid Email');
     } else if (isNullOrEmpty(password)) {
       alert('Enter Password');
+    } else if (isInvalidPassword(password)) {
+      alert(
+        'Enter Password min 8 characters, 1 letter,number and special character',
+      );
     } else if (isNullOrEmpty(address)) {
       alert('Enter Address');
     } else if (isNullOrEmpty(city)) {
@@ -80,10 +84,11 @@ const DocterLogin = props => {
           if (data.data.status == 200 && data.data.success == true) {
             setIsLoading(false);
             AsyncStorage.setItem('user_data', JSON.stringify(data.data.result));
-            props.navigation.replace('DocterDashboard');
+            // props.navigation.replace('DocterDashboard');
+            pagerRef.current.setPage(0);
           } else {
             setIsLoading(false);
-            alert(data.message);
+            alert(data.data.message);
             console.log('ADD');
           }
         })
@@ -116,7 +121,7 @@ const DocterLogin = props => {
             props.navigation.replace('DocterDashboard');
           } else {
             setIsLoading(false);
-            alert(data.message);
+            alert(data.data.message);
             console.log('ADD');
           }
         })
@@ -173,7 +178,7 @@ const DocterLogin = props => {
         {/* This is Sign In Page Start */}
 
         <View key="1">
-          <View>
+          <View style={{marginVertical: 25}}>
             <View style={styles.inputContainer}>
               <CustomText
                 SimpleText={true}
@@ -196,6 +201,7 @@ const DocterLogin = props => {
                 CustomText={styles.InputText}
                 placeholder={'Email Address'}
                 placeholderTextColor={Theme.black}
+                color="black"
               />
 
               <TextInputs
@@ -214,6 +220,7 @@ const DocterLogin = props => {
                 CustomText={styles.InputText}
                 placeholder={'Password'}
                 placeholderTextColor={Theme.black}
+                color="black"
               />
               <TouchableOpacity
                 onPress={() => {
@@ -237,22 +244,6 @@ const DocterLogin = props => {
                 }}
               />
             </View>
-            <CustomText
-              SimpleText={true}
-              customStyle={styles.loginText}
-              label={'or login with'}
-            />
-            <View style={styles.socialWrapper}>
-              <TouchableOpacity>
-                <Gmail width={50} height={50} />
-              </TouchableOpacity>
-              <TouchableOpacity>
-                <Facebook width={50} height={50} />
-              </TouchableOpacity>
-              <TouchableOpacity>
-                <Twitter width={50} height={50} />
-              </TouchableOpacity>
-            </View>
           </View>
           {/* {isLoading ? <Loader /> : null} */}
         </View>
@@ -260,155 +251,182 @@ const DocterLogin = props => {
 
         {/* This is Sign up Page Start */}
         <View key="2">
-          {/* <ScrollView> */}
-          <View>
-            <View style={styles.inputContainer}>
-              <CustomText
-                SimpleText={true}
-                customStyle={styles.headText}
-                label={'Sign Up'}
-              />
-              <TextInputs
-                icon={
-                  <Feather
-                    style={styles.iconStyle}
-                    name={'user'}
-                    size={22}
-                    color={Theme.black}
-                  />
-                }
-                onChange={value => {
-                  setName(value);
-                }}
-                CustomView={styles.WrapViewEmail}
-                CustomText={styles.InputText}
-                placeholder={'Name'}
-                placeholderTextColor={Theme.black}
-              />
+          <ScrollView>
+            <View style={{marginVertical: 25}}>
+              <View style={styles.inputContainer}>
+                <CustomText
+                  SimpleText={true}
+                  customStyle={styles.headText}
+                  label={'Sign Up'}
+                />
+                <TextInputs
+                  icon={
+                    <Feather
+                      style={styles.iconStyle}
+                      name={'user'}
+                      size={22}
+                      color={Theme.black}
+                    />
+                  }
+                  onChange={value => {
+                    setName(value);
+                  }}
+                  CustomView={styles.WrapViewEmail}
+                  CustomText={styles.InputText}
+                  placeholder={'Name'}
+                  placeholderTextColor={Theme.black}
+                  color="black"
+                />
 
-              <TextInputs
-                icon={
-                  <Fontisto
-                    style={styles.iconStyle}
-                    name={'email'}
-                    size={22}
-                    color={Theme.black}
-                  />
-                }
-                onChange={value => {
-                  setEmail(value);
-                }}
-                CustomView={styles.WrapViewPass}
-                CustomText={styles.InputText}
-                placeholder={'Email'}
-                placeholderTextColor={Theme.black}
-              />
-              <TextInputs
-                icon={
-                  <Feather
-                    style={styles.iconStyle}
-                    name={'lock'}
-                    size={22}
-                    color={Theme.black}
-                  />
-                }
-                onChange={value => {
-                  setPassword(value);
-                }}
-                CustomView={styles.WrapViewPass}
-                CustomText={styles.InputText}
-                placeholder={'Password'}
-                placeholderTextColor={Theme.black}
-              />
-              <TextInputs
-                icon={
-                  <Ionicons
-                    style={styles.iconStyle}
-                    name={'location-outline'}
-                    size={22}
-                    color={Theme.black}
-                  />
-                }
-                onChange={value => {
-                  setAddress(value);
-                }}
-                CustomView={styles.WrapViewPass}
-                CustomText={styles.InputText}
-                placeholder={'Address'}
-                placeholderTextColor={Theme.black}
-              />
-              <TextInputs
-                icon={
-                  <MaterialCommunityIcons
-                    style={styles.iconStyle}
-                    name={'city-variant-outline'}
-                    size={22}
-                    color={Theme.black}
-                  />
-                }
-                onChange={value => {
-                  setCity(value);
-                }}
-                CustomView={styles.WrapViewPass}
-                CustomText={styles.InputText}
-                placeholder={'City'}
-                placeholderTextColor={Theme.black}
-              />
+                <TextInputs
+                  icon={
+                    <Fontisto
+                      style={styles.iconStyle}
+                      name={'email'}
+                      size={22}
+                      color={Theme.black}
+                    />
+                  }
+                  onChange={value => {
+                    setEmail(value);
+                  }}
+                  CustomView={styles.WrapViewPass}
+                  CustomText={styles.InputText}
+                  placeholder={'Email'}
+                  placeholderTextColor={Theme.black}
+                  color="black"
+                />
+                <TextInputs
+                  icon={
+                    <Feather
+                      style={styles.iconStyle}
+                      name={'lock'}
+                      size={22}
+                      color={Theme.black}
+                    />
+                  }
+                  onChange={value => {
+                    setPassword(value);
+                  }}
+                  CustomView={styles.WrapViewPass}
+                  CustomText={styles.InputText}
+                  placeholder={'Password'}
+                  placeholderTextColor={Theme.black}
+                  color="black"
+                />
+                <TextInputs
+                  icon={
+                    <Ionicons
+                      style={styles.iconStyle}
+                      name={'location-outline'}
+                      size={22}
+                      color={Theme.black}
+                    />
+                  }
+                  onChange={value => {
+                    setAddress(value);
+                  }}
+                  CustomView={styles.WrapViewPass}
+                  CustomText={styles.InputText}
+                  placeholder={'Address'}
+                  placeholderTextColor={Theme.black}
+                  color="black"
+                />
+                <TextInputs
+                  icon={
+                    <MaterialCommunityIcons
+                      style={styles.iconStyle}
+                      name={'city-variant-outline'}
+                      size={22}
+                      color={Theme.black}
+                    />
+                  }
+                  onChange={value => {
+                    setCity(value);
+                  }}
+                  CustomView={styles.WrapViewPass}
+                  CustomText={styles.InputText}
+                  placeholder={'City'}
+                  placeholderTextColor={Theme.black}
+                  color="black"
+                />
 
-              <SearchableDropdown
-                multi={true}
-                selectedItems={selectedItems}
-                onItemSelect={item => {
-                  setSelectedItems(item);
-                }}
-                onTextChange={text => console.log(text)}
-                containerStyle={{
-                  padding: 5,
-                  width: '100%',
-                  paddingHorizontal: 10,
-                  marginTop: 10,
-                  // height: 50,
-                  maxHeight: 220,
-                }}
-                // itemsContainerStyle={{
-                //   maxHeight: 100,
-                // }}
-                textInputStyle={{
-                  padding: 12,
-                  borderWidth: 1,
-                  borderColor: '#ccc',
-                  backgroundColor: '#FAF7F6',
-                }}
-                itemStyle={{
-                  padding: 10,
-                  marginTop: 2,
-                  backgroundColor: '#FAF9F8',
-                  borderColor: '#bbb',
-                  borderWidth: 1,
-                }}
-                itemTextStyle={{
-                  color: '#222',
-                }}
-                items={categoryData}
-                // defaultIndex={2}
-                placeholder={
-                  selectedItems ? selectedItems.name : 'search Specialization'
-                }
-                listProps={{nestedScrollEnabled: true}}
-                resetValue={false}
-              />
+                <SelectDropdown
+                  data={categoryData}
+                  defaultButtonText={'select category'}
+                  onSelect={(item, index) => {
+                    setSelectedItems((selectedItems = item));
+                  }}
+                  buttonTextAfterSelection={(selectedItem, index) => {
+                    return selectedItem.name;
+                  }}
+                  rowTextForSelection={(item, index) => {
+                    // text represented for each item in dropdown
+                    // if data array is an array of objects then return item.property to represent item in dropdown
+                    return item.name;
+                  }}
+                  buttonStyle={{
+                    alignSelf: 'center',
+                    marginVertical: 20,
+                    width: '95%',
+                    borderWidth: 0.5,
+                  }}
+                />
 
-              <Button
-                CustomButton={styles.CustomButton}
-                CustomText={styles.CustomText}
-                label={'Sign Up'}
-                onPress={() => {
-                  // props.navigation.replace('DocterDashboard');
-                  onSignUp();
-                }}
-              />
-            </View>
-            <CustomText
+                {/* <SearchableDropdown
+                  multi={true}
+                  selectedItems={selectedItems}
+                  onItemSelect={item => {
+                    setSelectedItems(item);
+                  }}
+                  onTextChange={text => console.log(text)}
+                  containerStyle={{
+                    padding: 5,
+                    width: '100%',
+                    paddingHorizontal: 10,
+                    marginTop: 10,
+                    // height: 50,
+                    maxHeight: 220,
+                    // placeholderTextColor: 'black',
+                  }}
+                  // itemsContainerStyle={{
+                  //   maxHeight: 100,
+                  // }}
+                  textInputStyle={{
+                    padding: 12,
+                    borderWidth: 1,
+                    borderColor: '#ccc',
+                    // backgroundColor: '#FAF7F6',
+                  }}
+                  itemStyle={{
+                    padding: 10,
+                    marginTop: 2,
+                    backgroundColor: '#FAF9F8',
+                    borderColor: '#bbb',
+                    borderWidth: 1,
+                  }}
+                  itemTextStyle={{
+                    color: '#222',
+                  }}
+                  items={categoryData}
+                  // defaultIndex={2}
+                  placeholder={
+                    selectedItems ? selectedItems.name : 'search Specialization'
+                  }
+                  listProps={{nestedScrollEnabled: true}}
+                  resetValue={false}
+                /> */}
+                <Button
+                  CustomButton={styles.CustomButton}
+                  CustomText={styles.CustomText}
+                  label={'Sign Up'}
+                  onPress={() => {
+                    // props.navigation.replace('DocterDashboard');
+                    onSignUp();
+                  }}
+                />
+              </View>
+              {/* <CustomText
               SimpleText={true}
               customStyle={styles.loginText}
               label={'or login with'}
@@ -423,9 +441,9 @@ const DocterLogin = props => {
               <TouchableOpacity>
                 <Twitter width={50} height={50} />
               </TouchableOpacity>
+            </View> */}
             </View>
-          </View>
-          {/* </ScrollView> */}
+          </ScrollView>
         </View>
       </PagerView>
       <View style={styles.termWrapper}>

@@ -63,7 +63,7 @@ const styles = StyleSheet.create({
     fontSize: Theme.scale(25),
     color: Theme.primary,
     textAlign: Theme.align,
-    marginTop: '20%',
+    marginTop: '50%',
     fontFamily: Fonts.HELODOX_BOLD_FONT,
   },
 });

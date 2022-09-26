@@ -22,6 +22,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {isNullOrEmpty} from '../../Constants/TextUtils';
 import {patientSignUpApiCall} from '../../Apis/Repo';
 import {URL} from '../../Constants/Constant';
+import Fonts from '../../Constants/Fonts';
 
 const EditProfilePatient = props => {
   let [userData, setuserData] = useState('');
@@ -111,6 +112,15 @@ const EditProfilePatient = props => {
             source={require('../../Assets/user_photo.png')}
           />
         </View> */}
+        <Text
+          style={{
+            fontSize: 22,
+            fontFamily: Fonts.HELODOX_BOLD_FONT,
+            alignSelf: 'center',
+            marginTop: 5,
+          }}>
+          Edit Profile
+        </Text>
       </View>
       <View style={styles.InnerContainer}>
         <CustomText
@@ -127,8 +137,8 @@ const EditProfilePatient = props => {
                 : userData.patient
                 ? userData.patient.profile_image
                   ? {uri: URL.concat(userData.patient.profile_image)}
-                  : require('../../Assets/user-photo.png')
-                : require('../../Assets/user-photo.png')
+                  : require('../../Assets/EmptyProfile.png')
+                : require('../../Assets/EmptyProfile.png')
             }
           />
           <TouchableOpacity onPress={UploadImage}>
@@ -158,6 +168,7 @@ const EditProfilePatient = props => {
                 : null
             }
             placeholderTextColor={Theme.black}
+            color={Theme.black}
             onChange={value => {
               setName(value);
             }}

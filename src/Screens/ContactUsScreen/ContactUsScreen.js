@@ -94,6 +94,7 @@ const ContactUsScreen = props => {
               setName(value);
             }}
             placeholderTextColor={Theme.black}
+            color="black"
           />
           <TextInputs
             icon={
@@ -111,6 +112,7 @@ const ContactUsScreen = props => {
               setEmail(value);
             }}
             placeholderTextColor={Theme.black}
+            color="black"
           />
           {/* <TextInput
             multiline={true}
@@ -152,6 +154,7 @@ const ContactUsScreen = props => {
             CustomText={styles.InputText}
             placeholder={'Enter Message...'}
             placeholderTextColor={Theme.black}
+            color="black"
             onChange={value => {
               setMsg(value);
               console.log(value);

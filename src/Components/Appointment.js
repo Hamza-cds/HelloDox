@@ -59,26 +59,37 @@ const Appointment = props => {
 
 export default Appointment;
 const styles = StyleSheet.create({
-  appointImage: {height: 120, width: 110, borderRadius: 20},
+  appointImage: {
+    height: 120,
+    width: 120,
+    borderTopLeftRadius: 20,
+    borderBottomLeftRadius: 20,
+  },
   docText: {
     fontSize: 18,
     color: Theme.white,
     fontFamily: Fonts.HELODOX_SEMIBOLD_FONT,
     marginTop: 10,
+    // backgroundColor: 'red',
+    width: 200,
   },
   divider: {
     height: 1,
     backgroundColor: Theme.white,
     width: 145,
-    marginVertical: 5,
-    marginTop: 5,
+    // marginVertical: 5,
+    // marginTop: 5,
+    marginTop: -10,
   },
   dateText: {
     fontSize: Theme.scale(10),
     color: Theme.white,
     fontFamily: Fonts.HELODOX_REGULAR_FONT,
+    // marginBottom: 10,
   },
   textWrap: {
-    marginRight: 15,
+    paddingLeft: 25,
+    // backgroundColor: 'green',
+    // paddingVertical: 10,
   },
 });

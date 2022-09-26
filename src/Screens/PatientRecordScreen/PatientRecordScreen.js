@@ -48,14 +48,7 @@ const PatientRecordScreen = props => {
   const getUpcomingAppointments = () => {
     setCurrentDate((currentDate = Hamzadate));
 
-    getAppointmentDoctor(
-      doctor,
-      patient,
-      upStatus,
-      upType,
-      currentDate,
-      name ? name : '%20',
-    )
+    getAppointmentDoctor(doctor, patient, upStatus, upType, currentDate, name)
       .then(data => {
         console.log('data UP', data);
 
@@ -139,14 +132,22 @@ const PatientRecordScreen = props => {
   return (
     <View style={styles.Container}>
       <View style={styles.headerWrapper}>
-        {/* <DrawerButton
+        <DrawerButton
           MenuStyle={styles.MenuStyle}
           onPress={() => props.navigation.openDrawer()}
-        /> */}
+        />
         <View style={styles.notifyWrap}>
           <Image
             style={styles.ProfileImage}
-            source={require('../../Assets/user_photo.png')}
+            source={
+              userData
+                ? userData.doctor
+                  ? userData.doctor.profile_image
+                    ? {uri: URL.concat(userData.doctor.profile_image)}
+                    : require('../../Assets/EmptyProfile.png')
+                  : require('../../Assets/EmptyProfile.png')
+                : require('../../Assets/EmptyProfile.png')
+            }
           />
         </View>
       </View>
@@ -194,9 +195,10 @@ const PatientRecordScreen = props => {
             }}
             underlineColorAndroid="transparent"
             placeholder="Search..."
-            placeholderTextColor="#B0B0B0"
+            placeholderTextColor="black"
             autoCapitalize="none"
             onChangeText={setName}
+            color="black"
           />
           <TouchableOpacity
             style={{position: 'absolute', right: 10, top: 10}}

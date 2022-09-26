@@ -40,8 +40,9 @@ const styles = StyleSheet.create({
     marginVertical: 25,
   },
   DocImage: {
-    height: 80,
-    width: 80,
+    height: 100,
+    width: 100,
+    borderRadius: 10,
   },
   docTextView: {
     marginLeft: 20,

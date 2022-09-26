@@ -18,6 +18,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {URL} from '../../Constants/Constant';
 import {getAppointmentDoctorAndPatient} from '../../Apis/Repo';
 import moment from 'moment/moment';
+import Fonts from '../../Constants/Fonts';
 
 const AppointmentsScreen = props => {
   const pagerRef = useRef(null);
@@ -126,6 +127,14 @@ const AppointmentsScreen = props => {
           MenuStyle={styles.MenuStyle}
           onPress={() => props.navigation.openDrawer()}
         />
+        <Text
+          style={{
+            color: Theme.white,
+            fontSize: Theme.scale(20),
+            fontFamily: Fonts.HELODOX_BOLD_FONT,
+          }}>
+          Appointments
+        </Text>
       </View>
       <View style={styles.InnerContainer}>
         <CustomText
@@ -218,6 +227,7 @@ const AppointmentsScreen = props => {
                   <Appointment
                     customView={styles.customView}
                     nameLabel={item.doctor.name}
+                    // nameLabel={'Malik Qaiser Riaz Khoker'}
                     dateLabel={item.start_datetime}
                     source={
                       item

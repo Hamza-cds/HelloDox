@@ -74,6 +74,7 @@ const ForgotScreen = props => {
           CustomText={styles.InputText}
           placeholder={'email'}
           placeholderTextColor={Theme.black}
+          color="black"
           // keyboardType={'email'}
         />
 
@@ -98,6 +99,8 @@ const ForgotScreen = props => {
           CustomText={styles.InputText}
           placeholder={'New Pasword'}
           placeholderTextColor={Theme.black}
+          secureTextEntry={true}
+          color="black"
           // keyboardType={'email'}
         />
 
@@ -122,6 +125,8 @@ const ForgotScreen = props => {
           CustomText={styles.InputText}
           placeholder={'Confirm New Password'}
           placeholderTextColor={Theme.black}
+          secureTextEntry={true}
+          color="black"
           // keyboardType={'email'}
         />
 

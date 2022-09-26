@@ -28,6 +28,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import Entypo from 'react-native-vector-icons/Entypo';
 import {isNullOrEmpty} from '../../Constants/TextUtils';
 import {URL} from '../../Constants/Constant';
+import SelectDropdown from 'react-native-select-dropdown';
 
 const EditProfileDocter = props => {
   let [userData, setuserData] = useState('');
@@ -86,31 +87,31 @@ const EditProfileDocter = props => {
 
   const onConfirm = () => {
     let formdata = new FormData();
-    formdata.append('id', userData.id);
-    formdata.append('user_id_fk', userData.user_id_fk);
+    formdata.append('id', userData.doctor.id);
+    formdata.append('user_id_fk', userData.doctor.user_id_fk);
     formdata.append('role', 2);
-    formdata.append('name', name ? name : userData.name);
+    formdata.append('name', name ? name : userData.doctor.name);
     formdata.append('email', userData.email);
     // formdata.append('number', userData.doctor.number);
-    formdata.append('city', userData.city);
-    formdata.append('address', userData.address);
+    formdata.append('city', userData.doctor.city);
+    formdata.append('address', userData.doctor.address);
     formdata.append(
       'diseases_related_to_physian',
       diseasesRelatedToPhysician
         ? diseasesRelatedToPhysician
-        : userData.diseases_related_to_physian,
+        : userData.doctor.diseases_related_to_physian,
     );
     formdata.append(
       'work_experience',
-      workExperience ? workExperience : userData.work_experience,
+      workExperience ? workExperience : userData.doctor.work_experience,
     );
     formdata.append(
       'category_id_fk',
-      selectedItems.id ? selectedItems.id : userData.category_id_fk,
+      selectedItems.id ? selectedItems.id : userData.doctor.category_id_fk,
     );
-    formdata.append('fee', fee ? fee : userData.fee);
-    formdata.append('days', days ? days : userData.days);
-    formdata.append('about', aboutMe ? aboutMe : userData.about);
+    formdata.append('fee', fee ? fee : userData.doctor.fee);
+    formdata.append('days', days ? days : userData.doctor.days);
+    formdata.append('about', aboutMe ? aboutMe : userData.doctor.about);
 
     {
       !isNullOrEmpty(image)
@@ -133,7 +134,9 @@ const EditProfileDocter = props => {
 
         // if (data.data.status == 200 && data.data.success == true) {
         //   AsyncStorage.setItem('user_data', JSON.stringify(data.data.result));
-        //   props.navigation.push('DocterLogin');
+        props.navigation.replace('DocterLogin', {
+          category: category,
+        });
         // } else {
         //   alert(data.message);
         //   console.log('ADD');
@@ -151,6 +154,15 @@ const EditProfileDocter = props => {
           MenuStyle={styles.MenuStyle}
           onPress={() => props.navigation.openDrawer()}
         />
+        <Text
+          style={{
+            fontSize: 22,
+            fontFamily: Fonts.HELODOX_BOLD_FONT,
+            alignSelf: 'center',
+            marginTop: 5,
+          }}>
+          Edit Profile
+        </Text>
       </View>
       <View style={styles.InnerContainer}>
         <ScrollView>
@@ -192,7 +204,16 @@ const EditProfileDocter = props => {
               CustomText={styles.InputText}
               placeholder={'Name'}
               placeholderTextColor={Theme.black}
-              text={userData ? (userData.name ? userData.name : null) : null}
+              color="black"
+              text={
+                userData
+                  ? userData.doctor
+                    ? userData.doctor.name
+                      ? userData.doctor.name
+                      : null
+                    : null
+                  : null
+              }
               onChange={value => {
                 setName(value);
               }}
@@ -209,8 +230,10 @@ const EditProfileDocter = props => {
               CustomView={styles.WrapViewPass}
               CustomText={styles.InputText}
               placeholder={'Email'}
+              editable={false}
               text={userData ? (userData.email ? userData.email : null) : null}
               placeholderTextColor={Theme.black}
+              color="black"
             />
             <TextInputs
               icon={
@@ -224,8 +247,17 @@ const EditProfileDocter = props => {
               CustomView={styles.WrapViewEmail}
               CustomText={styles.InputText}
               placeholder={'Fee'}
-              text={userData ? (userData.fee ? userData.fee : null) : null}
+              text={
+                userData
+                  ? userData.doctor
+                    ? userData.doctor.fee
+                      ? userData.doctor.fee
+                      : null
+                    : null
+                  : null
+              }
               placeholderTextColor={Theme.black}
+              color="black"
               onChange={value => {
                 setFee(value);
               }}
@@ -242,54 +274,42 @@ const EditProfileDocter = props => {
               CustomView={styles.WrapViewEmail}
               CustomText={styles.InputText}
               placeholder={'Days'}
-              text={userData ? (userData.days ? userData.days : null) : null}
+              text={
+                userData
+                  ? userData.doctor
+                    ? userData.doctor.days
+                      ? userData.doctor.days
+                      : null
+                    : null
+                  : null
+              }
               placeholderTextColor={Theme.black}
+              color="black"
               onChange={value => {
                 setDays(value);
               }}
             />
 
-            <SearchableDropdown
-              multi={true}
-              selectedItems={selectedItems}
-              onItemSelect={item => {
-                setSelectedItems(item);
+            <SelectDropdown
+              data={category}
+              defaultButtonText={'select category'}
+              onSelect={(item, index) => {
+                setSelectedItems((selectedItems = item));
               }}
-              onTextChange={text => console.log(text)}
-              containerStyle={{
-                padding: 5,
-                width: '100%',
-                paddingHorizontal: 10,
-                marginTop: 10,
-                // height: 50,
-                maxHeight: 220,
+              buttonTextAfterSelection={(selectedItem, index) => {
+                return selectedItem.name;
               }}
-              // itemsContainerStyle={{
-              //   maxHeight: 100,
-              // }}
-              textInputStyle={{
-                padding: 12,
-                borderWidth: 1,
-                borderColor: '#ccc',
-                backgroundColor: '#FAF7F6',
+              rowTextForSelection={(item, index) => {
+                // text represented for each item in dropdown
+                // if data array is an array of objects then return item.property to represent item in dropdown
+                return item.name;
               }}
-              itemStyle={{
-                padding: 10,
-                marginTop: 2,
-                backgroundColor: '#FAF9F8',
-                borderColor: '#bbb',
-                borderWidth: 1,
+              buttonStyle={{
+                alignSelf: 'center',
+                marginVertical: 20,
+                width: '95%',
+                borderWidth: 0.5,
               }}
-              itemTextStyle={{
-                color: '#222',
-              }}
-              items={category}
-              // defaultIndex={2}
-              placeholder={
-                selectedItems ? selectedItems.name : 'search Specialization'
-              }
-              listProps={{nestedScrollEnabled: true}}
-              resetValue={false}
             />
 
             {/* <TextInputs
@@ -336,12 +356,15 @@ const EditProfileDocter = props => {
               placeholder={'Diseases Related to Physician'}
               text={
                 userData
-                  ? userData.diseases_related_to_physian
-                    ? userData.diseases_related_to_physian
+                  ? userData.doctor
+                    ? userData.doctor.diseases_related_to_physian
+                      ? userData.doctor.diseases_related_to_physian
+                      : null
                     : null
                   : null
               }
               placeholderTextColor={Theme.black}
+              color="black"
               onChange={value => {
                 setDiseasesRelatedToPhysician(value);
                 console.log(value);
@@ -362,11 +385,14 @@ const EditProfileDocter = props => {
                 color: Theme.black,
               }}
               CustomText={styles.InputText}
+              color="black"
               placeholder={'Work Experience'}
               text={
                 userData
-                  ? userData.work_experience
-                    ? userData.work_experience
+                  ? userData.doctor
+                    ? userData.doctor.work_experience
+                      ? userData.doctor.work_experience
+                      : null
                     : null
                   : null
               }
@@ -391,8 +417,17 @@ const EditProfileDocter = props => {
                 color: Theme.black,
               }}
               CustomText={styles.InputText}
+              color="black"
               placeholder={'About Me'}
-              text={userData ? (userData.about ? userData.about : null) : null}
+              text={
+                userData
+                  ? userData.doctor
+                    ? userData.doctor.about
+                      ? userData.doctor.about
+                      : null
+                    : null
+                  : null
+              }
               placeholderTextColor={Theme.black}
               onChange={value => {
                 setAboutMe(value);

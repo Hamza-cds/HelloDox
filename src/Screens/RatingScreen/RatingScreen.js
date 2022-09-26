@@ -14,6 +14,8 @@ import Stars from 'react-native-stars';
 import Foundation from 'react-native-vector-icons/Foundation';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {PatientBookAppointmentApiCall} from '../../Apis/Repo';
+import Theme from '../../Constants/Theme';
+import Fonts from '../../Constants/Fonts';
 
 const RatingScreen = props => {
   console.log('props', props);
@@ -63,11 +65,18 @@ const RatingScreen = props => {
           onPress={() => props.navigation.openDrawer()}
         /> */}
         <View style={styles.notifyWrap}>
-          <Notify width={30} height={30} style={styles.Notify} />
-          <Image
+          {/* <Image
             style={styles.ProfileImage}
             source={require('../../Assets/user_photo.png')}
-          />
+          /> */}
+          <Text
+            style={{
+              color: Theme.white,
+              fontSize: Theme.scale(20),
+              fontFamily: Fonts.HELODOX_BOLD_FONT,
+            }}>
+            Comment Here
+          </Text>
         </View>
       </View>
       <View style={styles.InnerContainer}>
@@ -104,6 +113,7 @@ const RatingScreen = props => {
           CustomText={styles.InputText}
           placeholder={'Write Comment Here'}
           placeholderTextColor={'#989797'}
+          color="black"
         />
 
         <TouchableOpacity
