@@ -13,7 +13,7 @@ import Location from '../../Assets/Icon_locate';
 import Dot from '../../Assets/Icon_dots';
 import DrawerButton from '../../Components/DrawerButton';
 import moment from 'moment';
-import {getAppointmentDoctorAndPatient} from '../../Apis/Repo';
+import {doctorAppointmentsDashboard} from '../../Apis/Repo';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {URL} from '../../Constants/Constant';
 import Loader from '../../Components/Loader';
@@ -21,7 +21,7 @@ import Loader from '../../Components/Loader';
 const DocterDashboard = props => {
   let [currentDate, setCurrentDate] = useState('');
   let [userData, setuserData] = useState('');
-  let [upAppoint, setUpAppoint] = useState('');
+  let [docAppoint, setDocAppoint] = useState([]);
   const [upStatus, setUpStatus] = useState(1);
   const [upType, setUpType] = useState(2);
   let [doctor, setDoctor] = useState(0);
@@ -29,39 +29,43 @@ const DocterDashboard = props => {
   var Hamzadate = moment().utcOffset('+05:30').format('YYYY-MM-DDThh:mm:ss');
   const [isLoading, setIsLoading] = useState(false);
 
+  console.log('docAppoint', docAppoint);
+
   useEffect(() => {
     AsyncStorage.getItem('user_data').then(response => {
       setuserData((userData = JSON.parse(response)));
       console.log('userdata', userData);
       setDoctor((doctor = userData.doctor.id));
+      getUpcomingAppointments();
     });
   }, []);
 
-  useEffect(() => {
-    getUpcomingAppointments();
-  }, [patient]);
+  // useEffect(() => {
+  //   getUpcomingAppointments();
+  // }, []);
 
   const getUpcomingAppointments = () => {
-    setIsLoading(true);
     setCurrentDate((currentDate = Hamzadate));
 
-    getAppointmentDoctorAndPatient(
-      doctor,
-      patient,
-      upStatus,
-      upType,
-      currentDate,
-    )
+    let obj = {
+      doctor: doctor,
+      patient: patient,
+      status: upStatus,
+      type: upType,
+      startDate: currentDate,
+    };
+
+    setIsLoading(true);
+    doctorAppointmentsDashboard(obj)
       .then(data => {
         console.log('data UP', data);
 
         if (data.data.status == 200 && data.data.success == true) {
           setIsLoading(false);
-          setUpAppoint((upAppoint = data.data.result));
-          // props.navigation.push('PatientDashboard');
+          setDocAppoint((docAppoint = data.data.result));
         } else {
           setIsLoading(false);
-          alert(data.message);
+          console.log(data.data.message);
         }
       })
       .catch(err => {
@@ -94,65 +98,6 @@ const DocterDashboard = props => {
         </View>
       </View>
       <View style={styles.InnerContainer}>
-        {/* <CustomText
-          SimpleText={true}
-          customStyle={styles.docText}
-          label={'Docters Profile'}
-        /> */}
-        {/* <View style={styles.appointmentwrap}>
-          <View style={styles.requestWrap}>
-            <CustomText
-              SimpleText={true}
-              customStyle={styles.appointText}
-              label={'Appointment Request'}
-            />
-            <View style={styles.timeRwap}>
-              <Icon width={25} height={25} style={styles.icon} />
-              <CustomText
-                SimpleText={true}
-                customStyle={styles.dateText}
-                label={'16 june 2022, 10:30 AM'}
-              />
-            </View>
-          </View>
-          <View style={styles.nameNlocatinWrap}>
-            <View style={{flexDirection: 'row'}}>
-              <View style={styles.designView}></View>
-              <View style={styles.wrapper}>
-                <CustomText
-                  SimpleText={true}
-                  customStyle={styles.nameText}
-                  label={'Hamza Arshad'}
-                />
-                <View style={styles.locationWrap}>
-                  <Location width={20} height={20} style={styles.iconStyle} />
-                  <CustomText
-                    SimpleText={true}
-                    customStyle={styles.locationText}
-                    label={'Nishat, Lhr'}
-                  />
-                </View>
-              </View>
-            </View>
-            <TouchableOpacity style={styles.iconStyle}>
-              <Dot width={20} height={20} />
-            </TouchableOpacity>
-          </View>
-          <View style={styles.btnWrap}>
-            <Button
-              CustomButton={styles.accepButton}
-              CustomText={styles.acceptText}
-              label={'Accept'}
-              // onPress={() => props.navigation.replace('PatientDashboard')}
-            />
-            <Button
-              CustomButton={styles.deleteButton}
-              CustomText={styles.deteleText}
-              label={'Decline'}
-              // onPress={() => props.navigation.replace('PatientDashboard')}
-            />
-          </View>
-        </View> */}
         <CustomText
           SimpleText={true}
           customStyle={styles.appText}
@@ -163,45 +108,58 @@ const DocterDashboard = props => {
             marginTop: 10,
             flex: 1,
           }}>
-          <FlatList
-            data={upAppoint}
-            style={{}}
-            keyExtractor={item => item.id}
-            renderItem={({item}) => (
-              <View style={styles.docWrapper}>
-                <View style={{flexDirection: 'row'}}>
-                  <Image
-                    style={{height: 110, width: 110, borderRadius: 10}}
-                    source={
-                      item
-                        ? item.patient
-                          ? item.patient.profile_image
-                            ? {uri: URL.concat(item.patient.profile_image)}
+          {docAppoint.length > 0 ? (
+            <FlatList
+              data={docAppoint}
+              keyExtractor={item => item.id}
+              renderItem={({item, index}) => (
+                <View style={styles.docWrapper}>
+                  <View style={{flexDirection: 'row'}}>
+                    <Image
+                      style={{height: 110, width: 110, borderRadius: 10}}
+                      source={
+                        item
+                          ? item.patient
+                            ? item.patient.profile_image
+                              ? {uri: URL.concat(item.patient.profile_image)}
+                              : require('../../Assets/user-photo.png')
                             : require('../../Assets/user-photo.png')
                           : require('../../Assets/user-photo.png')
-                        : require('../../Assets/user-photo.png')
-                    }
-                  />
-                  {/* <View
+                      }
+                    />
+                    {/* <View
                     style={{
                       ...styles.designView,
                       backgroundColor: item.color,
                     }}></View> */}
-                  <View style={styles.wrapText}>
-                    <Text style={styles.patNameText}>{item.patient.name}</Text>
-                    <Text style={styles.specialText}>
-                      {item.start_datetime}
-                    </Text>
+                    <View style={styles.wrapText}>
+                      <Text style={styles.patNameText}>
+                        {item.patient.name}
+                      </Text>
+                      <Text style={styles.specialText}>
+                        {item.start_datetime}
+                      </Text>
+                    </View>
                   </View>
-                </View>
-                {/* <View style={{flexDirection: 'row'}}>
+                  {/* <View style={{flexDirection: 'row'}}>
                   <TouchableOpacity style={styles.iconStyle}>
                     <Dot width={20} height={20} />
                   </TouchableOpacity>
                 </View> */}
-              </View>
-            )}
-          />
+                </View>
+              )}
+            />
+          ) : (
+            <Text
+              style={{
+                alignSelf: 'center',
+                color: 'black',
+                fontSize: 15,
+                marginTop: 150,
+              }}>
+              No record found
+            </Text>
+          )}
         </View>
       </View>
 

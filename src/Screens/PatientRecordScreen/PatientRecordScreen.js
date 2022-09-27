@@ -217,41 +217,53 @@ const PatientRecordScreen = props => {
           style={{
             flex: 1,
           }}>
-          <FlatList
-            data={upAppoint}
-            showsVerticalScrollIndicator={false}
-            keyExtractor={item => item.id}
-            renderItem={({item}) => (
-              <TouchableOpacity
-                activeOpacity={0.7}
-                style={styles.flatView}
-                onPress={() =>
-                  props.navigation.push('PatientDetailScreen', {
-                    DATA: item,
-                  })
-                }>
-                <View style={styles.imageWrap}>
-                  <Image
-                    style={{height: 50, width: 50}}
-                    source={
-                      item
-                        ? item.patient
-                          ? item.patient.profile_image
-                            ? {uri: URL.concat(item.patient.profile_image)}
+          {upAppoint ? (
+            <FlatList
+              data={upAppoint}
+              showsVerticalScrollIndicator={false}
+              keyExtractor={item => item.id}
+              renderItem={({item}) => (
+                <TouchableOpacity
+                  activeOpacity={0.7}
+                  style={styles.flatView}
+                  onPress={() =>
+                    props.navigation.push('PatientDetailScreen', {
+                      DATA: item,
+                    })
+                  }>
+                  <View style={styles.imageWrap}>
+                    <Image
+                      style={{height: 50, width: 50}}
+                      source={
+                        item
+                          ? item.patient
+                            ? item.patient.profile_image
+                              ? {uri: URL.concat(item.patient.profile_image)}
+                              : require('../../Assets/user-photo.png')
                             : require('../../Assets/user-photo.png')
                           : require('../../Assets/user-photo.png')
-                        : require('../../Assets/user-photo.png')
-                    }
-                  />
-                  <Text style={styles.nameText}>{item.patient.name}</Text>
-                </View>
+                      }
+                    />
+                    <Text style={styles.nameText}>{item.patient.name}</Text>
+                  </View>
 
-                <View style={{alignSelf: 'center'}}>
-                  <Text>{item.patient.city}</Text>
-                </View>
-              </TouchableOpacity>
-            )}
-          />
+                  <View style={{alignSelf: 'center'}}>
+                    <Text>{item.patient.city}</Text>
+                  </View>
+                </TouchableOpacity>
+              )}
+            />
+          ) : (
+            <Text
+              style={{
+                color: 'black',
+                fontSize: 15,
+                marginTop: 100,
+                alignSelf: 'center',
+              }}>
+              No record found
+            </Text>
+          )}
         </View>
         {/* <Button
           CustomButton={styles.CustomButton}

@@ -184,7 +184,7 @@ export async function getAppointmentDoctorAndPatient(
   currentDate,
 ) {
   let route = URL.concat(
-    `api/appointment/get-by-doctor-patient-status?doctor=${doctorID}&patient=${patientID}&status=${status}&type=${Type}&startDate=${currentDate}`,
+    `/api/appointment/get-by-doctor-patient-status?doctor=${doctorID}&patient=${patientID}&status=${status}&type=${Type}&startDate=${currentDate}`,
   );
   console.log('appointment list Request : ', route);
   let apiRes = null;
@@ -260,6 +260,24 @@ export async function getAppointmentDoctor(
     apiRes = await axios({
       method: 'GET',
       url: route,
+    });
+  } catch (err) {
+    apiRes = err;
+    return apiRes;
+  } finally {
+    return apiRes;
+  }
+}
+
+export async function doctorAppointmentsDashboard(obj) {
+  let route = URL.concat(`api/appointment/get-by-doctor-patient-status`);
+  console.log('appointment list Request : ', route);
+  let apiRes = null;
+  try {
+    apiRes = await axios({
+      method: 'GET',
+      url: route,
+      params: obj,
     });
   } catch (err) {
     apiRes = err;
